@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>hello phaser!</title>
+        <script src="//cdn.jsdelivr.net/phaser/2.3.0/phaser.min.js"></script>
+        <script src="js/Boot.js"></script>
+        <script src="js/Preloader.js"></script>
+        <script src="js/MenuPrincipal.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+    
+    ( function() {
+
+        var game = new Phaser.Game(640, 480, Phaser.AUTO, ''/*, { preload: preload, create: create }*/);
+
+        // Listado de estados
+        game.state.add('Boot', Egypt.Boot);
+        game.state.add('Preloader', Egypt.Preloader);
+
+        // Menu principal
+        game.state.add('MenuPrincipal', Egypt.MenuPrincipal);
+        /*game.state.add('SubMenuInstrucciones', Egypt.SubMenuInstrucciones);
+        game.state.add('SubMenuPuntuaciones', Egypt.SubMenuPuntuaciones);
+        game.state.add('SubMenuCreditos', Egypt.SubMenuCreditos);
+
+        // Juego        
+        game.state.add('SeleccionPersonaje', Egypt.SeleccionPersonaje);
+
+        game.state.add('MenuOpciones', Egypt.MenuOpciones);
+        game.state.add('SubMenuAudio', Egypt.SubMenuAudio);
+        game.state.add('SubMenuDificultad', Egypt.SubMenuDificultad);
+
+        game.state.add('Juego', Egypt.Juego);
+        game.state.add('Fin', Egypt.Fin);*/
+
+        // Se lanza el juego
+        game.state.start('Boot');
+
+    })();
+
+    </script>
+
+    </body>
+</html>
