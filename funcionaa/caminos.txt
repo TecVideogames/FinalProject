@@ -1,0 +1,72 @@
+Aguascalientes
+Chihuahua
+Ciudad de Mexico
+Culiacan
+Guadalajara
+Leon
+Merida
+Monterrey
+Morelia
+Puebla
+Queretaro
+San Luis Potosi
+Tijuana
+Torreon
+Veracruz
+#
+Chihuahua-Aguascalientes 700
+Ciudad de Mexico-Aguascalientes 500
+Guadalajara-Aguascalientes 300
+Monterrey-Aguascalientes 500
+Puebla-Aguascalientes 300
+Tijuana-Aguascalientes 800
+Veracruz-Aguascalientes 400
+Ciudad de Mexico-Chihuahua 1200
+Culiacan-Chihuahua 800
+Guadalajara-Chihuahua 1000
+Monterrey-Chihuahua 700
+Tijuana-Chihuahua 600
+Culiacan-Ciudad de Mexico 700
+Guadalajara-Ciudad de Mexico 800
+Leon-Ciudad de Mexico 500
+Merida-Ciudad de Mexico 900
+Monterrey-Ciudad de Mexico 800
+Morelia-Ciudad de Mexico 500
+San Luis Potosi-Ciudad de Mexico 700
+Tijuana-Ciudad de Mexico 1100
+Torreon-Ciudad de Mexico 700
+Veracruz-Ciudad de Mexico 600
+Guadalajara-Culiacan 400
+Monterrey-Culiacan 600
+Tijuana-Culiacan 800
+Leon-Guadalajara 500
+Merida-Guadalajara 1100
+Monterrey-Guadalajara 800
+Puebla-Guadalajara 700
+San Luis Potosi-Guadalajara 500
+Tijuana-Guadalajara 850
+Torreon-Guadalajara 500
+Veracruz-Guadalajara 900
+Merida-Leon 700
+Monterrey-Leon 700
+Tijuana-Leon 900
+Monterrey-Merida 1000
+Morelia-Merida 900
+Puebla-Merida 900
+Queretaro-Merida 900
+Tijuana-Merida 1300
+Veracruz-Merida 800
+Morelia-Monterrey 700
+Puebla-Monterrey 700
+Queretaro-Monterrey 800
+San Luis Potosi-Monterrey 600
+Tijuana-Monterrey 1000
+Veracruz-Monterrey 800
+Tijuana-Morelia 800
+Tijuana-Puebla 1200
+Tijuana-Queretaro 900
+Veracruz-Queretaro 600
+Torreon-San Luis Potosi 800
+Veracruz-San Luis Potosi 600
+Torreon-Tijuana 900
+Veracruz-Tijuana 1300
