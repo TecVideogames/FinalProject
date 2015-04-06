@@ -1,7 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Proyecto Final.
+ *
+ * Proyecto final correspondiente a la materia de Desarrollo de Videojuegos. 
+ * Éste archivo será el principal a traves del cual se invocaran los métodos
+ * necesarios para el correcto funcionamiento del juego.
+ *
+ * @author Omar Manjarrez, Marco Peyrot, Mario Sergio Fuentes
+ * @version 1.0 2015/4/6
  */
 
 import java.applet.Applet;
@@ -9,7 +14,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 public class Aplication extends Applet implements Runnable, MouseListener {
     
@@ -73,6 +77,13 @@ public class Aplication extends Applet implements Runnable, MouseListener {
         
     }
     
+    /**
+     * start.
+     * 
+     * Método sobrescrito de la clase Applet. Se utiliza para crear e iniciar
+     * el thread del juego. Se ejecuta despues del método init.
+     * 
+     */
     public void start() {
         //Se declara el Thread del juego
         Thread th = new Thread(this);
@@ -81,14 +92,33 @@ public class Aplication extends Applet implements Runnable, MouseListener {
         th.start();
     }
 
+    /**
+     * actualiza.
+     * 
+     * Método que actualiza información de los personajes del juego.
+     * 
+     */
     public void actualiza() {
         
     }
     
+    /**
+     * checaColision.
+     * 
+     * Método que detecta colisiones entre los personajes del juego.
+     * 
+     */
     public void checaColision() {
         
     }
     
+    /**
+     * run.
+     * 
+     * Método sobrescrito de la clase Thread. En éste método se ejecutan
+     * las instrucciones que tendrá el juego.
+     * 
+     */
     @Override
     public void run() {
         while(true) {
@@ -129,7 +159,6 @@ public class Aplication extends Applet implements Runnable, MouseListener {
     }
 
     /**
-     * 
      * mouseClicked
      * 
      * Método sobreescrito de la clase MouseListener. Sin uso en ésta aplicación
@@ -163,8 +192,6 @@ public class Aplication extends Applet implements Runnable, MouseListener {
      */
     @Override
     public void mouseReleased(MouseEvent mseEvent) {
-        //Desactivo la bandera de Click, pues ya terminó de mover al objeto
-        bClick = false;
 
     }
 
