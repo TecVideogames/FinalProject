@@ -20,8 +20,6 @@
 package finalproject;
  
 import java.applet.Applet;
-import java.applet.AudioClip;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -30,24 +28,19 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
-import java.util.LinkedList;
 
 /**
  *
  * @author Mario Sergio Fuentes Juarez
  */
-public class FinalProject extends Applet implements Runnable, KeyListener, MouseListener,
-        MouseMotionListener {
+
+public class FinalProject extends Applet implements Runnable, KeyListener, 
+        MouseListener, MouseMotionListener {
     int iMouseX;
     int iMouseY;
+    int iAppletWidth = 640;
+    int iAppletHeight = 480;
     boolean boolPresionado;
     boolean boolHombreMujer;
     private String strPantalla;
@@ -72,15 +65,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
     
     // boton de regresarInstrucciones
     private msf_Button btnRegresarInstrucciones;
-    private String strBtnRegresarInstrucciones;
-    
-    // boton de regresarPuntuaciones
-    private msf_Button btnRegresarPuntuaciones;
-    private String strBtnRegresarPuntuaciones;
+    private String strBtnRegresarInstrucciones [] = new String [2];
     
     // boton de regresarCreditos
     private msf_Button btnRegresarCreditos;
-    private String strBtnRegresarCreditos;
+    private String strBtnRegresarCreditos [] = new String [2];
     
     // arreglos de botones seleccionarJugador
     private msf_Button arrBtnSeleccionarJugador [] = new msf_Button [4]; 
@@ -114,25 +103,38 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
      * 
      */
     public void init() {
-        // hago el applet de un tamaño 640,480
-        setSize(640,480);
+        // hago el applet de un tamaño 640,480        
+        setSize(iAppletWidth, iAppletHeight);
         
         // nombre de pantalla
         strPantalla = "menuPrincipal";
         
         // menu principal
         for(int iI=0; iI<3; iI++){
-            arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_"+iI+"_0.gif";
-            arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_"+iI+"_1.gif";
+            arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_"+iI+"_0.png";
+            arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_"+iI+"_1.png";
             arrBtnMenuPrincipal[iI] = new msf_Button(405,150+iI*65,
                     190,50,arrStrMenuPrincipal[iI][0]);
         }
+        
+        // Initialize instruccions return button
+        strBtnRegresarInstrucciones[0] = "btnInstrucciones_0.png";
+        strBtnRegresarInstrucciones[1] = "btnInstrucciones_1.png";
+        btnRegresarInstrucciones = new msf_Button(229, 425, 182, 49, 
+                strBtnRegresarInstrucciones[0]);
+        
+        // Initialize credits return button
+        strBtnRegresarCreditos[0] = "btnCreditos_0.png";
+        strBtnRegresarCreditos[1] = "btnCreditos_1.png";
+        btnRegresarCreditos = new msf_Button(229, 425, 182, 49, 
+                strBtnRegresarCreditos[0]);
         
         // seleccionar jugador
         
         // zero indicates man selection, one indicates woman selection
         boolHombreMujer = false;
         // boton de jugador
+
         // man button (originally chosen)
         arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.gif";
         arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_1.gif";
@@ -146,10 +148,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
         
         // boton de navegacion
         for(int iI=2; iI<4; iI++){
-            arrStrSeleccionarJugador[iI][0] = "btnSeleccionarJugador_"+iI+"_0.gif";
-            arrStrSeleccionarJugador[iI][1] = "btnSeleccionarJugador_"+iI+"_1.gif";
-            arrBtnSeleccionarJugador[iI] = new msf_Button(260+(iI-2)*160,380,
-                    140,60,arrStrSeleccionarJugador[iI][0]);
+            arrStrSeleccionarJugador[iI][0] = 
+                    "btnSeleccionarJugador_"+iI+"_0.png";
+            arrStrSeleccionarJugador[iI][1] = 
+                    "btnSeleccionarJugador_"+iI+"_1.png";
+            arrBtnSeleccionarJugador[iI] = new msf_Button(133+(iI-2)*192,380,
+                    182,49,arrStrSeleccionarJugador[iI][0]);
         }
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
@@ -221,25 +225,40 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
             case "menuPrincipal":
                 for(int iI=0; iI<3; iI++){
                     if(arrBtnMenuPrincipal[iI].pointerInside(iMouseX,iMouseY)){
-                        arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][1],
-                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
+
+                        arrBtnMenuPrincipal[iI].setImageIcon(
+                                arrStrMenuPrincipal[iI][1],
+                                arrBtnMenuPrincipal[iI].getWidth(),
+                                arrBtnMenuPrincipal[iI].getHeight());
+
                         if(boolPresionado){
                             switch(iI){
                                 case 0:
                                     strPantalla = "seleccionarJugador";
                                     boolPresionado = false;
                                     break;
+                                case 1:
+                                    strPantalla = "instruccions";
+                                    break;
+                                case 2:
+                                    strPantalla = "credits";
+                                    break;
                             }
-                            arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][0],
-                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
+                            arrBtnMenuPrincipal[iI].setImageIcon(
+                                    arrStrMenuPrincipal[iI][0],
+                                arrBtnMenuPrincipal[iI].getWidth(),
+                                arrBtnMenuPrincipal[iI].getHeight());
                         }
                     } else {
-                        arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][0],
-                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
+                        arrBtnMenuPrincipal[iI].setImageIcon(
+                                arrStrMenuPrincipal[iI][0],
+                                arrBtnMenuPrincipal[iI].getWidth(),
+                                arrBtnMenuPrincipal[iI].getHeight());
                     }
                 }
                 break;
             case "seleccionarJugador":
+
                 // Check player selection
                 // Man button
                 if(arrBtnSeleccionarJugador[0].pointerInside(iMouseX,iMouseY)
@@ -270,6 +289,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                     if(arrBtnSeleccionarJugador[iI].pointerInside(iMouseX,iMouseY)){
                         arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][1],
                                 arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
+
                         if(boolPresionado){
                             switch(iI){
                                 case 2:
@@ -283,15 +303,46 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                                 arrBtnSeleccionarJugador[1].getWidth(),arrBtnSeleccionarJugador[1].getHeight());
                         }
                     } else {
-                        arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][0],
-                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
+                        arrBtnSeleccionarJugador[iI].setImageIcon(
+                                arrStrSeleccionarJugador[iI][0],
+                                arrBtnSeleccionarJugador[iI].getWidth(),
+                                arrBtnSeleccionarJugador[iI].getHeight());
                     }
                 }
                 break;
-            
+            case "instruccions":
+                if(btnRegresarInstrucciones.pointerInside(iMouseX,iMouseY)){
+                        btnRegresarInstrucciones.setImageIcon(
+                                strBtnRegresarInstrucciones[1],
+                                btnRegresarInstrucciones.getWidth(),
+                                btnRegresarInstrucciones.getHeight());
+                        if(boolPresionado){
+                            strPantalla = "menuPrincipal";
+                        }
+                    } else {
+                        btnRegresarInstrucciones.setImageIcon(
+                                strBtnRegresarInstrucciones[0],
+                                btnRegresarInstrucciones.getWidth(),
+                                btnRegresarInstrucciones.getHeight());
+                    }
+                break;
+            case "credits":
+                if(btnRegresarCreditos.pointerInside(iMouseX,iMouseY)){
+                        btnRegresarCreditos.setImageIcon(
+                                strBtnRegresarCreditos[1],
+                                btnRegresarCreditos.getWidth(),
+                                btnRegresarCreditos.getHeight());
+                        if(boolPresionado){
+                            strPantalla = "menuPrincipal";
+                        }
+                    } else {
+                        btnRegresarCreditos.setImageIcon(
+                                strBtnRegresarCreditos[0],
+                                btnRegresarCreditos.getWidth(),
+                                btnRegresarCreditos.getHeight());
+                    }
+                break; 
         }
-        
-        
     }
 	
     /**
@@ -301,8 +352,6 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
      * 
      */
     public void checaColision(){
-        
-                
     }
 	
     /**
@@ -347,7 +396,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
      * En este metodo se dibuja la imagen con la posicion actualizada,
      * ademas que cuando la imagen es cargada te despliega una advertencia.
      * 
-     * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
+     * @param graDibujo es el objeto <code>Graphics</code> usado para dibujar.
      * 
      */
     public void paint(Graphics graDibujo) {
@@ -361,6 +410,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                 for(int i=0; i<4; i++){
                     arrBtnSeleccionarJugador[i].paint(graDibujo, this);
                 }
+                break;
+            case "instruccions":
+                btnRegresarInstrucciones.paint(graDibujo, this);
+                break;
+            case "credits":
+                btnRegresarCreditos.paint(graDibujo, this);
                 break;
         }
     }
@@ -401,15 +456,13 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
      * @param keyEvent es el <code>KeyEvent</code> que se genera en al soltar.
      * 
      */
-    public void keyReleased(KeyEvent keyEvent) {
-        
-        
+    public void keyReleased(KeyEvent keyEvent) {  
         
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
- //       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Not supported
     }
 
     @Override
