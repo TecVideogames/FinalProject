@@ -55,8 +55,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
     private Graphics graGraficaApplet;  // Objeto grafico de la Imagen
     
     // arreglos de botones menu principal
-    private Boton arrBtnMenuPrincipal [] = new Boton [4]; 
-    private URL arrUrlMenuPrincipal [][] = new URL [4][2];
+    private Boton arrBtnMenuPrincipal [] = new Boton [3]; 
+    private URL arrUrlMenuPrincipal [][] = new URL [3][2];
     
     // arreglos de botones menu opciones
     private Boton arrBtnMenuOpciones [] = new Boton [3]; 
@@ -121,11 +121,27 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
         strPantalla = "menuPrincipal";
         
         // menu principal
-        for(int iI=0; iI<4; iI++){
-            arrUrlMenuPrincipal[iI][0] = this.getClass().getResource("btnMenuPrincipal_0.gif");
-            arrUrlMenuPrincipal[iI][1] = this.getClass().getResource("btnMenuPrincipal_1.gif");
+        for(int iI=0; iI<3; iI++){
+            arrUrlMenuPrincipal[iI][0] = this.getClass().getResource("btnMenuPrincipal_"+iI+"_0.gif");
+            arrUrlMenuPrincipal[iI][1] = this.getClass().getResource("btnMenuPrincipal_"+iI+"_1.gif");
             arrBtnMenuPrincipal[iI] = new Boton(405,150+iI*65,
-                    190,50,Toolkit.getDefaultToolkit().getImage(arrUrlMenuPrincipal[iI][1]));
+                    190,50,Toolkit.getDefaultToolkit().getImage(arrUrlMenuPrincipal[iI][0]));
+        }
+        
+        // seleccionar jugador
+        // boton de jugador
+        for(int iI=0; iI<2; iI++){
+            arrUrlSeleccionarJugador[iI][0] = this.getClass().getResource("btnSeleccionarJugador_"+iI+"_0.gif");
+            arrUrlSeleccionarJugador[iI][1] = this.getClass().getResource("btnSeleccionarJugador_"+iI+"_1.gif");
+            arrBtnSeleccionarJugador[iI] = new Boton(85+iI*275,120,
+                    200,180,Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
+        }
+        // boton de navegacion
+        for(int iI=2; iI<4; iI++){
+            arrUrlSeleccionarJugador[iI][0] = this.getClass().getResource("btnSeleccionarJugador_"+iI+"_0.gif");
+            arrUrlSeleccionarJugador[iI][1] = this.getClass().getResource("btnSeleccionarJugador_"+iI+"_1.gif");
+            arrBtnSeleccionarJugador[iI] = new Boton(260+(iI-2)*160,380,
+                    140,60,Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
         }
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
@@ -196,7 +212,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
         // actualiza botones menu principal
         switch(strPantalla){
             case "menuPrincipal":
-                for(int iI=0; iI<4; iI++){
+                for(int iI=0; iI<3; iI++){
                     if(arrBtnMenuPrincipal[iI].estaAdentro(iX,iY)){
                         arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlMenuPrincipal[iI][1]));
                         if(boolPresionado){
@@ -209,6 +225,23 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                         }
                     } else {
                         arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlMenuPrincipal[iI][0]));
+                    }
+                }
+                break;
+            case "seleccionarJugador":
+                for(int iI=0; iI<4; iI++){
+                    if(arrBtnSeleccionarJugador[iI].estaAdentro(iX,iY)){
+                        arrBtnSeleccionarJugador[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][1]));
+                        if(boolPresionado){
+//                            switch(iI){
+//                                case 0:
+//                                    strPantalla = "seleccionarJugador";
+//                                    break;
+//                            }
+//                            arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
+                        }
+                    } else {
+                        arrBtnSeleccionarJugador[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
                     }
                 }
                 break;
@@ -277,12 +310,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
     public void paint(Graphics graDibujo) {
         switch(strPantalla){
             case "menuPrincipal":
-                for(int i=0; i<4; i++){
+                for(int i=0; i<3; i++){
                     arrBtnMenuPrincipal[i].paint(graDibujo, this);
                 }
                 break;
             case "seleccionarJugador":
-                arrBtnMenuPrincipal[0].paint(graDibujo, this);
+                for(int i=0; i<4; i++){
+                    arrBtnSeleccionarJugador[i].paint(graDibujo, this);
+                }
                 break;
         }
     }
