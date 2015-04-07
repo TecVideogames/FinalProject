@@ -78,8 +78,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     private String arrStrSeleccionarJugador [][] = new String [4][2];
     
     // arreglos de botones mapa
-    private msf_Button arrBtnMapa [] = new msf_Button [3]; 
-    private String arrStrMapa [][] = new String [3][2];
+    private msf_Button arrBtnMapa [] = new msf_Button [5]; 
+    private String arrStrMapa [][] = new String [5][2];
     
     // arreglos de botones juego
     private msf_Button arrBtnJuego [] = new msf_Button [4]; 
@@ -173,11 +173,19 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             arrBtnMapa[iI] = new msf_Button(133+iI*192,425,
                     182,49,arrStrMapa[iI][0]);
         }
-        // dungeon buttons (inicializo una posicion dummy)
-        arrStrMapa[2][0] = "btnMapa_"+2+"_0.gif";
-        arrStrMapa[2][1] = "btnMapa_"+2+"_1.gif";
-        arrBtnMapa[2] = new msf_Button(300,40,
-                50,50,arrStrMapa[2][0]);
+        // Dungeon buttons
+        for(int iI = 2; iI < 5; iI ++){
+            arrStrMapa[iI][0] = "btnDungeon_"+iI+"_0.png";
+            arrStrMapa[iI][1] = "btnDungeon_"+iI+"_1.png";
+        }
+        
+        // All dungeon buttons have a specific location
+        arrBtnMapa[2] = new msf_Button(25,100,
+                    182,49,arrStrMapa[2][0]);
+        arrBtnMapa[3] = new msf_Button(iAppletWidth - 235, 150,
+                    182,49,arrStrMapa[3][0]);
+        arrBtnMapa[4] = new msf_Button(iAppletWidth - 230, 300,
+                    182,49,arrStrMapa[4][0]);
         
         // Initialize option menu
         // option buttons
@@ -401,7 +409,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                 break;
             case "mapa":
-                for(int iI=0; iI<3; iI++){
+                for(int iI=0; iI<5; iI++){
                     if(arrBtnMapa[iI].pointerInside(iMouseX,iMouseY)){
 
                         arrBtnMapa[iI].setImageIcon(
@@ -420,15 +428,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                     boolPresionado = false;
                                     break;
                                 case 2:
+                                case 3:
+                                case 4:
                                     //strPantalla = "juego";
                                     break;
                             }
-//                            arrBtnMapa[iI].setImageIcon(
-//                                    arrStrMapa[iI][0],
-//                                arrBtnMapa[iI].getWidth(),
-//                                arrBtnMapa[iI].getHeight());
                         }
-                    } else {
+                    } 
+                    else {
                         arrBtnMapa[iI].setImageIcon(
                                 arrStrMapa[iI][0],
                                 arrBtnMapa[iI].getWidth(),
@@ -568,7 +575,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         }
 
         // Actualiza la imagen de fondo.
-        if(strPantalla == "mapa") {
+        if(strPantalla.equals("mapa")) {
             urlImagenFondo = this.getClass().getResource("mapEgypt.jpg");
         }
         
@@ -621,7 +628,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 btnRegresarCreditos.paint(graDibujo, this);
                 break;
             case "mapa":                
-                for(int i=0; i<3; i++){
+                for(int i=0; i<5; i++){
                     arrBtnMapa[i].paint(graDibujo, this);
                 }
                 break;
