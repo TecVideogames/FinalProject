@@ -190,14 +190,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // Initialize option menu
         // option buttons
         for(int iI = 0 ; iI < 2 ; iI ++) {
-            arrStrOpciones[iI][0] = "btnOpciones_"+iI+"_0.png";
-            arrStrOpciones[iI][1] = "btnOpciones_"+iI+"_1.png";
+            arrStrOpciones[iI][0] = "btnMenuOpciones_"+iI+"_0.png";
+            arrStrOpciones[iI][1] = "btnMenuOpciones_"+iI+"_1.png";
             arrBtnOpciones[iI] = new msf_Button(229,150+iI*65, 182, 49, 
                     arrStrOpciones[iI][0]);
         }
         // navigation button (return, 3)
-        arrStrOpciones[2][0] = "btnOpciones_"+2+"_0.png";
-        arrStrOpciones[2][1] = "btnOpciones_"+2+"_1.png";
+        arrStrOpciones[2][0] = "btnMenuOpciones_"+2+"_0.png";
+        arrStrOpciones[2][1] = "btnMenuOpciones_"+2+"_1.png";
         arrBtnOpciones[2] = new msf_Button(133,425,
                 182,49,arrStrOpciones[2][0]);
         
