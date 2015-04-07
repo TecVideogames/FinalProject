@@ -29,6 +29,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -161,7 +162,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         for(int iI=0; iI<2; iI++){
             arrStrMapa[iI][0] = "btnMapa_"+iI+"_0.png";
             arrStrMapa[iI][1] = "btnMapa_"+iI+"_1.png";
-            arrBtnMapa[iI] = new msf_Button(133+iI*192,380,
+            arrBtnMapa[iI] = new msf_Button(133+iI*192,425,
                     182,49,arrStrMapa[iI][0]);
         }
         // dungeon buttons (inicializo una posicion dummy)
@@ -174,8 +175,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
            del mouse  */
 	addKeyListener(this);
         addMouseListener(this);
-        addMouseMotionListener(this);
-        
+        addMouseMotionListener(this);     
     }
 	
     /** 
@@ -418,6 +418,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
      * 
      */
     public void update (Graphics graGrafico) {
+        URL urlImagenFondo = this.getClass().getResource("btnJuego.gif");
+        
         // Inicializan el DoubleBuffer
         if (imaImagenApplet == null) {
                 imaImagenApplet = createImage (this.getSize().width, 
@@ -426,7 +428,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         }
 
         // Actualiza la imagen de fondo.
-        URL urlImagenFondo = this.getClass().getResource("btnJuego.gif");
+        if(strPantalla == "mapa") {
+            urlImagenFondo = this.getClass().getResource("mapEgypt.jpg");
+        }
+        
+        if(strPantalla != "mapa") {
+            urlImagenFondo = this.getClass().getResource("btnJuego.gif");
+        }
+        
         Image imaImagenFondo = 
                 Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
          graGraficaApplet.drawImage(imaImagenFondo, 0, 
@@ -452,6 +461,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
      * 
      */
     public void paint(Graphics graDibujo) {
+        //ImageIcon imiAppletIcon;
+        
         switch(strPantalla){
             case "menuPrincipal":
                 for(int i=0; i<3; i++){
@@ -469,7 +480,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             case "credits":
                 btnRegresarCreditos.paint(graDibujo, this);
                 break;
-            case "mapa":
+            case "mapa":                
                 for(int i=0; i<3; i++){
                     arrBtnMapa[i].paint(graDibujo, this);
                 }
