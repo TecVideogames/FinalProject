@@ -76,8 +76,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     private String arrStrSeleccionarJugador [][] = new String [4][2];
     
     // arreglos de botones mapa
-    private msf_Button arrBtnMapa [] = new msf_Button [2]; 
-    private String arrStrMapa [][] = new String [2][2];
+    private msf_Button arrBtnMapa [] = new msf_Button [3]; 
+    private String arrStrMapa [][] = new String [3][2];
     
     // arreglos de botones juego
     private msf_Button arrBtnJuego [] = new msf_Button [4]; 
@@ -109,7 +109,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // nombre de pantalla
         strPantalla = "menuPrincipal";
         
-        // menu principal
+        // Initialize menu principal
         for(int iI=0; iI<3; iI++){
             arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_"+iI+"_0.png";
             arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_"+iI+"_1.png";
@@ -155,6 +155,20 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             arrBtnSeleccionarJugador[iI] = new msf_Button(133+(iI-2)*192,380,
                     182,49,arrStrSeleccionarJugador[iI][0]);
         }
+        
+        // Initialize mapa
+        // navigation buttons
+        for(int iI=0; iI<2; iI++){
+            arrStrMapa[iI][0] = "btnMapa_"+iI+"_0.png";
+            arrStrMapa[iI][1] = "btnMapa_"+iI+"_1.png";
+            arrBtnMapa[iI] = new msf_Button(133+iI*192,380,
+                    182,49,arrStrMapa[iI][0]);
+        }
+        // dungeon buttons (inicializo una posicion dummy)
+        arrStrMapa[2][0] = "btnMapa_"+2+"_0.gif";
+        arrStrMapa[2][1] = "btnMapa_"+2+"_1.gif";
+        arrBtnMapa[2] = new msf_Button(300,40,
+                50,50,arrStrMapa[2][0]);
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
            del mouse  */
@@ -295,6 +309,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 case 2:
                                     strPantalla = "menuPrincipal";
                                     break;
+                                case 3:
+                                    strPantalla = "mapa";
+                                    break;
                             }
                             boolHombreMujer = false;
                             arrBtnSeleccionarJugador[0].setImageIcon(arrStrSeleccionarJugador[0][1],
@@ -341,7 +358,42 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 btnRegresarCreditos.getWidth(),
                                 btnRegresarCreditos.getHeight());
                     }
-                break; 
+                break;
+            case "mapa":
+                for(int iI=0; iI<3; iI++){
+                    if(arrBtnMapa[iI].pointerInside(iMouseX,iMouseY)){
+
+                        arrBtnMapa[iI].setImageIcon(
+                                arrStrMapa[iI][1],
+                                arrBtnMapa[iI].getWidth(),
+                                arrBtnMapa[iI].getHeight());
+
+                        if(boolPresionado){
+                            switch(iI){
+                                case 0:
+                                    strPantalla = "seleccionarJugador";
+                                    boolPresionado = false;
+                                    break;
+                                case 1:
+                                    //strPantalla = "opciones";
+                                    break;
+                                case 2:
+                                    //strPantalla = "juego";
+                                    break;
+                            }
+//                            arrBtnMapa[iI].setImageIcon(
+//                                    arrStrMapa[iI][0],
+//                                arrBtnMapa[iI].getWidth(),
+//                                arrBtnMapa[iI].getHeight());
+                        }
+                    } else {
+                        arrBtnMapa[iI].setImageIcon(
+                                arrStrMapa[iI][0],
+                                arrBtnMapa[iI].getWidth(),
+                                arrBtnMapa[iI].getHeight());
+                    }
+                }
+                break;
         }
     }
 	
@@ -416,6 +468,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 break;
             case "credits":
                 btnRegresarCreditos.paint(graDibujo, this);
+                break;
+            case "mapa":
+                for(int i=0; i<3; i++){
+                    arrBtnMapa[i].paint(graDibujo, this);
+                }
                 break;
         }
     }
