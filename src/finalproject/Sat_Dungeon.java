@@ -6,9 +6,11 @@ package finalproject;
  */
 public class Sat_Dungeon {
     final int iDungeonSize = 12;
-    int iLevel;
-    int iNumDungeonElements;
-    int iArrDungeonLayout [][];
+    private int iLevel;
+    private int iNumDungeonElements;
+    private int iArrDungeonLayout [][];
+    private int iPosX;
+    private int iPosY;
     
     final int OCCUPIED = -1;
     final int FREE = 0;
@@ -19,15 +21,49 @@ public class Sat_Dungeon {
     final int HALL_TYPE2 = 5;
     final int HALL_TYPE3 = 6;
     
-    
     Sat_Dungeon(int iLevel) {
         this.iLevel = iLevel;
         iNumDungeonElements = iLevel * 25;
         iArrDungeonLayout = new int [iDungeonSize][iDungeonSize];
+        createMatrix(iArrDungeonLayout, iDungeonSize);
+        initMatrixEdges(iArrDungeonLayout, iDungeonSize);
+        generateDungeon(iArrDungeonLayout, iDungeonSize);
+    }
+    
+    int getIPosX() {
+        return iPosX;
+    }
+    
+    void setIPosX(int iPosX) {
+        if(iPosX >= 0 && iPosX < iDungeonSize) {
+            this.iPosX = iPosX;
+        }
+        else {
+            this.iPosX = 5;
+            this.iPosY = 5;
+        }
+    }
+    
+    int getIPosY() {
+        return iPosY;
+    }
+    
+    void setIPosY(int iPosY) {
+        if(iPosY >= 0 && iPosY < iDungeonSize) {
+            this.iPosY = iPosY;
+        }
+        else {
+            this.iPosX = 5;
+            this.iPosY = 5;
+        }
+    }
+    
+    int getIDungeonPos() {
+        return iArrDungeonLayout[iPosX][iPosY];
     }
     
     // Used to create a matrix of size n
-    public void createMatrix (int [][] matrix, int iSize)
+    private void createMatrix (int [][] matrix, int iSize)
     {
 	for(int iI = 0; iI < iSize; iI++)
 	{
@@ -39,7 +75,7 @@ public class Sat_Dungeon {
     }
 
     // Give edges the value -1
-    public void initMatrixEdges (int [][] matrix, int iSize)
+    private void initMatrixEdges (int [][] matrix, int iSize)
     {
             for(int iI = 0; iI < iSize; iI++)
             {
@@ -93,13 +129,15 @@ public class Sat_Dungeon {
     }
 
     // Generate Dungeon Layout
-    public void generateDungeon (int [][] matrix, int iCantElements)
+    private void generateDungeon (int [][] matrix, int iCantElements)
     {
         int iRow = 5;
         int iCol = 5;
         int iNewPos;
         boolean bExit = false;
         int iType = 0;
+        
+        matrix[iRow][iCol] = ROOM_TYPE1;
 
         for(int iI = 0; iI < iCantElements && !bExit; iI++)
         {
