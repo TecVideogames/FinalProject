@@ -42,6 +42,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     int iMouseY;
     int iAppletWidth = 640;
     int iAppletHeight = 480;
+    int iDificultad;
     boolean boolPresionado;
     boolean boolHombreMujer;
     private String strPantalla;
@@ -114,6 +115,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // nombre de pantalla
         strPantalla = "menuPrincipal";
         
+        // initialization of difficulty
+        iDificultad = 0;
+        
         // Initialize menu principal
         for(int iI=0; iI<3; iI++){
             arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_"+iI+"_0.png";
@@ -182,7 +186,25 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             arrStrOpciones[iI][1] = "btnOpciones_"+iI+"_1.png";
             arrBtnOpciones[iI] = new msf_Button(229,150+iI*65, 182, 49, 
                     arrStrOpciones[iI][0]);
-        } 
+        }
+        
+        // Initialize difficulty menu
+        // difficulty buttons
+        arrStrMenuDificultad[0][0] = "btnMenuDificultad_"+0+"_0.png";
+        arrStrMenuDificultad[0][1] = "btnMenuDificultad_"+0+"_1.png";
+        arrBtnMenuDificultad[0] = new msf_Button(229,150, 182, 49, 
+                arrStrMenuDificultad[0][1]);
+        for(int iI = 1 ; iI < 3 ; iI ++) {
+            arrStrMenuDificultad[iI][0] = "btnMenuDificultad_"+iI+"_0.png";
+            arrStrMenuDificultad[iI][1] = "btnMenuDificultad_"+iI+"_1.png";
+            arrBtnMenuDificultad[iI] = new msf_Button(229,150+iI*65, 182, 49, 
+                    arrStrMenuDificultad[iI][0]);
+        }
+        // return button
+        arrStrMenuDificultad[3][0] = "btnMenuDificultad_"+3+"_0.png";
+        arrStrMenuDificultad[3][1] = "btnMenuDificultad_"+3+"_1.png";
+        arrBtnMenuDificultad[3] = new msf_Button(133,425,
+                182,49,arrStrMenuDificultad[3][0]);
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
            del mouse  */
@@ -266,9 +288,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                     break;
                                 case 1:
                                     strPantalla = "instruccions";
+                                    boolPresionado = false;
                                     break;
                                 case 2:
                                     strPantalla = "credits";
+                                    boolPresionado = false;
                                     break;
                             }
                             arrBtnMenuPrincipal[iI].setImageIcon(
@@ -350,6 +374,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 btnRegresarInstrucciones.getHeight());
                         if(boolPresionado){
                             strPantalla = "menuPrincipal";
+                            boolPresionado = false;
                         }
                     } else {
                         btnRegresarInstrucciones.setImageIcon(
@@ -366,6 +391,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 btnRegresarCreditos.getHeight());
                         if(boolPresionado){
                             strPantalla = "menuPrincipal";
+                            boolPresionado = false;
                         }
                     } else {
                         btnRegresarCreditos.setImageIcon(
@@ -420,6 +446,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                         if(boolPresionado) {
                             switch(iI) {
                                 case 0:
+                                    strPantalla = "dificultad";
                                     break;
                                 case 1:
                                     break;
@@ -435,6 +462,75 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 arrBtnOpciones[iI].getWidth(), 
                                 arrBtnOpciones[iI].getHeight());                        
                     }
+                }
+                break;
+            case "dificultad":
+
+                // Check difficulty selection
+                // easy button
+                if(arrBtnMenuDificultad[0].pointerInside(iMouseX,iMouseY)
+                        && boolPresionado && iDificultad != 0){
+                    // update difficulty
+                    iDificultad = 0;
+                    // mark easy selection
+                    arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][1],
+                            arrBtnMenuDificultad[0].getWidth(),arrBtnMenuDificultad[0].getHeight());
+                    // unmark the rest of the buttons
+                    arrBtnMenuDificultad[1].setImageIcon(arrStrMenuDificultad[1][0],
+                            arrBtnMenuDificultad[1].getWidth(),arrBtnMenuDificultad[1].getHeight());
+                    arrBtnMenuDificultad[2].setImageIcon(arrStrMenuDificultad[2][0],
+                            arrBtnMenuDificultad[2].getWidth(),arrBtnMenuDificultad[2].getHeight());
+                }
+                // medium button
+                else if(arrBtnMenuDificultad[1].pointerInside(iMouseX,iMouseY)
+                        && boolPresionado && iDificultad != 1){
+                    // update difficulty
+                    iDificultad = 1;
+                    // mark medium selection
+                    arrBtnMenuDificultad[1].setImageIcon(arrStrMenuDificultad[1][1],
+                            arrBtnMenuDificultad[1].getWidth(),arrBtnMenuDificultad[1].getHeight());
+                    // unmark the rest of the buttons
+                    arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][0],
+                            arrBtnMenuDificultad[0].getWidth(),arrBtnMenuDificultad[0].getHeight());
+                    arrBtnMenuDificultad[2].setImageIcon(arrStrMenuDificultad[2][0],
+                            arrBtnMenuDificultad[2].getWidth(),arrBtnMenuDificultad[2].getHeight());
+                }
+                // hard button
+                else if(arrBtnMenuDificultad[2].pointerInside(iMouseX,iMouseY)
+                        && boolPresionado && iDificultad != 2){
+                    // update difficulty
+                    iDificultad = 2;
+                    // mark hard selection
+                    arrBtnMenuDificultad[2].setImageIcon(arrStrMenuDificultad[2][1],
+                            arrBtnMenuDificultad[2].getWidth(),arrBtnMenuDificultad[2].getHeight());
+                    // unmark the rest of the buttons
+                    arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][0],
+                            arrBtnMenuDificultad[0].getWidth(),arrBtnMenuDificultad[0].getHeight());
+                    arrBtnMenuDificultad[1].setImageIcon(arrStrMenuDificultad[1][0],
+                            arrBtnMenuDificultad[1].getWidth(),arrBtnMenuDificultad[1].getHeight());
+                }
+                // Check navigation buttons
+                if(arrBtnMenuDificultad[3].pointerInside(iMouseX,iMouseY)){
+                        arrBtnMenuDificultad[3].setImageIcon(arrStrMenuDificultad[3][1],
+                                arrBtnMenuDificultad[3].getWidth(),arrBtnMenuDificultad[3].getHeight());
+
+                    if(boolPresionado){
+                        strPantalla = "opciones";
+                        boolPresionado = false;
+                        // reset difficulty selection                        
+                        iDificultad = 0;
+                        arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][1],
+                            arrBtnMenuDificultad[0].getWidth(),arrBtnMenuDificultad[0].getHeight());
+                        arrBtnMenuDificultad[1].setImageIcon(arrStrMenuDificultad[1][0],
+                            arrBtnMenuDificultad[1].getWidth(),arrBtnMenuDificultad[1].getHeight());
+                        arrBtnMenuDificultad[2].setImageIcon(arrStrMenuDificultad[2][0],
+                            arrBtnMenuDificultad[2].getWidth(),arrBtnMenuDificultad[2].getHeight());
+                    }
+                } else {
+                    arrBtnMenuDificultad[3].setImageIcon(
+                            arrStrMenuDificultad[3][0],
+                            arrBtnMenuDificultad[3].getWidth(),
+                            arrBtnMenuDificultad[3].getHeight());
                 }
                 break;
         }
@@ -532,6 +628,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             case "opciones":
                 for(int i=0; i < 3 ; i++) {
                     arrBtnOpciones[i].paint(graDibujo, this);
+                }
+                break;
+            case "dificultad":
+                for(int i=0; i < 4 ; i++) {
+                    arrBtnMenuDificultad[i].paint(graDibujo, this);
                 }
                 break;
         }
