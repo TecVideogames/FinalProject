@@ -67,13 +67,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     private msf_Button btnRegresarInstrucciones;
     private String strBtnRegresarInstrucciones [] = new String [2];
     
-    // boton de regresarPuntuaciones
-    private msf_Button btnRegresarPuntuaciones;
-    private String strBtnRegresarPuntuaciones;
-    
     // boton de regresarCreditos
     private msf_Button btnRegresarCreditos;
-    private String strBtnRegresarCreditos;
+    private String strBtnRegresarCreditos [] = new String [2];
     
     // arreglos de botones seleccionarJugador
     private msf_Button arrBtnSeleccionarJugador [] = new msf_Button [4]; 
@@ -122,10 +118,22 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         }
         
         // Initialize instruccions return button
+<<<<<<< HEAD
         strBtnRegresarInstrucciones[0] = "btnInstrucciones_0.png";
         strBtnRegresarInstrucciones[1] = "btnInstrucciones_1.png";
         btnRegresarInstrucciones = new msf_Button(229, 55, 182, 49, 
+=======
+        strBtnRegresarInstrucciones[0] = "ImageNotFound.jpg";
+        strBtnRegresarInstrucciones[1] = "btnMenuPrincipal_0_1.gif";
+        btnRegresarInstrucciones = new msf_Button(229, 425, 182, 49, 
+>>>>>>> origin/master
                 strBtnRegresarInstrucciones[0]);
+        
+        // Initialize credits return button
+        strBtnRegresarCreditos[0] = "btnCreditos_0.png";
+        strBtnRegresarCreditos[1] = "btnCreditos_1.png";
+        btnRegresarCreditos = new msf_Button(229, 425, 182, 49, 
+                strBtnRegresarCreditos[0]);
         
         // seleccionar jugador
         
@@ -238,6 +246,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 case 1:
                                     strPantalla = "instruccions";
                                     break;
+                                case 2:
+                                    strPantalla = "credits";
+                                    break;
                             }
                             arrBtnMenuPrincipal[iI].setImageIcon(
                                     arrStrMenuPrincipal[iI][0],
@@ -318,6 +329,22 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 btnRegresarInstrucciones.getHeight());
                     }
                 break;
+            case "credits":
+                if(btnRegresarCreditos.pointerInside(iMouseX,iMouseY)){
+                        btnRegresarCreditos.setImageIcon(
+                                strBtnRegresarCreditos[1],
+                                btnRegresarCreditos.getWidth(),
+                                btnRegresarCreditos.getHeight());
+                        if(boolPresionado){
+                            strPantalla = "menuPrincipal";
+                        }
+                    } else {
+                        btnRegresarCreditos.setImageIcon(
+                                strBtnRegresarCreditos[0],
+                                btnRegresarCreditos.getWidth(),
+                                btnRegresarCreditos.getHeight());
+                    }
+                break; 
         }
     }
 	
@@ -389,6 +416,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 break;
             case "instruccions":
                 btnRegresarInstrucciones.paint(graDibujo, this);
+            case "credits":
+                btnRegresarCreditos.paint(graDibujo, this);
         }
     }
     
