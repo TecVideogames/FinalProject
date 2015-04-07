@@ -34,6 +34,7 @@ import java.net.URL;
  *
  * @author Mario Sergio Fuentes Juarez
  */
+
 public class FinalProject extends Applet implements Runnable, KeyListener, 
         MouseListener, MouseMotionListener {
     int iMouseX;
@@ -127,15 +128,22 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 strBtnRegresarInstrucciones[0]);
         
         // seleccionar jugador
+        
+        // zero indicates man selection, one indicates woman selection
+        boolHombreMujer = false;
         // boton de jugador
-        for(int iI=0; iI<2; iI++){
-            arrStrSeleccionarJugador[iI][0] = 
-                    "btnSeleccionarJugador_"+iI+"_0.gif";
-            arrStrSeleccionarJugador[iI][1] = 
-                    "btnSeleccionarJugador_"+iI+"_1.gif";
-            arrBtnSeleccionarJugador[iI] = new msf_Button(85+iI*275,120,
-                    200,180,arrStrSeleccionarJugador[iI][0]);
-        }
+
+        // man button (originally chosen)
+        arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.gif";
+        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_1.gif";
+        arrBtnSeleccionarJugador[0] = new msf_Button(85,120,
+                200,180,arrStrSeleccionarJugador[0][1]);
+        // woman button (originally not chosen)
+        arrStrSeleccionarJugador[1][0] = "btnSeleccionarJugador_1_0.gif";
+        arrStrSeleccionarJugador[1][1] = "btnSeleccionarJugador_1_1.gif";
+        arrBtnSeleccionarJugador[1] = new msf_Button(360,120,
+                200,180,arrStrSeleccionarJugador[1][0]);
+        
         // boton de navegacion
         for(int iI=2; iI<4; iI++){
             arrStrSeleccionarJugador[iI][0] = 
@@ -216,10 +224,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             case "menuPrincipal":
                 for(int iI=0; iI<3; iI++){
                     if(arrBtnMenuPrincipal[iI].pointerInside(iMouseX,iMouseY)){
+
                         arrBtnMenuPrincipal[iI].setImageIcon(
                                 arrStrMenuPrincipal[iI][1],
                                 arrBtnMenuPrincipal[iI].getWidth(),
                                 arrBtnMenuPrincipal[iI].getHeight());
+
                         if(boolPresionado){
                             switch(iI){
                                 case 0:
@@ -243,19 +253,46 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "seleccionarJugador":
-                for(int iI=0; iI<4; iI++){
+
+                // Check player selection
+                // Man button
+                if(arrBtnSeleccionarJugador[0].pointerInside(iMouseX,iMouseY)
+                        && boolPresionado && boolHombreMujer){
+                    // update boolean
+                    boolHombreMujer = !boolHombreMujer;
+                    // mark man selection
+                    arrBtnSeleccionarJugador[0].setImageIcon(arrStrSeleccionarJugador[0][1],
+                            arrBtnSeleccionarJugador[0].getWidth(),arrBtnSeleccionarJugador[0].getHeight());
+                    // unmark woman selection
+                    arrBtnSeleccionarJugador[1].setImageIcon(arrStrSeleccionarJugador[1][0],
+                            arrBtnSeleccionarJugador[1].getWidth(),arrBtnSeleccionarJugador[1].getHeight());
+                }
+                // Woman button
+                if(arrBtnSeleccionarJugador[1].pointerInside(iMouseX,iMouseY)
+                        && boolPresionado && !boolHombreMujer){
+                    // update boolean
+                    boolHombreMujer = !boolHombreMujer;
+                    // mark man selection
+                    arrBtnSeleccionarJugador[1].setImageIcon(arrStrSeleccionarJugador[1][1],
+                            arrBtnSeleccionarJugador[1].getWidth(),arrBtnSeleccionarJugador[1].getHeight());
+                    // unmark woman selection
+                    arrBtnSeleccionarJugador[0].setImageIcon(arrStrSeleccionarJugador[0][0],
+                            arrBtnSeleccionarJugador[0].getWidth(),arrBtnSeleccionarJugador[0].getHeight());
+                }
+                // Check navigation buttons
+                for(int iI=2; iI<4; iI++){
                     if(arrBtnSeleccionarJugador[iI].pointerInside(iMouseX,iMouseY)){
-                        arrBtnSeleccionarJugador[iI].setImageIcon(
-                                arrStrSeleccionarJugador[iI][1],
-                                arrBtnSeleccionarJugador[iI].getWidth(),
-                                arrBtnSeleccionarJugador[iI].getHeight());
+                        arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][1],
+                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
+
                         if(boolPresionado){
-//                            switch(iI){
-//                                case 0:
-//                                    strPantalla = "seleccionarJugador";
-//                                    break;
-//                            }
-//                            arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
+                            switch(iI){
+                                case 2:
+                                    strPantalla = "menuPrincipal";
+                                    break;
+                            }
+                            arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][0],
+                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
                         }
                     } else {
                         arrBtnSeleccionarJugador[iI].setImageIcon(
