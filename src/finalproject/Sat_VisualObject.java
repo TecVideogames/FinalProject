@@ -1,3 +1,5 @@
+package finalproject;
+
 /**
  * Sat_VisualObject
  * 
