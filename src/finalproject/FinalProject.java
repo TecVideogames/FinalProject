@@ -115,15 +115,15 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         
         // menu principal
         for(int iI=0; iI<3; iI++){
-            arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_"+iI+"_0.gif";
-            arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_"+iI+"_1.gif";
+            arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_"+iI+"_0.png";
+            arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_"+iI+"_1.png";
             arrBtnMenuPrincipal[iI] = new msf_Button(405,150+iI*65,
                     190,50,arrStrMenuPrincipal[iI][0]);
         }
         
         // Initialize instruccions return button
-        strBtnRegresarInstrucciones[0] = "ImageNotFound.jpg";
-        strBtnRegresarInstrucciones[1] = "btnMenuPrincipal_0_1.gif";
+        strBtnRegresarInstrucciones[0] = "btnInstrucciones_0.png";
+        strBtnRegresarInstrucciones[1] = "btnInstrucciones_1.png";
         btnRegresarInstrucciones = new msf_Button(229, 55, 182, 49, 
                 strBtnRegresarInstrucciones[0]);
         
@@ -147,11 +147,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // boton de navegacion
         for(int iI=2; iI<4; iI++){
             arrStrSeleccionarJugador[iI][0] = 
-                    "btnSeleccionarJugador_"+iI+"_0.gif";
+                    "btnSeleccionarJugador_"+iI+"_0.png";
             arrStrSeleccionarJugador[iI][1] = 
-                    "btnSeleccionarJugador_"+iI+"_1.gif";
-            arrBtnSeleccionarJugador[iI] = new msf_Button(260+(iI-2)*160,380,
-                    140,60,arrStrSeleccionarJugador[iI][0]);
+                    "btnSeleccionarJugador_"+iI+"_1.png";
+            arrBtnSeleccionarJugador[iI] = new msf_Button(133+(iI-2)*192,380,
+                    182,49,arrStrSeleccionarJugador[iI][0]);
         }
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
