@@ -178,17 +178,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         }
         // Dungeon buttons
         for(int iI = 2; iI < 5; iI ++){
-            arrStrMapa[iI][0] = "btnDungeon_"+iI+"_0.png";
-            arrStrMapa[iI][1] = "btnDungeon_"+iI+"_1.png";
+            arrStrMapa[iI][0] = "btnMapa_"+iI+"_0.png";
+            arrStrMapa[iI][1] = "btnMapa_"+iI+"_1.png";
         }
         
         // All dungeon buttons have a specific location
-        arrBtnMapa[2] = new msf_Button(25,100,
-                    182,49,arrStrMapa[2][0]);
-        arrBtnMapa[3] = new msf_Button(iAppletWidth - 235, 150,
-                    182,49,arrStrMapa[3][0]);
-        arrBtnMapa[4] = new msf_Button(iAppletWidth - 230, 300,
-                    182,49,arrStrMapa[4][0]);
+        arrBtnMapa[2] = new msf_Button(25,20,
+                    212,100,arrStrMapa[2][0]);
+        arrBtnMapa[3] = new msf_Button(iAppletWidth - 235, 130,
+                    212,100,arrStrMapa[3][0]);
+        arrBtnMapa[4] = new msf_Button(iAppletWidth - 580, 250,
+                    212,100,arrStrMapa[4][0]);
         
         // All dungeon menu buttons
         for(int iI = 0; iI < 4; iI ++){
@@ -200,12 +200,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         
         // Initialize option menu
         // option buttons
-        for(int iI = 0 ; iI < 3 ; iI ++) {
-            arrStrOpciones[iI][0] = "btnOpciones_"+iI+"_0.png";
-            arrStrOpciones[iI][1] = "btnOpciones_"+iI+"_1.png";
+        for(int iI = 0 ; iI < 2 ; iI ++) {
+            arrStrOpciones[iI][0] = "btnMenuOpciones_"+iI+"_0.png";
+            arrStrOpciones[iI][1] = "btnMenuOpciones_"+iI+"_1.png";
             arrBtnOpciones[iI] = new msf_Button(229,150+iI*65, 182, 49, 
                     arrStrOpciones[iI][0]);
         }
+        // navigation button (return, 3)
+        arrStrOpciones[2][0] = "btnMenuOpciones_"+2+"_0.png";
+        arrStrOpciones[2][1] = "btnMenuOpciones_"+2+"_1.png";
+        arrBtnOpciones[2] = new msf_Button(133,425,
+                182,49,arrStrOpciones[2][0]);
         
         // Initialize difficulty menu
         // difficulty buttons
