@@ -55,52 +55,52 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
     private Graphics graGraficaApplet;  // Objeto grafico de la Imagen
     
     // arreglos de botones menu principal
-    private Boton arrBtnMenuPrincipal [] = new Boton [3]; 
-    private URL arrUrlMenuPrincipal [][] = new URL [3][2];
+    private msf_Button arrBtnMenuPrincipal [] = new msf_Button [3]; 
+    private String arrStrMenuPrincipal [][] = new String [3][2];
     
     // arreglos de botones menu opciones
-    private Boton arrBtnMenuOpciones [] = new Boton [3]; 
-    private URL arrUrlMenuOpciones [][] = new URL [3][2];
+    private msf_Button arrBtnMenuOpciones [] = new msf_Button [3]; 
+    private String arrStrMenuOpciones [][] = new String [3][2];
     
     // arreglos de botones menu audio
-    private Boton arrBtnMenuAudio [] = new Boton [3]; 
-    private URL arrUrlMenuAudio [][] = new URL [3][2];
+    private msf_Button arrBtnMenuAudio [] = new msf_Button [3]; 
+    private String arrStrMenuAudio [][] = new String [3][2];
     
     // arreglos de botones menu dificultad
-    private Boton arrBtnMenuDificultad [] = new Boton [4]; 
-    private URL arrUrlMenuDificultad [][] = new URL [4][2];
+    private msf_Button arrBtnMenuDificultad [] = new msf_Button [4]; 
+    private String arrStrMenuDificultad [][] = new String [4][2];
     
     // boton de regresarInstrucciones
-    private Boton btnRegresarInstrucciones;
-    private URL urlBtnRegresarInstrucciones;
+    private msf_Button btnRegresarInstrucciones;
+    private String strBtnRegresarInstrucciones;
     
     // boton de regresarPuntuaciones
-    private Boton btnRegresarPuntuaciones;
-    private URL urlBtnRegresarPuntuaciones;
+    private msf_Button btnRegresarPuntuaciones;
+    private String strBtnRegresarPuntuaciones;
     
     // boton de regresarCreditos
-    private Boton btnRegresarCreditos;
-    private URL urlBtnRegresarCreditos;
+    private msf_Button btnRegresarCreditos;
+    private String strBtnRegresarCreditos;
     
     // arreglos de botones seleccionarJugador
-    private Boton arrBtnSeleccionarJugador [] = new Boton [4]; 
-    private URL arrUrlSeleccionarJugador [][] = new URL [4][2];
+    private msf_Button arrBtnSeleccionarJugador [] = new msf_Button [4]; 
+    private String arrStrSeleccionarJugador [][] = new String [4][2];
     
     // arreglos de botones mapa
-    private Boton arrBtnMapa [] = new Boton [2]; 
-    private URL arrUrlMapa [][] = new URL [2][2];
+    private msf_Button arrBtnMapa [] = new msf_Button [2]; 
+    private String arrStrMapa [][] = new String [2][2];
     
     // arreglos de botones juego
-    private Boton arrBtnJuego [] = new Boton [4]; 
-    private URL arrUrlJuego [][] = new URL [4][2];
+    private msf_Button arrBtnJuego [] = new msf_Button [4]; 
+    private String arrStrJuego [][] = new String [4][2];
     
     // boton de regresarFinMenu
-    private Boton btnFinMenu;
-    private URL urlBtnFinMenu;
+    private msf_Button btnFinMenu;
+    private String strBtnFinMenu;
     
     // boton de regresarFinMapa
-    private Boton btnFinMapa;
-    private URL urlBtnFinMapa;
+    private msf_Button btnFinMapa;
+    private String strBtnFinMapa;
     
 //    private URL urlImagenChimpy; // url de imagen de chimpy
 //    private URL urlImagenDiddy; // url de imagen de diddy
@@ -122,26 +122,26 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
         
         // menu principal
         for(int iI=0; iI<3; iI++){
-            arrUrlMenuPrincipal[iI][0] = this.getClass().getResource("btnMenuPrincipal_"+iI+"_0.gif");
-            arrUrlMenuPrincipal[iI][1] = this.getClass().getResource("btnMenuPrincipal_"+iI+"_1.gif");
-            arrBtnMenuPrincipal[iI] = new Boton(405,150+iI*65,
-                    190,50,Toolkit.getDefaultToolkit().getImage(arrUrlMenuPrincipal[iI][0]));
+            arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_"+iI+"_0.gif";
+            arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_"+iI+"_1.gif";
+            arrBtnMenuPrincipal[iI] = new msf_Button(405,150+iI*65,
+                    190,50,arrStrMenuPrincipal[iI][0]);
         }
         
         // seleccionar jugador
         // boton de jugador
         for(int iI=0; iI<2; iI++){
-            arrUrlSeleccionarJugador[iI][0] = this.getClass().getResource("btnSeleccionarJugador_"+iI+"_0.gif");
-            arrUrlSeleccionarJugador[iI][1] = this.getClass().getResource("btnSeleccionarJugador_"+iI+"_1.gif");
-            arrBtnSeleccionarJugador[iI] = new Boton(85+iI*275,120,
-                    200,180,Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
+            arrStrSeleccionarJugador[iI][0] = "btnSeleccionarJugador_"+iI+"_0.gif";
+            arrStrSeleccionarJugador[iI][1] = "btnSeleccionarJugador_"+iI+"_1.gif";
+            arrBtnSeleccionarJugador[iI] = new msf_Button(85+iI*275,120,
+                    200,180,arrStrSeleccionarJugador[iI][0]);
         }
         // boton de navegacion
         for(int iI=2; iI<4; iI++){
-            arrUrlSeleccionarJugador[iI][0] = this.getClass().getResource("btnSeleccionarJugador_"+iI+"_0.gif");
-            arrUrlSeleccionarJugador[iI][1] = this.getClass().getResource("btnSeleccionarJugador_"+iI+"_1.gif");
-            arrBtnSeleccionarJugador[iI] = new Boton(260+(iI-2)*160,380,
-                    140,60,Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
+            arrStrSeleccionarJugador[iI][0] = "btnSeleccionarJugador_"+iI+"_0.gif";
+            arrStrSeleccionarJugador[iI][1] = "btnSeleccionarJugador_"+iI+"_1.gif";
+            arrBtnSeleccionarJugador[iI] = new msf_Button(260+(iI-2)*160,380,
+                    140,60,arrStrSeleccionarJugador[iI][0]);
         }
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
@@ -213,25 +213,29 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
         switch(strPantalla){
             case "menuPrincipal":
                 for(int iI=0; iI<3; iI++){
-                    if(arrBtnMenuPrincipal[iI].estaAdentro(iX,iY)){
-                        arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlMenuPrincipal[iI][1]));
+                    if(arrBtnMenuPrincipal[iI].pointerInside(iX,iY)){
+                        arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][1],
+                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
                         if(boolPresionado){
                             switch(iI){
                                 case 0:
                                     strPantalla = "seleccionarJugador";
                                     break;
                             }
-                            arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlMenuPrincipal[iI][0]));
+                            arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][0],
+                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
                         }
                     } else {
-                        arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlMenuPrincipal[iI][0]));
+                        arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][0],
+                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
                     }
                 }
                 break;
             case "seleccionarJugador":
                 for(int iI=0; iI<4; iI++){
-                    if(arrBtnSeleccionarJugador[iI].estaAdentro(iX,iY)){
-                        arrBtnSeleccionarJugador[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][1]));
+                    if(arrBtnSeleccionarJugador[iI].pointerInside(iX,iY)){
+                        arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][1],
+                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
                         if(boolPresionado){
 //                            switch(iI){
 //                                case 0:
@@ -241,7 +245,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
 //                            arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
                         }
                     } else {
-                        arrBtnSeleccionarJugador[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
+                        arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][0],
+                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
                     }
                 }
                 break;
