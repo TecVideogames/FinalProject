@@ -193,7 +193,6 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
         
         // mientras no este prendida bandera de fin de juego
         while (true) { 
-            
             actualiza();
             checaColision();
             repaint();
@@ -228,6 +227,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                             switch(iI){
                                 case 0:
                                     strPantalla = "seleccionarJugador";
+                                    boolPresionado = false;
                                     break;
                             }
                             arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][0],
@@ -258,10 +258,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                         && boolPresionado && !boolHombreMujer){
                     // update boolean
                     boolHombreMujer = !boolHombreMujer;
-                    // mark man selection
+                    // mark woman selection
                     arrBtnSeleccionarJugador[1].setImageIcon(arrStrSeleccionarJugador[1][1],
                             arrBtnSeleccionarJugador[1].getWidth(),arrBtnSeleccionarJugador[1].getHeight());
-                    // unmark woman selection
+                    // unmark man selection
                     arrBtnSeleccionarJugador[0].setImageIcon(arrStrSeleccionarJugador[0][0],
                             arrBtnSeleccionarJugador[0].getWidth(),arrBtnSeleccionarJugador[0].getHeight());
                 }
@@ -276,8 +276,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                                     strPantalla = "menuPrincipal";
                                     break;
                             }
-                            arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][0],
-                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
+                            boolHombreMujer = false;
+                            arrBtnSeleccionarJugador[0].setImageIcon(arrStrSeleccionarJugador[0][1],
+                                arrBtnSeleccionarJugador[0].getWidth(),arrBtnSeleccionarJugador[0].getHeight());
+                            arrBtnSeleccionarJugador[1].setImageIcon(arrStrSeleccionarJugador[1][0],
+                                arrBtnSeleccionarJugador[1].getWidth(),arrBtnSeleccionarJugador[1].getHeight());
                         }
                     } else {
                         arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][0],
