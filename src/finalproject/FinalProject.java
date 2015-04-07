@@ -404,6 +404,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
      * 
      */
     public void checaColision(){
+        
     }
 	
     /**
