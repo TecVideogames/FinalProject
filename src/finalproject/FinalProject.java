@@ -175,17 +175,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         }
         // Dungeon buttons
         for(int iI = 2; iI < 5; iI ++){
-            arrStrMapa[iI][0] = "btnDungeon_"+iI+"_0.png";
-            arrStrMapa[iI][1] = "btnDungeon_"+iI+"_1.png";
+            arrStrMapa[iI][0] = "btnMapa_"+iI+"_0.png";
+            arrStrMapa[iI][1] = "btnMapa_"+iI+"_1.png";
         }
         
         // All dungeon buttons have a specific location
-        arrBtnMapa[2] = new msf_Button(25,100,
-                    182,49,arrStrMapa[2][0]);
-        arrBtnMapa[3] = new msf_Button(iAppletWidth - 235, 150,
-                    182,49,arrStrMapa[3][0]);
-        arrBtnMapa[4] = new msf_Button(iAppletWidth - 230, 300,
-                    182,49,arrStrMapa[4][0]);
+        arrBtnMapa[2] = new msf_Button(25,20,
+                    212,100,arrStrMapa[2][0]);
+        arrBtnMapa[3] = new msf_Button(iAppletWidth - 235, 130,
+                    212,100,arrStrMapa[3][0]);
+        arrBtnMapa[4] = new msf_Button(iAppletWidth - 580, 250,
+                    212,100,arrStrMapa[4][0]);
         
         // Initialize option menu
         // option buttons
