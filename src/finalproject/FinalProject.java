@@ -20,8 +20,6 @@
 package finalproject;
  
 import java.applet.Applet;
-import java.applet.AudioClip;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -30,24 +28,18 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
-import java.util.LinkedList;
 
 /**
  *
  * @author Mario Sergio Fuentes Juarez
  */
-public class FinalProject extends Applet implements Runnable, KeyListener, MouseListener,
-        MouseMotionListener {
-    int iX;
-    int iY;
+public class FinalProject extends Applet implements Runnable, KeyListener, 
+        MouseListener, MouseMotionListener {
+    int iMouseX;
+    int iMouseY;
+    int iAppletWidth = 640;
+    int iAppletHeight = 480;
     boolean boolPresionado;
     boolean boolHombreMujer;
     private String strPantalla;
@@ -72,7 +64,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
     
     // boton de regresarInstrucciones
     private msf_Button btnRegresarInstrucciones;
-    private String strBtnRegresarInstrucciones;
+    private String strBtnRegresarInstrucciones [] = new String [2];
     
     // boton de regresarPuntuaciones
     private msf_Button btnRegresarPuntuaciones;
@@ -114,8 +106,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
      * 
      */
     public void init() {
-        // hago el applet de un tamaño 640,480
-        setSize(640,480);
+        // hago el applet de un tamaño 640,480        
+        setSize(iAppletWidth, iAppletHeight);
         
         // nombre de pantalla
         strPantalla = "menuPrincipal";
@@ -128,18 +120,28 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                     190,50,arrStrMenuPrincipal[iI][0]);
         }
         
+        // Initialize instruccions return button
+        strBtnRegresarInstrucciones[0] = "ImageNotFound.jpg";
+        strBtnRegresarInstrucciones[1] = "btnMenuPrincipal_0_1.gif";
+        btnRegresarInstrucciones = new msf_Button(229, 55, 182, 49, 
+                strBtnRegresarInstrucciones[0]);
+        
         // seleccionar jugador
         // boton de jugador
         for(int iI=0; iI<2; iI++){
-            arrStrSeleccionarJugador[iI][0] = "btnSeleccionarJugador_"+iI+"_0.gif";
-            arrStrSeleccionarJugador[iI][1] = "btnSeleccionarJugador_"+iI+"_1.gif";
+            arrStrSeleccionarJugador[iI][0] = 
+                    "btnSeleccionarJugador_"+iI+"_0.gif";
+            arrStrSeleccionarJugador[iI][1] = 
+                    "btnSeleccionarJugador_"+iI+"_1.gif";
             arrBtnSeleccionarJugador[iI] = new msf_Button(85+iI*275,120,
                     200,180,arrStrSeleccionarJugador[iI][0]);
         }
         // boton de navegacion
         for(int iI=2; iI<4; iI++){
-            arrStrSeleccionarJugador[iI][0] = "btnSeleccionarJugador_"+iI+"_0.gif";
-            arrStrSeleccionarJugador[iI][1] = "btnSeleccionarJugador_"+iI+"_1.gif";
+            arrStrSeleccionarJugador[iI][0] = 
+                    "btnSeleccionarJugador_"+iI+"_0.gif";
+            arrStrSeleccionarJugador[iI][1] = 
+                    "btnSeleccionarJugador_"+iI+"_1.gif";
             arrBtnSeleccionarJugador[iI] = new msf_Button(260+(iI-2)*160,380,
                     140,60,arrStrSeleccionarJugador[iI][0]);
         }
@@ -213,29 +215,40 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
         switch(strPantalla){
             case "menuPrincipal":
                 for(int iI=0; iI<3; iI++){
-                    if(arrBtnMenuPrincipal[iI].pointerInside(iX,iY)){
-                        arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][1],
-                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
+                    if(arrBtnMenuPrincipal[iI].pointerInside(iMouseX,iMouseY)){
+                        arrBtnMenuPrincipal[iI].setImageIcon(
+                                arrStrMenuPrincipal[iI][1],
+                                arrBtnMenuPrincipal[iI].getWidth(),
+                                arrBtnMenuPrincipal[iI].getHeight());
                         if(boolPresionado){
                             switch(iI){
                                 case 0:
                                     strPantalla = "seleccionarJugador";
                                     break;
+                                case 1:
+                                    strPantalla = "instruccions";
+                                    break;
                             }
-                            arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][0],
-                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
+                            arrBtnMenuPrincipal[iI].setImageIcon(
+                                    arrStrMenuPrincipal[iI][0],
+                                arrBtnMenuPrincipal[iI].getWidth(),
+                                arrBtnMenuPrincipal[iI].getHeight());
                         }
                     } else {
-                        arrBtnMenuPrincipal[iI].setImageIcon(arrStrMenuPrincipal[iI][0],
-                                arrBtnMenuPrincipal[iI].getWidth(),arrBtnMenuPrincipal[iI].getHeight());
+                        arrBtnMenuPrincipal[iI].setImageIcon(
+                                arrStrMenuPrincipal[iI][0],
+                                arrBtnMenuPrincipal[iI].getWidth(),
+                                arrBtnMenuPrincipal[iI].getHeight());
                     }
                 }
                 break;
             case "seleccionarJugador":
                 for(int iI=0; iI<4; iI++){
-                    if(arrBtnSeleccionarJugador[iI].pointerInside(iX,iY)){
-                        arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][1],
-                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
+                    if(arrBtnSeleccionarJugador[iI].pointerInside(iMouseX,iMouseY)){
+                        arrBtnSeleccionarJugador[iI].setImageIcon(
+                                arrStrSeleccionarJugador[iI][1],
+                                arrBtnSeleccionarJugador[iI].getWidth(),
+                                arrBtnSeleccionarJugador[iI].getHeight());
                         if(boolPresionado){
 //                            switch(iI){
 //                                case 0:
@@ -245,15 +258,30 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
 //                            arrBtnMenuPrincipal[iI].setImagen(Toolkit.getDefaultToolkit().getImage(arrUrlSeleccionarJugador[iI][0]));
                         }
                     } else {
-                        arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][0],
-                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
+                        arrBtnSeleccionarJugador[iI].setImageIcon(
+                                arrStrSeleccionarJugador[iI][0],
+                                arrBtnSeleccionarJugador[iI].getWidth(),
+                                arrBtnSeleccionarJugador[iI].getHeight());
                     }
                 }
                 break;
-            
+            case "instruccions":
+                if(btnRegresarInstrucciones.pointerInside(iMouseX,iMouseY)){
+                        btnRegresarInstrucciones.setImageIcon(
+                                strBtnRegresarInstrucciones[1],
+                                btnRegresarInstrucciones.getWidth(),
+                                btnRegresarInstrucciones.getHeight());
+                        if(boolPresionado){
+                            strPantalla = "menuPrincipal";
+                        }
+                    } else {
+                        btnRegresarInstrucciones.setImageIcon(
+                                strBtnRegresarInstrucciones[0],
+                                btnRegresarInstrucciones.getWidth(),
+                                btnRegresarInstrucciones.getHeight());
+                    }
+                break;
         }
-        
-        
     }
 	
     /**
@@ -263,8 +291,6 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
      * 
      */
     public void checaColision(){
-        
-                
     }
 	
     /**
@@ -309,7 +335,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
      * En este metodo se dibuja la imagen con la posicion actualizada,
      * ademas que cuando la imagen es cargada te despliega una advertencia.
      * 
-     * @param graDibujo es el objeto de <code>Graphics</code> usado para dibujar.
+     * @param graDibujo es el objeto <code>Graphics</code> usado para dibujar.
      * 
      */
     public void paint(Graphics graDibujo) {
@@ -324,6 +350,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
                     arrBtnSeleccionarJugador[i].paint(graDibujo, this);
                 }
                 break;
+            case "instruccions":
+                btnRegresarInstrucciones.paint(graDibujo, this);
         }
     }
     
@@ -363,15 +391,13 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
      * @param keyEvent es el <code>KeyEvent</code> que se genera en al soltar.
      * 
      */
-    public void keyReleased(KeyEvent keyEvent) {
-        
-        
+    public void keyReleased(KeyEvent keyEvent) {  
         
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
- //       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Not supported
     }
 
     @Override
@@ -396,13 +422,13 @@ public class FinalProject extends Applet implements Runnable, KeyListener, Mouse
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        iX = e.getX();
-        iY = e.getY();
+        iMouseX = e.getX();
+        iMouseY = e.getY();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        iX = e.getX();
-        iY = e.getY();
+        iMouseX = e.getX();
+        iMouseY = e.getY();
     }
 }
