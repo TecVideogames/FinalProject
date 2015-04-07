@@ -118,15 +118,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         }
         
         // Initialize instruccions return button
-<<<<<<< HEAD
         strBtnRegresarInstrucciones[0] = "btnInstrucciones_0.png";
         strBtnRegresarInstrucciones[1] = "btnInstrucciones_1.png";
         btnRegresarInstrucciones = new msf_Button(229, 55, 182, 49, 
-=======
-        strBtnRegresarInstrucciones[0] = "ImageNotFound.jpg";
-        strBtnRegresarInstrucciones[1] = "btnMenuPrincipal_0_1.gif";
-        btnRegresarInstrucciones = new msf_Button(229, 425, 182, 49, 
->>>>>>> origin/master
                 strBtnRegresarInstrucciones[0]);
         
         // Initialize credits return button
