@@ -120,7 +120,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // Initialize instruccions return button
         strBtnRegresarInstrucciones[0] = "btnInstrucciones_0.png";
         strBtnRegresarInstrucciones[1] = "btnInstrucciones_1.png";
-        btnRegresarInstrucciones = new msf_Button(229, 55, 182, 49, 
+        btnRegresarInstrucciones = new msf_Button(229, 425, 182, 49, 
                 strBtnRegresarInstrucciones[0]);
         
         // Initialize credits return button
@@ -410,8 +410,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 break;
             case "instruccions":
                 btnRegresarInstrucciones.paint(graDibujo, this);
+                break;
             case "credits":
                 btnRegresarCreditos.paint(graDibujo, this);
+                break;
         }
     }
     
