@@ -777,7 +777,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
      * 
      */
     public void update (Graphics graGrafico) {
-        URL urlImagenFondo = this.getClass().getResource("btnJuego.gif");
+        URL urlImagenFondo = this.getClass().getResource("background.png");
         
         // Inicializan el DoubleBuffer
         if (imaImagenApplet == null) {
