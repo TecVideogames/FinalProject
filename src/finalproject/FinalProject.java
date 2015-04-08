@@ -41,6 +41,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     boolean boolHombreMujer; // Male or female player selected
     boolean boolSonidoMusica; // Activate music
     boolean boolSonidoEfectos; // Activate special effects
+    boolean bPaused;
     private String strPantalla; // Screens
     private Image imaImagenApplet;   // Image to be proyected in the applet
     private Graphics graGraficaApplet;  // Graphic object of the applet
@@ -109,6 +110,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     public void init() {
         // make applet of size 640,480        
         setSize(iAppletWidth, iAppletHeight);
+        
+        // Initialize bPaused flag
+        bPaused = false;
         
         // main screen name
         strPantalla = "menuPrincipal";
@@ -189,20 +193,26 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         }
         
         // All dungeon buttons have a specific location
-        arrBtnMapa[2] = new msf_Button(25, 20,
-                    212, 100, arrStrMapa[2][0]);
+        arrBtnMapa[2] = new msf_Button(25,20,
+                    212,100,arrStrMapa[2][0]);
         arrBtnMapa[3] = new msf_Button(iAppletWidth - 235, 130,
-                    212, 100, arrStrMapa[3][0]);
+                    212,100,arrStrMapa[3][0]);
         arrBtnMapa[4] = new msf_Button(iAppletWidth - 580, 250,
-                    212, 100, arrStrMapa[4][0]);
-        
-        // All dungeon menu buttons
-        for(int iI = 0; iI < 4; iI ++){
-            arrStrDungeonOptions[iI][0] = "btnDungeon_" + 2 + "_0.png";
-            arrStrDungeonOptions[iI][1] = "btnDungeon_" + 2 + "_1.png";
-            arrBtnDungeonOptions[iI] = new msf_Button(5, 435,
-                    150, 40, arrStrMapa[iI][0]);
-        }        
+                    212,100,arrStrMapa[4][0]);
+       
+        // menu button
+        arrStrDungeonOptions[0][0] = "btnDungeon_" + 0 + "_0.png";
+            arrStrDungeonOptions[0][1] = "btnDungeon_" + 0 + "_1.png";
+            arrBtnDungeonOptions[0] = new msf_Button(5, 435,
+                    150, 40, arrStrDungeonOptions[0][0]);
+       
+        // buttons inside menu
+        for (int iI = 1; iI < 4; iI ++) {
+            arrStrDungeonOptions[iI][0] = "btnDungeon_" + iI + "_0.png";
+            arrStrDungeonOptions[iI][1] = "btnDungeon_" + iI + "_1.png";
+            arrBtnDungeonOptions[iI] = new msf_Button(312, 208 + 75 * (iI - 2),
+                    182, 49, arrStrDungeonOptions[iI][0]);
+        }      
         
         // Initialize options menu
         // option buttons
@@ -449,7 +459,13 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 btnRegresarInstrucciones.getHeight());
                         if (btnRegresarInstrucciones.pointerInside(
                                 iMouseReleasedX, iMouseReleasedY)) {
-                            strPantalla = "menuPrincipal";
+                            
+                            if (bPaused) {
+                                strPantalla = "dungeon";
+                            } else {
+                                strPantalla = "menuPrincipal";
+                            }
+                            
                             iMouseReleasedX = -1;
                             iMouseReleasedY = -1;
                         }
@@ -505,6 +521,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 case 3:
                                 case 4:
                                     strPantalla = "dungeon";
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     dunTomb = new Sat_Dungeon(3);
                                     break;
                             }
@@ -715,26 +733,72 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 break;
 
             case "dungeon":
-                for (int iI = 0; iI < 1; iI ++) {
-                    if (arrBtnDungeonOptions[iI].pointerInside(iMouseX, 
+               
+                // menu button
+                if (arrBtnDungeonOptions[0].pointerInside(iMouseX, iMouseY)) {
+                    arrBtnDungeonOptions[0].setImageIcon(
+                            arrStrDungeonOptions[0][1],
+                            arrBtnDungeonOptions[0].getWidth(),
+                            arrBtnDungeonOptions[0].getHeight());
+ 
+                    if (arrBtnDungeonOptions[0].pointerInside(iMouseReleasedX,
+                            iMouseReleasedY)) {
+                        bPaused = !bPaused;
+                        iMouseReleasedX = -1;
+                        iMouseReleasedY = -1;
+                    }
+                }
+                else {
+                    arrBtnDungeonOptions[0].setImageIcon(
+                            arrStrDungeonOptions[0][0],
+                            arrBtnDungeonOptions[0].getWidth(),
+                            arrBtnDungeonOptions[0].getHeight());
+                }
+               
+                // menu buttons
+               
+                for (int iI = 1; iI < 4; iI ++) {
+                   
+                    if (arrBtnDungeonOptions[iI].pointerInside(iMouseX,
                             iMouseY)) {
+ 
                         arrBtnDungeonOptions[iI].setImageIcon(
                                 arrStrDungeonOptions[iI][1],
-                                arrBtnDungeonOptions[iI].getWidth(), 
+                                arrBtnDungeonOptions[iI].getWidth(),
                                 arrBtnDungeonOptions[iI].getHeight());
-                        
+ 
                         if (arrBtnDungeonOptions[iI].pointerInside(
                                 iMouseReleasedX, iMouseReleasedY)) {
                             switch (iI) {
-                                case 0:
+                                case 1:
+                                    bPaused = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
+                                    break;
+                                case 2:
+                                    strPantalla = "instruccions";
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
+                                    break;
+                               case 3:
                                     strPantalla = "mapa";
+                                    bPaused = false;
                                     iMouseReleasedX = -1;
                                     iMouseReleasedY = -1;
                                     break;
                             }
+                            arrBtnDungeonOptions[iI].setImageIcon(
+                                    arrStrDungeonOptions[iI][0],
+                                arrBtnDungeonOptions[iI].getWidth(),
+                                arrBtnDungeonOptions[iI].getHeight());
                         }
+                    } else {
+                        arrBtnDungeonOptions[iI].setImageIcon(
+                                arrStrDungeonOptions[iI][0],
+                                arrBtnDungeonOptions[iI].getWidth(),
+                                arrBtnDungeonOptions[iI].getHeight());
                     }
-                }                
+                }
                 break;
         }
     }
@@ -845,13 +909,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "dungeon":
-                // Display buttons
-                for (int i = 0; i < 4 ; i ++) {
-                    arrBtnDungeonOptions[i].paint(graDibujo, this);
-                }
+                // Display buttons                
+                arrBtnDungeonOptions[0].paint(graDibujo, this);
                 // Dsiplay dungeon structures according to player's position
-                arrSttStructures[dunTomb.getIDungeonPos()].paint(
-                        graDibujo, this);
+                arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, 
+                        this);
+                if (bPaused) {
+                    for (int iI = 1; iI < 4 ; iI ++) {
+                        // Display buttons    
+                        arrBtnDungeonOptions[iI].paint(graDibujo, this);
+                    }
+                }
                 break;
         }
     }
