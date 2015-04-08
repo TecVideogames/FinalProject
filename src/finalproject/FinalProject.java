@@ -45,6 +45,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     int iAppletHeight = 480;
     int iDificultad;
     boolean boolPresionado;
+    boolean boolPausa;
     boolean boolHombreMujer;
     boolean boolSonidoMusica;
     boolean boolSonidoEfectos;
@@ -132,6 +133,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // initialization of difficulty
         iDificultad = 0;
         
+        // initialize pause boolean flag
+        boolPausa = false;
+        
         // released
         iMouseReleasedX = -1;
         iMouseReleasedY = -1;
@@ -210,11 +214,19 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     212,100,arrStrMapa[4][0]);
         
         // All dungeon menu buttons
-        for(int iI = 0; iI < 4; iI ++){
-            arrStrDungeonOptions[iI][0] = "btnDungeon_"+2+"_0.png";
-            arrStrDungeonOptions[iI][1] = "btnDungeon_"+2+"_1.png";
-            arrBtnDungeonOptions[iI] = new msf_Button(5,435,
-                    150,40,arrStrMapa[iI][0]);
+        
+        // menu button
+        arrStrDungeonOptions[0][0] = "btnDungeon_"+0+"_0.png";
+            arrStrDungeonOptions[0][1] = "btnDungeon_"+0+"_1.png";
+            arrBtnDungeonOptions[0] = new msf_Button(5,435,
+                    150,40,arrStrDungeonOptions[0][0]);
+        
+        // buttons inside menu
+        for(int iI = 1; iI < 4; iI ++){
+            arrStrDungeonOptions[iI][0] = "btnDungeon_"+iI+"_0.png";
+            arrStrDungeonOptions[iI][1] = "btnDungeon_"+iI+"_1.png";
+            arrBtnDungeonOptions[iI] = new msf_Button(312,208+75*(iI-2),
+                    182,49,arrStrDungeonOptions[iI][0]);
         }        
         
         // Initialize option menu
@@ -448,7 +460,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 btnRegresarInstrucciones.getWidth(),
                                 btnRegresarInstrucciones.getHeight());
                         if(btnRegresarInstrucciones.pointerInside(iMouseReleasedX,iMouseReleasedY)){
-                            strPantalla = "menuPrincipal";
+                            if (boolPausa) {
+                                strPantalla = "dungeon";
+                            } else {
+                                strPantalla = "menuPrincipal";
+                            }
                             iMouseReleasedX = -1;
                             iMouseReleasedY = -1;
                         }
@@ -673,24 +689,68 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 break;
 
             case "dungeon":
-                for(int iI = 0; iI < 1; iI ++) {
-                    if(arrBtnDungeonOptions[iI].pointerInside(iMouseX, iMouseY)) {
-                        arrBtnDungeonOptions[iI].setImageIcon(arrStrDungeonOptions[iI][1],
-                                arrBtnDungeonOptions[iI].getWidth(), 
+                
+                // menu button
+                if(arrBtnDungeonOptions[0].pointerInside(iMouseX, iMouseY)) {
+                    arrBtnDungeonOptions[0].setImageIcon(arrStrDungeonOptions[0][1],
+                            arrBtnDungeonOptions[0].getWidth(), 
+                            arrBtnDungeonOptions[0].getHeight());
+
+                    if(arrBtnDungeonOptions[0].pointerInside(iMouseReleasedX, iMouseReleasedY)) {
+                        boolPausa = !boolPausa;
+                        iMouseReleasedX = -1;
+                        iMouseReleasedY = -1;
+                    }
+                } else {
+                    arrBtnDungeonOptions[0].setImageIcon(arrStrDungeonOptions[0][0],
+                            arrBtnDungeonOptions[0].getWidth(), 
+                            arrBtnDungeonOptions[0].getHeight());
+                }
+                
+                // menu buttons
+                
+                for (int iI = 1; iI < 4; iI ++) {
+                    
+                    if(arrBtnDungeonOptions[iI].pointerInside(iMouseX,iMouseY)){
+
+                        arrBtnDungeonOptions[iI].setImageIcon(
+                                arrStrDungeonOptions[iI][1],
+                                arrBtnDungeonOptions[iI].getWidth(),
                                 arrBtnDungeonOptions[iI].getHeight());
-                        
-                        if(arrBtnDungeonOptions[iI].pointerInside(iMouseReleasedX, iMouseReleasedY)) {
-                            switch(iI) {
-                                case 0:
+
+                        if(arrBtnDungeonOptions[iI].pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                            switch(iI){
+                                case 1:
+                                    boolPausa = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
+                                    break;
+                                case 2:
+                                    strPantalla = "instruccions";
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
+                                    break;
+                               case 3:
                                     strPantalla = "mapa";
+                                    boolPausa = false;
                                     iMouseReleasedX = -1;
                                     iMouseReleasedY = -1;
                                     break;
                             }
+                            arrBtnDungeonOptions[iI].setImageIcon(
+                                    arrStrDungeonOptions[iI][0],
+                                arrBtnDungeonOptions[iI].getWidth(),
+                                arrBtnDungeonOptions[iI].getHeight());
                         }
+                    } else {
+                        arrBtnDungeonOptions[iI].setImageIcon(
+                                arrStrDungeonOptions[iI][0],
+                                arrBtnDungeonOptions[iI].getWidth(),
+                                arrBtnDungeonOptions[iI].getHeight());
                     }
-
-                }                
+                    
+                }
+                
                 break;
         }
     }
@@ -800,10 +860,13 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "dungeon":
-                for(int i=0; i < 4 ; i++) {
-                    arrBtnDungeonOptions[i].paint(graDibujo, this);
-                }
+                arrBtnDungeonOptions[0].paint(graDibujo, this);
                 arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, this);
+                if (boolPausa) {
+                    for(int iI=1; iI < 4 ; iI++) {
+                        arrBtnDungeonOptions[iI].paint(graDibujo, this);
+                    }
+                }
                 break;
         }
     }
@@ -855,7 +918,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 dunTomb.setIPosY(iNewPosY);
                 
             } while (dunTomb.getIDungeonPos() < 1 || dunTomb.getIDungeonPos() > 6);
-        }
+        } 
     }
 
     @Override
