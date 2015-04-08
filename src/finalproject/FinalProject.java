@@ -45,6 +45,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     int iDificultad;
     boolean boolPresionado;
     boolean boolHombreMujer;
+    boolean boolSonidoMusica;
+    boolean boolSonidoEfectos;
     private String strPantalla;
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
     private Graphics graGraficaApplet;  // Objeto grafico de la Imagen
@@ -117,6 +119,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         
         // initialization of difficulty
         iDificultad = 0;
+        
+        // initialize sound booleans
+        boolSonidoMusica = true;
+        boolSonidoEfectos = true;
         
         // Initialize menu principal
         for(int iI=0; iI<3; iI++){
@@ -218,6 +224,20 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         arrStrMenuDificultad[3][1] = "btnMenuDificultad_"+3+"_1.png";
         arrBtnMenuDificultad[3] = new msf_Button(133,425,
                 182,49,arrStrMenuDificultad[3][0]);
+        
+        // Initialize audio menu
+        // audio buttons
+        for(int iI = 0 ; iI < 2 ; iI ++) {
+            arrStrMenuAudio[iI][0] = "btnMenuAudio_"+iI+"_0.png";
+            arrStrMenuAudio[iI][1] = "btnMenuAudio_"+iI+"_1.png";
+            arrBtnMenuAudio[iI] = new msf_Button(130+260*iI,200, 100, 100, 
+                    arrStrMenuAudio[iI][0]);
+        }
+        // return button
+        arrStrMenuAudio[2][0] = "btnMenuAudio_"+2+"_0.png";
+        arrStrMenuAudio[2][1] = "btnMenuAudio_"+2+"_1.png";
+        arrBtnMenuAudio[2] = new msf_Button(133,425,
+                182,49,arrStrMenuAudio[2][0]);
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
            del mouse  */
@@ -459,8 +479,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                             switch(iI) {
                                 case 0:
                                     strPantalla = "dificultad";
+                                    boolPresionado = false;
                                     break;
                                 case 1:
+                                    strPantalla = "audio";
+                                    boolPresionado = false;
                                     break;
                                 case 2:
                                     strPantalla = "mapa";
@@ -544,6 +567,36 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                             arrBtnMenuDificultad[3].getWidth(),
                             arrBtnMenuDificultad[3].getHeight());
                 }
+                break;
+            case "audio":
+                // check music button
+                if(arrBtnMenuAudio[0].pointerInside(iMouseX,iMouseY)
+                        && boolPresionado){
+                    if(boolSonidoMusica){
+                        arrBtnMenuAudio[0].setImageIcon(arrStrMenuAudio[0][0],
+                                arrBtnMenuAudio[0].getWidth(),arrBtnMenuAudio[0].getHeight());
+                        boolSonidoMusica = !boolSonidoMusica;
+                    } else if(!boolSonidoMusica) {
+                        arrBtnMenuAudio[0].setImageIcon(arrStrMenuAudio[0][1],
+                                arrBtnMenuAudio[0].getWidth(),arrBtnMenuAudio[0].getHeight());
+                        
+                    }
+                    boolPresionado = false;
+                }
+                // check music button
+                if(arrBtnMenuAudio[1].pointerInside(iMouseX,iMouseY)
+                        && boolPresionado){
+                    if(boolSonidoEfectos){
+                        arrBtnMenuAudio[1].setImageIcon(arrStrMenuAudio[1][0],
+                                arrBtnMenuAudio[1].getWidth(),arrBtnMenuAudio[0].getHeight());
+                        boolSonidoEfectos = !boolSonidoEfectos;
+                    } else {
+                        arrBtnMenuAudio[1].setImageIcon(arrStrMenuAudio[1][1],
+                                arrBtnMenuAudio[1].getWidth(),arrBtnMenuAudio[1].getHeight());
+                    }
+                    boolPresionado = false;
+                }
+                
                 break;
         }
     }
@@ -645,6 +698,11 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             case "dificultad":
                 for(int i=0; i < 4 ; i++) {
                     arrBtnMenuDificultad[i].paint(graDibujo, this);
+                }
+                break;
+            case "audio":
+                for(int i=0; i < 3 ; i++) {
+                    arrBtnMenuAudio[i].paint(graDibujo, this);
                 }
                 break;
         }
