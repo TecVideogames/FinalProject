@@ -28,6 +28,8 @@ public class Sat_Dungeon {
         createMatrix(iArrDungeonLayout, iDungeonSize);
         initMatrixEdges(iArrDungeonLayout, iDungeonSize);
         generateDungeon(iArrDungeonLayout, iDungeonSize);
+        iPosX = 5;
+        iPosY = 5;
     }
     
     int getIPosX() {

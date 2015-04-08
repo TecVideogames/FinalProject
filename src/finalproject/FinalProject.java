@@ -102,6 +102,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     
     // Dungeon logical setup
     private Sat_Dungeon dunTomb;
+    
+    // Structure image array
+    private String arrStrStructures [] = new String[7];
+    private Sat_Structure arrSttStructures [] = new Sat_Structure[7];
 	
     /** 
      * init
@@ -229,6 +233,18 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         arrStrMenuDificultad[3][1] = "btnMenuDificultad_"+3+"_1.png";
         arrBtnMenuDificultad[3] = new msf_Button(133,425,
                 182,49,arrStrMenuDificultad[3][0]);
+        
+        // Dungeon Structures
+        for(int iI = 1; iI < 4; iI++) {
+            arrStrStructures[iI] = "room_type" + iI + ".png";
+            arrSttStructures[iI] = new Sat_Structure();
+            arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 290);
+        }
+        for(int iI = 4; iI < 7; iI++) {
+            arrStrStructures[iI] = "hall_type" + (iI - 3) + ".png";
+            arrSttStructures[iI] = new Sat_Structure();
+            arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 290);
+        }
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
            del mouse  */
@@ -573,6 +589,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                         }
                     }
                 }
+                
                 break;
         }
     }
@@ -680,6 +697,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 for(int i=0; i < 4 ; i++) {
                     arrBtnDungeonOptions[i].paint(graDibujo, this);
                 }
+                arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, this);
                 break;
         }
     }

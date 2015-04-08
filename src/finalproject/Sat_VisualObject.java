@@ -23,8 +23,9 @@ public abstract class Sat_VisualObject extends Sat_Object {
     protected URL urlImage; // Object's image URL
     protected int iPointerDistX; // Mouse Pointer's distance from x position
     protected int iPointerDistY; // Mouse Pointer's distance from y position
-    private int iLastIPosX; // Player's X position in a defined time in the past
-    private int iLastIPosY; // Player's Y position in a defined time in the past
+    protected int iLastIPosX; // Player's X position in a defined time in the past
+    protected int iLastIPosY; // Player's Y position in a defined time in the past
+    protected boolean bPaint;
     
     /**
      * setImageURL
@@ -35,6 +36,14 @@ public abstract class Sat_VisualObject extends Sat_Object {
      */
     private void setImageURL(String strURL) {
         urlImage = this.getClass().getResource(strURL);
+    }
+    
+    public boolean getBPaint() {
+        return bPaint;
+    }
+    
+    public void setBPaint(boolean bPaint) {
+        this.bPaint = bPaint;
     }
     
     /**
