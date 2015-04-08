@@ -172,8 +172,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         arrBtnSeleccionarJugador[0] = new msf_Button(85,120,
                 200,180,arrStrSeleccionarJugador[0][1]);
         // woman button (originally not chosen)
-        arrStrSeleccionarJugador[1][0] = "btnSeleccionarJugador_1_0.gif";
-        arrStrSeleccionarJugador[1][1] = "btnSeleccionarJugador_1_1.gif";
+        arrStrSeleccionarJugador[1][0] = "btnSeleccionarJugador_1_0.png";
+        arrStrSeleccionarJugador[1][1] = "btnSeleccionarJugador_1_1.png";
         arrBtnSeleccionarJugador[1] = new msf_Button(360,120,
                 200,180,arrStrSeleccionarJugador[1][0]);
         
@@ -728,7 +728,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
 
         // Actualiza la imagen de fondo.
         if(strPantalla.equals("mapa")) {
-            urlImagenFondo = this.getClass().getResource("mapEgypt.jpg");
+            urlImagenFondo = this.getClass().getResource("mapEgypt.png");
         }
         
         if(strPantalla.equals("dungeon")) {
