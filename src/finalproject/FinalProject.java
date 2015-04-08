@@ -39,6 +39,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         MouseListener, MouseMotionListener {
     int iMouseX;
     int iMouseY;
+    int iMouseReleasedX;
+    int iMouseReleasedY;
     int iAppletWidth = 640;
     int iAppletHeight = 480;
     int iDificultad;
@@ -129,6 +131,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         
         // initialization of difficulty
         iDificultad = 0;
+        
+        // released
+        iMouseReleasedX = -1;
+        iMouseReleasedY = -1;
         
         // initialize sound booleans
         boolSonidoMusica = true;
@@ -344,19 +350,22 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 arrBtnMenuPrincipal[iI].getWidth(),
                                 arrBtnMenuPrincipal[iI].getHeight());
 
-                        if(boolPresionado){
+                        if(arrBtnMenuPrincipal[iI].pointerInside(iMouseReleasedX,iMouseReleasedY)){
                             switch(iI){
                                 case 0:
                                     strPantalla = "seleccionarJugador";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                                 case 1:
                                     strPantalla = "instruccions";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                                 case 2:
                                     strPantalla = "credits";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                             }
                             arrBtnMenuPrincipal[iI].setImageIcon(
@@ -372,12 +381,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                 }
                 break;
-            case "seleccionarJugador":
+            case "seleccionarJugador": // DEBERIA HABER ERROR
 
                 // Check player selection
                 // Man button
                 if(arrBtnSeleccionarJugador[0].pointerInside(iMouseX,iMouseY)
-                        && boolPresionado && boolHombreMujer){
+                        && arrBtnSeleccionarJugador[0].pointerInside(iMouseReleasedX,iMouseReleasedY) && boolHombreMujer){
                     // update boolean
                     boolHombreMujer = !boolHombreMujer;
                     // mark man selection
@@ -389,7 +398,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 // Woman button
                 if(arrBtnSeleccionarJugador[1].pointerInside(iMouseX,iMouseY)
-                        && boolPresionado && !boolHombreMujer){
+                        && arrBtnSeleccionarJugador[1].pointerInside(iMouseReleasedX,iMouseReleasedY) && !boolHombreMujer){
                     // update boolean
                     boolHombreMujer = !boolHombreMujer;
                     // mark woman selection
@@ -405,15 +414,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                         arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][1],
                                 arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
 
-                        if(boolPresionado){
+                        if(arrBtnSeleccionarJugador[iI].pointerInside(iMouseReleasedX,iMouseReleasedY)){
                             switch(iI){
                                 case 2:
                                     strPantalla = "menuPrincipal";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                                 case 3:
                                     strPantalla = "mapa";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                             }
                             boolHombreMujer = false;
@@ -436,9 +447,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 strBtnRegresarInstrucciones[1],
                                 btnRegresarInstrucciones.getWidth(),
                                 btnRegresarInstrucciones.getHeight());
-                        if(boolPresionado){
+                        if(btnRegresarInstrucciones.pointerInside(iMouseReleasedX,iMouseReleasedY)){
                             strPantalla = "menuPrincipal";
-                            boolPresionado = false;
+                            iMouseReleasedX = -1;
+                            iMouseReleasedY = -1;
                         }
                     } else {
                         btnRegresarInstrucciones.setImageIcon(
@@ -453,9 +465,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 strBtnRegresarCreditos[1],
                                 btnRegresarCreditos.getWidth(),
                                 btnRegresarCreditos.getHeight());
-                        if(boolPresionado){
+                        if(btnRegresarCreditos.pointerInside(iMouseReleasedX,iMouseReleasedY)){
                             strPantalla = "menuPrincipal";
-                            boolPresionado = false;
+                            iMouseReleasedX = -1;
+                            iMouseReleasedY = -1;
                         }
                     } else {
                         btnRegresarCreditos.setImageIcon(
@@ -473,21 +486,23 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 arrBtnMapa[iI].getWidth(),
                                 arrBtnMapa[iI].getHeight());
 
-                        if(boolPresionado){
+                        if(arrBtnMapa[iI].pointerInside(iMouseReleasedX,iMouseReleasedY)){
                             switch(iI){
                                 case 0:
                                     strPantalla = "seleccionarJugador";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                                 case 1:
                                     strPantalla = "opciones";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                                 case 2:
                                 case 3:
                                 case 4:
                                     strPantalla = "dungeon";
-                                    dunTomb = new Sat_Dungeon(3);
+                                    dunTomb = new Sat_Dungeon(3); // DEBERIA HABER ERROR
                                     break;
                             }
                         }
@@ -507,19 +522,22 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 arrBtnOpciones[iI].getWidth(), 
                                 arrBtnOpciones[iI].getHeight());
                         
-                        if(boolPresionado) {
+                        if(arrBtnOpciones[iI].pointerInside(iMouseReleasedX, iMouseReleasedY)) {
                             switch(iI) {
                                 case 0:
                                     strPantalla = "dificultad";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                                 case 1:
                                     strPantalla = "audio";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                                 case 2:
                                     strPantalla = "mapa";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                             }
                         }
@@ -531,12 +549,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                 }
                 break;
-            case "dificultad":
+            case "dificultad": // DEBERIA HABER ERROR
 
                 // Check difficulty selection
                 // easy button
                 if(arrBtnMenuDificultad[0].pointerInside(iMouseX,iMouseY)
-                        && boolPresionado && iDificultad != 0){
+                        && arrBtnMenuDificultad[0].pointerInside(iMouseReleasedX,iMouseReleasedY) && iDificultad != 0){
                     // update difficulty
                     iDificultad = 0;
                     // mark easy selection
@@ -550,7 +568,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 // medium button
                 else if(arrBtnMenuDificultad[1].pointerInside(iMouseX,iMouseY)
-                        && boolPresionado && iDificultad != 1){
+                        && arrBtnMenuDificultad[1].pointerInside(iMouseReleasedX,iMouseReleasedY) && iDificultad != 1){
                     // update difficulty
                     iDificultad = 1;
                     // mark medium selection
@@ -564,7 +582,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 // hard button
                 else if(arrBtnMenuDificultad[2].pointerInside(iMouseX,iMouseY)
-                        && boolPresionado && iDificultad != 2){
+                        && arrBtnMenuDificultad[2].pointerInside(iMouseReleasedX,iMouseReleasedY) && iDificultad != 2){
                     // update difficulty
                     iDificultad = 2;
                     // mark hard selection
@@ -581,9 +599,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                         arrBtnMenuDificultad[3].setImageIcon(arrStrMenuDificultad[3][1],
                                 arrBtnMenuDificultad[3].getWidth(),arrBtnMenuDificultad[3].getHeight());
 
-                    if(boolPresionado){
+                    if(arrBtnMenuDificultad[3].pointerInside(iMouseReleasedX,iMouseReleasedY)){
                         strPantalla = "opciones";
-                        boolPresionado = false;
+                        iMouseReleasedX = -1;
+                        iMouseReleasedY = -1;
                         // reset difficulty selection                        
                         iDificultad = 0;
                         arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][1],
@@ -604,8 +623,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 // check music button
                 
                 if(arrBtnMenuAudio[0].pointerInside(iMouseX,iMouseY)
-                        && boolPresionado){
-                    boolPresionado = false;
+                        && arrBtnMenuAudio[0].pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                    iMouseReleasedX = -1;
+                    iMouseReleasedY = -1;
                     if(boolSonidoMusica){
                         arrBtnMenuAudio[0].setImageIcon(arrStrMenuAudio[0][1],
                                 arrBtnMenuAudio[0].getWidth(),arrBtnMenuAudio[0].getHeight());
@@ -620,8 +640,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 // check music button
                 if(arrBtnMenuAudio[1].pointerInside(iMouseX,iMouseY)
-                        && boolPresionado){
-                    boolPresionado = false;
+                        && arrBtnMenuAudio[1].pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                    iMouseReleasedX = -1;
+                    iMouseReleasedY = -1;
                     if(boolSonidoEfectos){
                         arrBtnMenuAudio[1].setImageIcon(arrStrMenuAudio[1][1],
                                 arrBtnMenuAudio[1].getWidth(),arrBtnMenuAudio[0].getHeight());
@@ -638,9 +659,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                         arrBtnMenuAudio[2].setImageIcon(arrStrMenuAudio[2][1],
                                 arrBtnMenuAudio[2].getWidth(),arrBtnMenuAudio[2].getHeight());
 
-                    if(boolPresionado){
+                    if(arrBtnMenuAudio[2].pointerInside(iMouseReleasedX,iMouseReleasedY)){
                         strPantalla = "opciones";
-                        boolPresionado = false;
+                        iMouseReleasedX = -1;
+                        iMouseReleasedY = -1;
                     }
                 } else {
                     arrBtnMenuAudio[2].setImageIcon(
@@ -657,11 +679,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 arrBtnDungeonOptions[iI].getWidth(), 
                                 arrBtnDungeonOptions[iI].getHeight());
                         
-                        if(boolPresionado) {
+                        if(arrBtnDungeonOptions[iI].pointerInside(iMouseReleasedX, iMouseReleasedY)) {
                             switch(iI) {
                                 case 0:
                                     strPantalla = "mapa";
-                                    boolPresionado = false;
+                                    iMouseReleasedX = -1;
+                                    iMouseReleasedY = -1;
                                     break;
                             }
                         }
@@ -839,6 +862,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     @Override
     public void mouseReleased(MouseEvent e) {
         boolPresionado = false;
+        iMouseReleasedX = e.getX();
+        iMouseReleasedY = e.getY();
     }
 
     @Override
