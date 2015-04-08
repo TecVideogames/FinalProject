@@ -29,7 +29,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -99,8 +98,16 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     private msf_Button arrBtnOpciones [] = new msf_Button [3];
     private String arrStrOpciones [][] = new String[3][2];
     
-//    private URL urlImagenChimpy; // url de imagen de chimpy
-//    private URL urlImagenDiddy; // url de imagen de diddy
+    // button arrays for dungeon menu
+    private msf_Button arrBtnDungeonOptions [] = new msf_Button [4];
+    private String arrStrDungeonOptions [][] = new String[4][2];
+    
+    // Dungeon logical setup
+    private Sat_Dungeon dunTomb;
+    
+    // Structure image array
+    private String arrStrStructures [] = new String[7];
+    private Sat_Structure arrSttStructures [] = new Sat_Structure[7];
 	
     /** 
      * init
@@ -193,6 +200,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         arrBtnMapa[4] = new msf_Button(iAppletWidth - 580, 250,
                     212,100,arrStrMapa[4][0]);
         
+        // All dungeon menu buttons
+        for(int iI = 0; iI < 4; iI ++){
+            arrStrDungeonOptions[iI][0] = "btnDungeon_"+2+"_0.png";
+            arrStrDungeonOptions[iI][1] = "btnDungeon_"+2+"_1.png";
+            arrBtnDungeonOptions[iI] = new msf_Button(5,435,
+                    150,40,arrStrMapa[iI][0]);
+        }        
+        
         // Initialize option menu
         // option buttons
         for(int iI = 0 ; iI < 2 ; iI ++) {
@@ -238,6 +253,18 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         arrStrMenuAudio[2][1] = "btnMenuAudio_"+2+"_1.png";
         arrBtnMenuAudio[2] = new msf_Button(133,425,
                 182,49,arrStrMenuAudio[2][0]);
+
+        // Dungeon Structures
+        for(int iI = 1; iI < 4; iI++) {
+            arrStrStructures[iI] = "room_type" + iI + ".png";
+            arrSttStructures[iI] = new Sat_Structure();
+            arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 290);
+        }
+        for(int iI = 4; iI < 7; iI++) {
+            arrStrStructures[iI] = "hall_type" + (iI - 3) + ".png";
+            arrSttStructures[iI] = new Sat_Structure();
+            arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 290);
+        }
               
         /* se le añade la opcion al applet de ser escuchado por los eventos
            del mouse  */
@@ -455,7 +482,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 case 2:
                                 case 3:
                                 case 4:
-                                    //strPantalla = "juego";
+                                    strPantalla = "dungeon";
+                                    dunTomb = new Sat_Dungeon(3);
                                     break;
                             }
                         }
@@ -596,7 +624,23 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                     boolPresionado = false;
                 }
-                
+            break;
+            case "dungeon":
+                for(int iI = 0; iI < 1; iI ++) {
+                    if(arrBtnDungeonOptions[iI].pointerInside(iMouseX, iMouseY)) {
+                        arrBtnDungeonOptions[iI].setImageIcon(arrStrDungeonOptions[iI][1],
+                                arrBtnDungeonOptions[iI].getWidth(), 
+                                arrBtnDungeonOptions[iI].getHeight());
+                        
+                        if(boolPresionado) {
+                            switch(iI) {
+                                case 0:
+                                    strPantalla = "mapa";
+                                    break;
+                            }
+                        }
+                    }
+                }                
                 break;
         }
     }
@@ -637,8 +681,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             urlImagenFondo = this.getClass().getResource("mapEgypt.jpg");
         }
         
-        if(strPantalla != "mapa") {
-            urlImagenFondo = this.getClass().getResource("btnJuego.gif");
+        if(strPantalla.equals("dungeon")) {
+            urlImagenFondo = this.getClass().getResource("dungeon_base.png");
         }
         
         Image imaImagenFondo = 
@@ -704,6 +748,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 for(int i=0; i < 3 ; i++) {
                     arrBtnMenuAudio[i].paint(graDibujo, this);
                 }
+                break;
+            case "dungeon":
+                for(int i=0; i < 4 ; i++) {
+                    arrBtnDungeonOptions[i].paint(graDibujo, this);
+                }
+                arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, this);
                 break;
         }
     }
