@@ -1,20 +1,16 @@
 /**
- * Juego
- *
- * Tarea basada en examen primer parcial.
- * Applet en el que se implementa un juego en el cual el jugador se mueve en
- * una cuadricula y debe recoger changuitas para obtener puntos y evitar chocar
- * con changuitos para no perder vidas.
- * El movimiento del jugador se da con las flechas del teclado
- * El juego acaba cuando se presiona la tecla ESC o bien se pierden todas las
- * vidas. Es posible pausarlo presionando la tecla P
+ * FinalProject
  * 
- * Se puede importar un juego salvado al momento de inicializar el juego
+ * Main program for the game's execution
  * 
- * @authors Marco Peyrot
- *          Mario Sergio Fuentes Juarez  A01036141
+ * Game Description: 
+ * 
+ * @authors Marco Antonio César Peyrot Carrión  A00815262
+ *          Mario Sergio Fuentes Juarez         A01036141
+ *          Omar Manjarrez Osornio              A00815248
+ * 
  * @version 1.0
- * @date 17/FEB/2015
+ * @date 06/ABR/2015
  */
 
 package finalproject;
@@ -30,77 +26,70 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
 
-/**
- *
- * @author Mario Sergio Fuentes Juarez
- */
-
 public class FinalProject extends Applet implements Runnable, KeyListener, 
         MouseListener, MouseMotionListener {
-    int iMouseX;
-    int iMouseY;
-    int iMouseReleasedX;
-    int iMouseReleasedY;
-    int iAppletWidth = 640;
-    int iAppletHeight = 480;
-    int iDificultad;
-    boolean boolPresionado;
-    boolean boolHombreMujer;
-    boolean boolSonidoMusica;
-    boolean boolSonidoEfectos;
-    private String strPantalla;
-    private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
-    private Graphics graGraficaApplet;  // Objeto grafico de la Imagen
     
-    // arreglos de botones menu principal
+    // Game global variables
+    int iMouseX; // Mouse pointer position in the x axis
+    int iMouseY; // Mouse pointer position in the y axis
+    int iMouseReleasedX; // Mouse pointer position in the x axis when released
+    int iMouseReleasedY; // Mouse pointer position in the y axis when released
+    int iAppletWidth = 640; // Applet's width
+    int iAppletHeight = 480; // Applet's height
+    int iDificultad; // Game difficulty
+    boolean boolPresionado; // Check if mouse is pressed
+    boolean boolHombreMujer; // Male or female player selected
+    boolean boolSonidoMusica; // Activate music
+    boolean boolSonidoEfectos; // Activate special effects
+    private String strPantalla; // Screens
+    private Image imaImagenApplet;   // Image to be proyected in the applet
+    private Graphics graGraficaApplet;  // Graphic object of the applet
+    
+    // button array for main menu
     private msf_Button arrBtnMenuPrincipal [] = new msf_Button [3]; 
     private String arrStrMenuPrincipal [][] = new String [3][2];
     
-    // arreglos de botones menu opciones
+    // button array for options menu
     private msf_Button arrBtnMenuOpciones [] = new msf_Button [3]; 
     private String arrStrMenuOpciones [][] = new String [3][2];
     
-    // arreglos de botones menu audio
+    // button array for audio menu
     private msf_Button arrBtnMenuAudio [] = new msf_Button [3]; 
     private String arrStrMenuAudio [][] = new String [3][2];
     
-    // arreglos de botones menu dificultad
+    // button array for difficulty menu
     private msf_Button arrBtnMenuDificultad [] = new msf_Button [4]; 
     private String arrStrMenuDificultad [][] = new String [4][2];
     
-    // boton de regresarInstrucciones
+    // button for returning from instructions menu
     private msf_Button btnRegresarInstrucciones;
     private String strBtnRegresarInstrucciones [] = new String [2];
     
-    // boton de regresarCreditos
+    // button for returning from credits menu
     private msf_Button btnRegresarCreditos;
     private String strBtnRegresarCreditos [] = new String [2];
     
-    // arreglos de botones seleccionarJugador
+    // button array for player selection menu
     private msf_Button arrBtnSeleccionarJugador [] = new msf_Button [4]; 
     private String arrStrSeleccionarJugador [][] = new String [4][2];
     
-    // arreglos de botones mapa
+    // button array for map menu
     private msf_Button arrBtnMapa [] = new msf_Button [5]; 
     private String arrStrMapa [][] = new String [5][2];
     
-    // arreglos de botones juego
+    // button array for in-game menu
     private msf_Button arrBtnJuego [] = new msf_Button [4]; 
     private String arrStrJuego [][] = new String [4][2];
     
-    // boton de regresarFinMenu
-    private msf_Button btnFinMenu;
-    private String strBtnFinMenu;
-    
-    // boton de regresarFinMapa
+    // button for returning from win or loose menu
     private msf_Button btnFinMapa;
     private String strBtnFinMapa;
     
-    // arreglos de botones de opciones
+    // button array for options menu
     private msf_Button arrBtnOpciones [] = new msf_Button [3];
     private String arrStrOpciones [][] = new String[3][2];
     
-    // button arrays for dungeon menu
+    // button array for dungeon options menu
     private msf_Button arrBtnDungeonOptions [] = new msf_Button [4];
     private String arrStrDungeonOptions [][] = new String[4][2];
     
@@ -114,19 +103,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     /** 
      * init
      * 
-     * Metodo sobrescrito de la clase <code>Applet</code>.<P>
-     * En este metodo se inizializan las variables o se crean los objetos
-     * a usarse en el <code>Applet</code> y se definen funcionalidades.
-     * 
+     * Overwritten method from class <code>Applet</code>.<P>
+     * Used to initialize variables, objects and functionality
      */
     public void init() {
-        // hago el applet de un tamaño 640,480        
+        // make applet of size 640,480        
         setSize(iAppletWidth, iAppletHeight);
         
-        // nombre de pantalla
+        // main screen name
         strPantalla = "menuPrincipal";
         
-        // bool presionado
+        // bool pressed
         boolPresionado = false;
         
         // initialization of difficulty
@@ -140,12 +127,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         boolSonidoMusica = true;
         boolSonidoEfectos = true;
         
-        // Initialize menu principal
-        for(int iI=0; iI<3; iI++){
-            arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_"+iI+"_0.png";
-            arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_"+iI+"_1.png";
-            arrBtnMenuPrincipal[iI] = new msf_Button(405,150+iI*65,
-                    190,50,arrStrMenuPrincipal[iI][0]);
+        // Initialize main menu
+        for(int iI = 0; iI < 3; iI ++) {
+            arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_" + iI + "_0.png";
+            arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_" + iI + "_1.png";
+            arrBtnMenuPrincipal[iI] = new msf_Button(405, 150 + iI * 65,
+                    190, 50, arrStrMenuPrincipal[iI][0]);
         }
         
         // Initialize instruccions return button
@@ -160,123 +147,124 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         btnRegresarCreditos = new msf_Button(229, 425, 182, 49, 
                 strBtnRegresarCreditos[0]);
         
-        // seleccionar jugador
+        // Select Player
         
-        // zero indicates man selection, one indicates woman selection
+        // zero indicates male selection, one indicates woman selection
         boolHombreMujer = false;
-        // boton de jugador
+        // player button
 
-        // man button (originally chosen)
+        // male button (originally chosen)
         arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.gif";
         arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_1.gif";
-        arrBtnSeleccionarJugador[0] = new msf_Button(85,120,
-                200,180,arrStrSeleccionarJugador[0][1]);
+        arrBtnSeleccionarJugador[0] = new msf_Button(85, 120,
+                200, 180, arrStrSeleccionarJugador[0][1]);
         // woman button (originally not chosen)
         arrStrSeleccionarJugador[1][0] = "btnSeleccionarJugador_1_0.png";
         arrStrSeleccionarJugador[1][1] = "btnSeleccionarJugador_1_1.png";
-        arrBtnSeleccionarJugador[1] = new msf_Button(360,120,
-                200,180,arrStrSeleccionarJugador[1][0]);
+        arrBtnSeleccionarJugador[1] = new msf_Button(360, 120,
+                200, 180, arrStrSeleccionarJugador[1][0]);
         
-        // boton de navegacion
-        for(int iI=2; iI<4; iI++){
+        // navigation button
+        for(int iI = 2; iI < 4; iI ++) {
             arrStrSeleccionarJugador[iI][0] = 
-                    "btnSeleccionarJugador_"+iI+"_0.png";
+                    "btnSeleccionarJugador_" + iI + "_0.png";
             arrStrSeleccionarJugador[iI][1] = 
-                    "btnSeleccionarJugador_"+iI+"_1.png";
-            arrBtnSeleccionarJugador[iI] = new msf_Button(133+(iI-2)*192,425,
-                    182,49,arrStrSeleccionarJugador[iI][0]);
+                    "btnSeleccionarJugador_" + iI + "_1.png";
+            arrBtnSeleccionarJugador[iI] = new msf_Button(133 + (iI - 2) * 192,
+                    425, 182, 49, arrStrSeleccionarJugador[iI][0]);
         }
         
-        // Initialize mapa
+        // Initialize map
         // navigation buttons
-        for(int iI=0; iI<2; iI++){
-            arrStrMapa[iI][0] = "btnMapa_"+iI+"_0.png";
-            arrStrMapa[iI][1] = "btnMapa_"+iI+"_1.png";
-            arrBtnMapa[iI] = new msf_Button(133+iI*192,425,
-                    182,49,arrStrMapa[iI][0]);
+        for(int iI = 0; iI < 2; iI ++) {
+            arrStrMapa[iI][0] = "btnMapa_" + iI + "_0.png";
+            arrStrMapa[iI][1] = "btnMapa_" + iI + "_1.png";
+            arrBtnMapa[iI] = new msf_Button(133 + iI * 192, 425,
+                    182, 49, arrStrMapa[iI][0]);
         }
         // Dungeon buttons
         for(int iI = 2; iI < 5; iI ++){
-            arrStrMapa[iI][0] = "btnMapa_"+iI+"_0.png";
-            arrStrMapa[iI][1] = "btnMapa_"+iI+"_1.png";
+            arrStrMapa[iI][0] = "btnMapa_" + iI + "_0.png";
+            arrStrMapa[iI][1] = "btnMapa_" + iI + "_1.png";
         }
         
         // All dungeon buttons have a specific location
-        arrBtnMapa[2] = new msf_Button(25,20,
-                    212,100,arrStrMapa[2][0]);
+        arrBtnMapa[2] = new msf_Button(25, 20,
+                    212, 100, arrStrMapa[2][0]);
         arrBtnMapa[3] = new msf_Button(iAppletWidth - 235, 130,
-                    212,100,arrStrMapa[3][0]);
+                    212, 100, arrStrMapa[3][0]);
         arrBtnMapa[4] = new msf_Button(iAppletWidth - 580, 250,
-                    212,100,arrStrMapa[4][0]);
+                    212, 100, arrStrMapa[4][0]);
         
         // All dungeon menu buttons
         for(int iI = 0; iI < 4; iI ++){
-            arrStrDungeonOptions[iI][0] = "btnDungeon_"+2+"_0.png";
-            arrStrDungeonOptions[iI][1] = "btnDungeon_"+2+"_1.png";
-            arrBtnDungeonOptions[iI] = new msf_Button(5,435,
-                    150,40,arrStrMapa[iI][0]);
+            arrStrDungeonOptions[iI][0] = "btnDungeon_" + 2 + "_0.png";
+            arrStrDungeonOptions[iI][1] = "btnDungeon_" + 2 + "_1.png";
+            arrBtnDungeonOptions[iI] = new msf_Button(5, 435,
+                    150, 40, arrStrMapa[iI][0]);
         }        
         
-        // Initialize option menu
+        // Initialize options menu
         // option buttons
         for(int iI = 0 ; iI < 2 ; iI ++) {
-            arrStrOpciones[iI][0] = "btnMenuOpciones_"+iI+"_0.png";
-            arrStrOpciones[iI][1] = "btnMenuOpciones_"+iI+"_1.png";
-            arrBtnOpciones[iI] = new msf_Button(229,150+iI*65, 182, 49, 
+            arrStrOpciones[iI][0] = "btnMenuOpciones_" + iI + "_0.png";
+            arrStrOpciones[iI][1] = "btnMenuOpciones_" + iI + "_1.png";
+            arrBtnOpciones[iI] = new msf_Button(229, 150 + iI * 65, 182, 49, 
                     arrStrOpciones[iI][0]);
         }
         // navigation button (return, 3)
-        arrStrOpciones[2][0] = "btnMenuOpciones_"+2+"_0.png";
-        arrStrOpciones[2][1] = "btnMenuOpciones_"+2+"_1.png";
-        arrBtnOpciones[2] = new msf_Button(133,425,
-                182,49,arrStrOpciones[2][0]);
+        arrStrOpciones[2][0] = "btnMenuOpciones_" + 2 + "_0.png";
+        arrStrOpciones[2][1] = "btnMenuOpciones_" + 2 + "_1.png";
+        arrBtnOpciones[2] = new msf_Button(133, 425,
+                182, 49, arrStrOpciones[2][0]);
         
         // Initialize difficulty menu
         // difficulty buttons
-        arrStrMenuDificultad[0][0] = "btnMenuDificultad_"+0+"_0.png";
-        arrStrMenuDificultad[0][1] = "btnMenuDificultad_"+0+"_1.png";
-        arrBtnMenuDificultad[0] = new msf_Button(229,150, 182, 49, 
+        arrStrMenuDificultad[0][0] = "btnMenuDificultad_" + 0 + "_0.png";
+        arrStrMenuDificultad[0][1] = "btnMenuDificultad_" + 0 + "_1.png";
+        arrBtnMenuDificultad[0] = new msf_Button(229, 150, 182, 49, 
                 arrStrMenuDificultad[0][1]);
+        
         for(int iI = 1 ; iI < 3 ; iI ++) {
-            arrStrMenuDificultad[iI][0] = "btnMenuDificultad_"+iI+"_0.png";
-            arrStrMenuDificultad[iI][1] = "btnMenuDificultad_"+iI+"_1.png";
-            arrBtnMenuDificultad[iI] = new msf_Button(229,150+iI*65, 182, 49, 
-                    arrStrMenuDificultad[iI][0]);
+            arrStrMenuDificultad[iI][0] = "btnMenuDificultad_" + iI + "_0.png";
+            arrStrMenuDificultad[iI][1] = "btnMenuDificultad_" + iI + "_1.png";
+            arrBtnMenuDificultad[iI] = new msf_Button(229, 150 + iI * 65, 182,
+                    49, arrStrMenuDificultad[iI][0]);
         }
+        
         // return button
-        arrStrMenuDificultad[3][0] = "btnMenuDificultad_"+3+"_0.png";
-        arrStrMenuDificultad[3][1] = "btnMenuDificultad_"+3+"_1.png";
-        arrBtnMenuDificultad[3] = new msf_Button(133,425,
-                182,49,arrStrMenuDificultad[3][0]);
+        arrStrMenuDificultad[3][0] = "btnMenuDificultad_" + 3 + "_0.png";
+        arrStrMenuDificultad[3][1] = "btnMenuDificultad_" + 3 + "_1.png";
+        arrBtnMenuDificultad[3] = new msf_Button(133, 425,
+                182, 49, arrStrMenuDificultad[3][0]);
         
         // Initialize audio menu
         // audio buttons
         for(int iI = 0 ; iI < 2 ; iI ++) {
-            arrStrMenuAudio[iI][0] = "btnMenuAudio_"+iI+"_0.png";
-            arrStrMenuAudio[iI][1] = "btnMenuAudio_"+iI+"_1.png";
-            arrBtnMenuAudio[iI] = new msf_Button(130+260*iI,200, 100, 100, 
+            arrStrMenuAudio[iI][0] = "btnMenuAudio_" + iI + "_0.png";
+            arrStrMenuAudio[iI][1] = "btnMenuAudio_" + iI + "_1.png";
+            arrBtnMenuAudio[iI] = new msf_Button(130 + 260 * iI, 200, 100, 100, 
                     arrStrMenuAudio[iI][0]);
         }
         // return button
-        arrStrMenuAudio[2][0] = "btnMenuAudio_"+2+"_0.png";
-        arrStrMenuAudio[2][1] = "btnMenuAudio_"+2+"_1.png";
-        arrBtnMenuAudio[2] = new msf_Button(133,425,
-                182,49,arrStrMenuAudio[2][0]);
+        arrStrMenuAudio[2][0] = "btnMenuAudio_" + 2 + "_0.png";
+        arrStrMenuAudio[2][1] = "btnMenuAudio_" + 2 + "_1.png";
+        arrBtnMenuAudio[2] = new msf_Button(133, 425,
+                182, 49, arrStrMenuAudio[2][0]);
 
         // Dungeon Structures
-        for(int iI = 1; iI < 4; iI++) {
+        for(int iI = 1; iI < 4; iI ++) {
             arrStrStructures[iI] = "room_type" + iI + ".png";
             arrSttStructures[iI] = new Sat_Structure();
             arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 290);
         }
-        for(int iI = 4; iI < 7; iI++) {
+        for(int iI = 4; iI < 7; iI ++) {
             arrStrStructures[iI] = "hall_type" + (iI - 3) + ".png";
             arrSttStructures[iI] = new Sat_Structure();
             arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 290);
         }
               
-        /* se le añade la opcion al applet de ser escuchado por los eventos
-           del mouse  */
+        // Add mouse listening capability
 	addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);     
@@ -285,73 +273,65 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     /** 
      * start
      * 
-     * Metodo sobrescrito de la clase <code>Applet</code>.<P>
-     * En este metodo se crea e inicializa el hilo
-     * para la animacion este metodo es llamado despues del init o 
-     * cuando el usuario visita otra pagina y luego regresa a la pagina
-     * en donde esta este <code>Applet</code>
+     * Overwritten method from class <code>Applet</code>.<P>
+     * In this method the thread for the animation is created and i initialized
+     * this method is called after the init or when the user visits another page
+     * and then returns
      * 
      */
     public void start () {
-        // Declaras un hilo
+        // declare the thread
         Thread th = new Thread (this);
-        // Empieza el hilo
+        // start the thread
         th.start ();
     }
 	
     /** 
      * run
      * 
-     * Metodo sobrescrito de la clase <code>Thread</code>.<P>
-     * En este metodo se ejecuta el hilo, que contendrá las instrucciones
-     * de nuestro juego.
-     * 
+     * Overwritten method from class <code>Thread</code>.<P>
+     * In this method the thread is executed, which contains the game's
+     * instructions
      */
-    public void run () {
-        /* mientras dure el juego, se actualizan posiciones de jugadores
-           se checa si hubo colisiones para desaparecer jugadores o corregir
-           movimientos y se vuelve a pintar todo
-        */ 
-        
-        // mientras no este prendida bandera de fin de juego
+    public void run () {     
+        // Infinite game loop
         while (true) { 
             actualiza();
             checaColision();
             repaint();
             try	{
-                // El thread se duerme.
+                // the thread sleeps
                 Thread.sleep (20);
             }
             catch (InterruptedException iexError) {
-                System.out.println("Hubo un error en el juego " + 
+                System.out.println("Game Error " + 
                         iexError.toString());
             }
 	}
-        
     }
 	
     /** 
      * actualiza
      * 
-     * Metodo que actualiza la posicion de los objetos 
+     * Method used for updating objects position, behavior and status
      * 
      */
     public void actualiza() {
         
-        // actualiza botones menu principal
-        //System.out.println(boolPresionado + " " + strPantalla);
-        switch(strPantalla){
+        // Update main menu options
+        switch (strPantalla) {
             case "menuPrincipal":
-                for (int iI = 0; iI<3; iI++){
-                    if(arrBtnMenuPrincipal[iI].pointerInside(iMouseX,iMouseY)){
+                for (int iI = 0; iI < 3; iI ++) {
+                    if (arrBtnMenuPrincipal[iI].pointerInside(iMouseX,iMouseY)){
 
                         arrBtnMenuPrincipal[iI].setImageIcon(
                                 arrStrMenuPrincipal[iI][1],
                                 arrBtnMenuPrincipal[iI].getWidth(),
                                 arrBtnMenuPrincipal[iI].getHeight());
 
-                        if(arrBtnMenuPrincipal[iI].pointerInside(iMouseReleasedX,iMouseReleasedY)){
-                            switch(iI){
+                        if(arrBtnMenuPrincipal[iI].pointerInside(
+                                iMouseReleasedX,iMouseReleasedY)){
+                            switch (iI) {
                                 case 0:
                                     strPantalla = "seleccionarJugador";
                                     iMouseReleasedX = -1;
@@ -381,41 +361,57 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                 }
                 break;
-            case "seleccionarJugador": // DEBERIA HABER ERROR
+            case "seleccionarJugador":
 
                 // Check player selection
-                // Man button
-                if(arrBtnSeleccionarJugador[0].pointerInside(iMouseX,iMouseY)
-                        && arrBtnSeleccionarJugador[0].pointerInside(iMouseReleasedX,iMouseReleasedY) && boolHombreMujer){
+                // Male button
+                if (arrBtnSeleccionarJugador[0].pointerInside(iMouseX, iMouseY)
+                        && arrBtnSeleccionarJugador[0].pointerInside(
+                                iMouseReleasedX, iMouseReleasedY) && 
+                        boolHombreMujer) {
                     // update boolean
                     boolHombreMujer = !boolHombreMujer;
                     // mark man selection
-                    arrBtnSeleccionarJugador[0].setImageIcon(arrStrSeleccionarJugador[0][1],
-                            arrBtnSeleccionarJugador[0].getWidth(),arrBtnSeleccionarJugador[0].getHeight());
+                    arrBtnSeleccionarJugador[0].setImageIcon(
+                            arrStrSeleccionarJugador[0][1],
+                            arrBtnSeleccionarJugador[0].getWidth(),
+                            arrBtnSeleccionarJugador[0].getHeight());
                     // unmark woman selection
-                    arrBtnSeleccionarJugador[1].setImageIcon(arrStrSeleccionarJugador[1][0],
-                            arrBtnSeleccionarJugador[1].getWidth(),arrBtnSeleccionarJugador[1].getHeight());
+                    arrBtnSeleccionarJugador[1].setImageIcon(
+                            arrStrSeleccionarJugador[1][0],
+                            arrBtnSeleccionarJugador[1].getWidth(),
+                            arrBtnSeleccionarJugador[1].getHeight());
                 }
                 // Woman button
-                if(arrBtnSeleccionarJugador[1].pointerInside(iMouseX,iMouseY)
-                        && arrBtnSeleccionarJugador[1].pointerInside(iMouseReleasedX,iMouseReleasedY) && !boolHombreMujer){
+                if (arrBtnSeleccionarJugador[1].pointerInside(iMouseX, iMouseY)
+                        && arrBtnSeleccionarJugador[1].pointerInside(
+                                iMouseReleasedX,iMouseReleasedY) &&
+                        !boolHombreMujer) {
                     // update boolean
                     boolHombreMujer = !boolHombreMujer;
                     // mark woman selection
-                    arrBtnSeleccionarJugador[1].setImageIcon(arrStrSeleccionarJugador[1][1],
-                            arrBtnSeleccionarJugador[1].getWidth(),arrBtnSeleccionarJugador[1].getHeight());
+                    arrBtnSeleccionarJugador[1].setImageIcon(
+                            arrStrSeleccionarJugador[1][1],
+                            arrBtnSeleccionarJugador[1].getWidth(),
+                            arrBtnSeleccionarJugador[1].getHeight());
                     // unmark man selection
-                    arrBtnSeleccionarJugador[0].setImageIcon(arrStrSeleccionarJugador[0][0],
-                            arrBtnSeleccionarJugador[0].getWidth(),arrBtnSeleccionarJugador[0].getHeight());
+                    arrBtnSeleccionarJugador[0].setImageIcon(
+                            arrStrSeleccionarJugador[0][0],
+                            arrBtnSeleccionarJugador[0].getWidth(),
+                            arrBtnSeleccionarJugador[0].getHeight());
                 }
                 // Check navigation buttons
-                for(int iI=2; iI<4; iI++){
-                    if(arrBtnSeleccionarJugador[iI].pointerInside(iMouseX,iMouseY)){
-                        arrBtnSeleccionarJugador[iI].setImageIcon(arrStrSeleccionarJugador[iI][1],
-                                arrBtnSeleccionarJugador[iI].getWidth(),arrBtnSeleccionarJugador[iI].getHeight());
+                for(int iI = 2; iI < 4; iI ++) {
+                    if (arrBtnSeleccionarJugador[iI].pointerInside(iMouseX, 
+                            iMouseY)) {
+                        arrBtnSeleccionarJugador[iI].setImageIcon(
+                                arrStrSeleccionarJugador[iI][1],
+                                arrBtnSeleccionarJugador[iI].getWidth(),
+                                arrBtnSeleccionarJugador[iI].getHeight());
 
-                        if(arrBtnSeleccionarJugador[iI].pointerInside(iMouseReleasedX,iMouseReleasedY)){
-                            switch(iI){
+                        if (arrBtnSeleccionarJugador[iI].pointerInside(
+                                iMouseReleasedX, iMouseReleasedY)) {
+                            switch (iI) {
                                 case 2:
                                     strPantalla = "menuPrincipal";
                                     iMouseReleasedX = -1;
@@ -428,10 +424,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                     break;
                             }
                             boolHombreMujer = false;
-                            arrBtnSeleccionarJugador[0].setImageIcon(arrStrSeleccionarJugador[0][1],
-                                arrBtnSeleccionarJugador[0].getWidth(),arrBtnSeleccionarJugador[0].getHeight());
-                            arrBtnSeleccionarJugador[1].setImageIcon(arrStrSeleccionarJugador[1][0],
-                                arrBtnSeleccionarJugador[1].getWidth(),arrBtnSeleccionarJugador[1].getHeight());
+                            arrBtnSeleccionarJugador[0].setImageIcon(
+                                    arrStrSeleccionarJugador[0][1],
+                                arrBtnSeleccionarJugador[0].getWidth(),
+                                arrBtnSeleccionarJugador[0].getHeight());
+                            arrBtnSeleccionarJugador[1].setImageIcon(
+                                    arrStrSeleccionarJugador[1][0],
+                                arrBtnSeleccionarJugador[1].getWidth(),
+                                arrBtnSeleccionarJugador[1].getHeight());
                         }
                     } else {
                         arrBtnSeleccionarJugador[iI].setImageIcon(
@@ -442,12 +442,13 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "instruccions":
-                if(btnRegresarInstrucciones.pointerInside(iMouseX,iMouseY)){
+                if (btnRegresarInstrucciones.pointerInside(iMouseX, iMouseY)) {
                         btnRegresarInstrucciones.setImageIcon(
                                 strBtnRegresarInstrucciones[1],
                                 btnRegresarInstrucciones.getWidth(),
                                 btnRegresarInstrucciones.getHeight());
-                        if(btnRegresarInstrucciones.pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                        if (btnRegresarInstrucciones.pointerInside(
+                                iMouseReleasedX, iMouseReleasedY)) {
                             strPantalla = "menuPrincipal";
                             iMouseReleasedX = -1;
                             iMouseReleasedY = -1;
@@ -460,12 +461,13 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                 break;
             case "credits":
-                if(btnRegresarCreditos.pointerInside(iMouseX,iMouseY)){
+                if (btnRegresarCreditos.pointerInside(iMouseX, iMouseY)) {
                         btnRegresarCreditos.setImageIcon(
                                 strBtnRegresarCreditos[1],
                                 btnRegresarCreditos.getWidth(),
                                 btnRegresarCreditos.getHeight());
-                        if(btnRegresarCreditos.pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                        if (btnRegresarCreditos.pointerInside(iMouseReleasedX,
+                                iMouseReleasedY)) {
                             strPantalla = "menuPrincipal";
                             iMouseReleasedX = -1;
                             iMouseReleasedY = -1;
@@ -478,16 +480,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                 break;
             case "mapa":
-                for(int iI=0; iI<5; iI++){
-                    if(arrBtnMapa[iI].pointerInside(iMouseX,iMouseY)){
+                for (int iI = 0; iI < 5; iI ++) {
+                    if(arrBtnMapa[iI].pointerInside(iMouseX, iMouseY)) {
 
                         arrBtnMapa[iI].setImageIcon(
                                 arrStrMapa[iI][1],
                                 arrBtnMapa[iI].getWidth(),
                                 arrBtnMapa[iI].getHeight());
 
-                        if(arrBtnMapa[iI].pointerInside(iMouseReleasedX,iMouseReleasedY)){
-                            switch(iI){
+                        if(arrBtnMapa[iI].pointerInside(iMouseReleasedX,
+                                iMouseReleasedY)) {
+                            switch (iI) {
                                 case 0:
                                     strPantalla = "seleccionarJugador";
                                     iMouseReleasedX = -1;
@@ -502,7 +505,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 case 3:
                                 case 4:
                                     strPantalla = "dungeon";
-                                    dunTomb = new Sat_Dungeon(3); // DEBERIA HABER ERROR
+                                    dunTomb = new Sat_Dungeon(3);
                                     break;
                             }
                         }
@@ -516,14 +519,15 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "opciones":
-                for(int iI = 0; iI < 3; iI ++) {
-                    if(arrBtnOpciones[iI].pointerInside(iMouseX, iMouseY)) {
+                for (int iI = 0; iI < 3; iI ++) {
+                    if (arrBtnOpciones[iI].pointerInside(iMouseX, iMouseY)) {
                         arrBtnOpciones[iI].setImageIcon(arrStrOpciones[iI][1],
                                 arrBtnOpciones[iI].getWidth(), 
                                 arrBtnOpciones[iI].getHeight());
                         
-                        if(arrBtnOpciones[iI].pointerInside(iMouseReleasedX, iMouseReleasedY)) {
-                            switch(iI) {
+                        if (arrBtnOpciones[iI].pointerInside(iMouseReleasedX,
+                                iMouseReleasedY)) {
+                            switch (iI) {
                                 case 0:
                                     strPantalla = "dificultad";
                                     iMouseReleasedX = -1;
@@ -549,68 +553,102 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                 }
                 break;
-            case "dificultad": // DEBERIA HABER ERROR
+            case "dificultad":
 
                 // Check difficulty selection
                 // easy button
-                if(arrBtnMenuDificultad[0].pointerInside(iMouseX,iMouseY)
-                        && arrBtnMenuDificultad[0].pointerInside(iMouseReleasedX,iMouseReleasedY) && iDificultad != 0){
+                if (arrBtnMenuDificultad[0].pointerInside(iMouseX, iMouseY)
+                        && arrBtnMenuDificultad[0].pointerInside(
+                                iMouseReleasedX, iMouseReleasedY) &&
+                        iDificultad != 0) {
+                    
                     // update difficulty
                     iDificultad = 0;
                     // mark easy selection
-                    arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][1],
-                            arrBtnMenuDificultad[0].getWidth(),arrBtnMenuDificultad[0].getHeight());
+                    arrBtnMenuDificultad[0].setImageIcon(
+                            arrStrMenuDificultad[0][1],
+                            arrBtnMenuDificultad[0].getWidth(),
+                            arrBtnMenuDificultad[0].getHeight());
                     // unmark the rest of the buttons
-                    arrBtnMenuDificultad[1].setImageIcon(arrStrMenuDificultad[1][0],
-                            arrBtnMenuDificultad[1].getWidth(),arrBtnMenuDificultad[1].getHeight());
-                    arrBtnMenuDificultad[2].setImageIcon(arrStrMenuDificultad[2][0],
-                            arrBtnMenuDificultad[2].getWidth(),arrBtnMenuDificultad[2].getHeight());
+                    arrBtnMenuDificultad[1].setImageIcon(
+                            arrStrMenuDificultad[1][0],
+                            arrBtnMenuDificultad[1].getWidth(),
+                            arrBtnMenuDificultad[1].getHeight());
+                    arrBtnMenuDificultad[2].setImageIcon(
+                            arrStrMenuDificultad[2][0],
+                            arrBtnMenuDificultad[2].getWidth(),
+                            arrBtnMenuDificultad[2].getHeight());
                 }
                 // medium button
-                else if(arrBtnMenuDificultad[1].pointerInside(iMouseX,iMouseY)
-                        && arrBtnMenuDificultad[1].pointerInside(iMouseReleasedX,iMouseReleasedY) && iDificultad != 1){
+                else if (arrBtnMenuDificultad[1].pointerInside(iMouseX, iMouseY)
+                        && arrBtnMenuDificultad[1].pointerInside(
+                                iMouseReleasedX, iMouseReleasedY) &&
+                        iDificultad != 1) {
                     // update difficulty
                     iDificultad = 1;
                     // mark medium selection
-                    arrBtnMenuDificultad[1].setImageIcon(arrStrMenuDificultad[1][1],
-                            arrBtnMenuDificultad[1].getWidth(),arrBtnMenuDificultad[1].getHeight());
+                    arrBtnMenuDificultad[1].setImageIcon(
+                            arrStrMenuDificultad[1][1],
+                            arrBtnMenuDificultad[1].getWidth(),
+                            arrBtnMenuDificultad[1].getHeight());
                     // unmark the rest of the buttons
-                    arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][0],
-                            arrBtnMenuDificultad[0].getWidth(),arrBtnMenuDificultad[0].getHeight());
-                    arrBtnMenuDificultad[2].setImageIcon(arrStrMenuDificultad[2][0],
-                            arrBtnMenuDificultad[2].getWidth(),arrBtnMenuDificultad[2].getHeight());
+                    arrBtnMenuDificultad[0].setImageIcon(
+                            arrStrMenuDificultad[0][0],
+                            arrBtnMenuDificultad[0].getWidth(),
+                            arrBtnMenuDificultad[0].getHeight());
+                    arrBtnMenuDificultad[2].setImageIcon(
+                            arrStrMenuDificultad[2][0],
+                            arrBtnMenuDificultad[2].getWidth(),
+                            arrBtnMenuDificultad[2].getHeight());
                 }
                 // hard button
-                else if(arrBtnMenuDificultad[2].pointerInside(iMouseX,iMouseY)
-                        && arrBtnMenuDificultad[2].pointerInside(iMouseReleasedX,iMouseReleasedY) && iDificultad != 2){
+                else if (arrBtnMenuDificultad[2].pointerInside(iMouseX, iMouseY)
+                        && arrBtnMenuDificultad[2].pointerInside(
+                                iMouseReleasedX, iMouseReleasedY) && 
+                        iDificultad != 2) {
                     // update difficulty
                     iDificultad = 2;
                     // mark hard selection
-                    arrBtnMenuDificultad[2].setImageIcon(arrStrMenuDificultad[2][1],
-                            arrBtnMenuDificultad[2].getWidth(),arrBtnMenuDificultad[2].getHeight());
+                    arrBtnMenuDificultad[2].setImageIcon(
+                            arrStrMenuDificultad[2][1],
+                            arrBtnMenuDificultad[2].getWidth(),
+                            arrBtnMenuDificultad[2].getHeight());
                     // unmark the rest of the buttons
-                    arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][0],
-                            arrBtnMenuDificultad[0].getWidth(),arrBtnMenuDificultad[0].getHeight());
-                    arrBtnMenuDificultad[1].setImageIcon(arrStrMenuDificultad[1][0],
-                            arrBtnMenuDificultad[1].getWidth(),arrBtnMenuDificultad[1].getHeight());
+                    arrBtnMenuDificultad[0].setImageIcon(
+                            arrStrMenuDificultad[0][0],
+                            arrBtnMenuDificultad[0].getWidth(),
+                            arrBtnMenuDificultad[0].getHeight());
+                    arrBtnMenuDificultad[1].setImageIcon(
+                            arrStrMenuDificultad[1][0],
+                            arrBtnMenuDificultad[1].getWidth(),
+                            arrBtnMenuDificultad[1].getHeight());
                 }
                 // Check navigation buttons
-                if(arrBtnMenuDificultad[3].pointerInside(iMouseX,iMouseY)){
-                        arrBtnMenuDificultad[3].setImageIcon(arrStrMenuDificultad[3][1],
-                                arrBtnMenuDificultad[3].getWidth(),arrBtnMenuDificultad[3].getHeight());
+                if (arrBtnMenuDificultad[3].pointerInside(iMouseX, iMouseY)) {
+                        arrBtnMenuDificultad[3].setImageIcon(
+                                arrStrMenuDificultad[3][1],
+                                arrBtnMenuDificultad[3].getWidth(),
+                                arrBtnMenuDificultad[3].getHeight());
 
-                    if(arrBtnMenuDificultad[3].pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                    if (arrBtnMenuDificultad[3].pointerInside(iMouseReleasedX,
+                            iMouseReleasedY)) {
                         strPantalla = "opciones";
                         iMouseReleasedX = -1;
                         iMouseReleasedY = -1;
                         // reset difficulty selection                        
                         iDificultad = 0;
-                        arrBtnMenuDificultad[0].setImageIcon(arrStrMenuDificultad[0][1],
-                            arrBtnMenuDificultad[0].getWidth(),arrBtnMenuDificultad[0].getHeight());
-                        arrBtnMenuDificultad[1].setImageIcon(arrStrMenuDificultad[1][0],
-                            arrBtnMenuDificultad[1].getWidth(),arrBtnMenuDificultad[1].getHeight());
-                        arrBtnMenuDificultad[2].setImageIcon(arrStrMenuDificultad[2][0],
-                            arrBtnMenuDificultad[2].getWidth(),arrBtnMenuDificultad[2].getHeight());
+                        arrBtnMenuDificultad[0].setImageIcon(
+                                arrStrMenuDificultad[0][1],
+                            arrBtnMenuDificultad[0].getWidth(),
+                            arrBtnMenuDificultad[0].getHeight());
+                        arrBtnMenuDificultad[1].setImageIcon(
+                                arrStrMenuDificultad[1][0],
+                            arrBtnMenuDificultad[1].getWidth(),
+                            arrBtnMenuDificultad[1].getHeight());
+                        arrBtnMenuDificultad[2].setImageIcon(
+                                arrStrMenuDificultad[2][0],
+                            arrBtnMenuDificultad[2].getWidth(),
+                            arrBtnMenuDificultad[2].getHeight());
                     }
                 } else {
                     arrBtnMenuDificultad[3].setImageIcon(
@@ -621,66 +659,73 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 break;
             case "audio":
                 // check music button
-                
-                if(arrBtnMenuAudio[0].pointerInside(iMouseX,iMouseY)
-                        && arrBtnMenuAudio[0].pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                if (arrBtnMenuAudio[0].pointerInside(iMouseX, iMouseY)
+                        && arrBtnMenuAudio[0].pointerInside(iMouseReleasedX,
+                                iMouseReleasedY)) {
                     iMouseReleasedX = -1;
                     iMouseReleasedY = -1;
-                    if(boolSonidoMusica){
+                    if (boolSonidoMusica) {
                         arrBtnMenuAudio[0].setImageIcon(arrStrMenuAudio[0][1],
-                                arrBtnMenuAudio[0].getWidth(),arrBtnMenuAudio[0].getHeight());
+                                arrBtnMenuAudio[0].getWidth(),
+                                arrBtnMenuAudio[0].getHeight());
                         
-                    } else if(!boolSonidoMusica) {
+                    } else if (!boolSonidoMusica) {
                         arrBtnMenuAudio[0].setImageIcon(arrStrMenuAudio[0][0],
-                                arrBtnMenuAudio[0].getWidth(),arrBtnMenuAudio[0].getHeight());
-                        
+                                arrBtnMenuAudio[0].getWidth(),
+                                arrBtnMenuAudio[0].getHeight());  
                     }
                     boolSonidoMusica = !boolSonidoMusica;
-                    
                 }
                 // check music button
-                if(arrBtnMenuAudio[1].pointerInside(iMouseX,iMouseY)
-                        && arrBtnMenuAudio[1].pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                if (arrBtnMenuAudio[1].pointerInside(iMouseX,iMouseY)
+                        && arrBtnMenuAudio[1].pointerInside(iMouseReleasedX,
+                                iMouseReleasedY)) {
+                    
                     iMouseReleasedX = -1;
                     iMouseReleasedY = -1;
-                    if(boolSonidoEfectos){
+                    
+                    if (boolSonidoEfectos) {
                         arrBtnMenuAudio[1].setImageIcon(arrStrMenuAudio[1][1],
-                                arrBtnMenuAudio[1].getWidth(),arrBtnMenuAudio[0].getHeight());
-                        
+                                arrBtnMenuAudio[1].getWidth(),
+                                arrBtnMenuAudio[0].getHeight());
                     } else {
                         arrBtnMenuAudio[1].setImageIcon(arrStrMenuAudio[1][0],
-                                arrBtnMenuAudio[1].getWidth(),arrBtnMenuAudio[1].getHeight());
+                                arrBtnMenuAudio[1].getWidth(),
+                                arrBtnMenuAudio[1].getHeight());
                     }
                     boolSonidoEfectos = !boolSonidoEfectos;
-                    //boolPresionado = false;
                 }
                 // Check navigation buttons
-                if(arrBtnMenuAudio[2].pointerInside(iMouseX,iMouseY)){
+                if (arrBtnMenuAudio[2].pointerInside(iMouseX,iMouseY)) {
                         arrBtnMenuAudio[2].setImageIcon(arrStrMenuAudio[2][1],
-                                arrBtnMenuAudio[2].getWidth(),arrBtnMenuAudio[2].getHeight());
+                                arrBtnMenuAudio[2].getWidth(),
+                                arrBtnMenuAudio[2].getHeight());
 
-                    if(arrBtnMenuAudio[2].pointerInside(iMouseReleasedX,iMouseReleasedY)){
+                    if (arrBtnMenuAudio[2].pointerInside(iMouseReleasedX,
+                            iMouseReleasedY)) {
                         strPantalla = "opciones";
                         iMouseReleasedX = -1;
                         iMouseReleasedY = -1;
                     }
                 } else {
-                    arrBtnMenuAudio[2].setImageIcon(
-                            arrStrMenuAudio[2][0],
+                    arrBtnMenuAudio[2].setImageIcon(arrStrMenuAudio[2][0],
                             arrBtnMenuAudio[2].getWidth(),
                             arrBtnMenuAudio[2].getHeight());
                 }
                 break;
 
             case "dungeon":
-                for(int iI = 0; iI < 1; iI ++) {
-                    if(arrBtnDungeonOptions[iI].pointerInside(iMouseX, iMouseY)) {
-                        arrBtnDungeonOptions[iI].setImageIcon(arrStrDungeonOptions[iI][1],
+                for (int iI = 0; iI < 1; iI ++) {
+                    if (arrBtnDungeonOptions[iI].pointerInside(iMouseX, 
+                            iMouseY)) {
+                        arrBtnDungeonOptions[iI].setImageIcon(
+                                arrStrDungeonOptions[iI][1],
                                 arrBtnDungeonOptions[iI].getWidth(), 
                                 arrBtnDungeonOptions[iI].getHeight());
                         
-                        if(arrBtnDungeonOptions[iI].pointerInside(iMouseReleasedX, iMouseReleasedY)) {
-                            switch(iI) {
+                        if (arrBtnDungeonOptions[iI].pointerInside(
+                                iMouseReleasedX, iMouseReleasedY)) {
+                            switch (iI) {
                                 case 0:
                                     strPantalla = "mapa";
                                     iMouseReleasedX = -1;
@@ -689,7 +734,6 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                             }
                         }
                     }
-
                 }                
                 break;
         }
@@ -698,112 +742,116 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     /**
      * checaColision
      * 
-     * Metodo usado para checar la colision entre objetos
-     * 
+     * Method used to check for collisions between objects
      */
     public void checaColision(){
-        
+        // Not implemented
     }
 	
     /**
      * update
      * 
-     * Metodo sobrescrito de la clase <code>Applet</code>,
-     * heredado de la clase Container.<P>
-     * En este metodo lo que hace es actualizar el contenedor y 
-     * define cuando usar ahora el paint
+     * Overwritten method from class <code>Applet</code>,
+     * inherits from class container.<P>
+     * It updates the container and defines when to use paint
      * 
-     * @param graGrafico es el <code>objeto grafico</code> usado para dibujar.
-     * 
+     * @param graGrafico is the <code>Graphics Object</code> used to draw
      */
     public void update (Graphics graGrafico) {
         URL urlImagenFondo = this.getClass().getResource("background.png");
         
-        // Inicializan el DoubleBuffer
+        // Initialize the DoubleBuffer
         if (imaImagenApplet == null) {
                 imaImagenApplet = createImage (this.getSize().width, 
                         this.getSize().height);
-                graGraficaApplet = imaImagenApplet.getGraphics ();
+                graGraficaApplet = imaImagenApplet.getGraphics();
         }
 
-        // Actualiza la imagen de fondo.
-        if(strPantalla.equals("mapa")) {
+        // Update background image
+        if (strPantalla.equals("mapa")) {
             urlImagenFondo = this.getClass().getResource("mapEgypt.png");
         }
-        
         if(strPantalla.equals("dungeon")) {
             urlImagenFondo = this.getClass().getResource("dungeon_base.png");
         }
         
         Image imaImagenFondo = 
                 Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
-         graGraficaApplet.drawImage(imaImagenFondo, 0, 
+        graGraficaApplet.drawImage(imaImagenFondo, 0, 
                  0, getWidth(), getHeight(), this);
 
-        // Actualiza el Foreground.
-        graGraficaApplet.setColor (getForeground());
+        // Update the foreground
+        graGraficaApplet.setColor(getForeground());
         paint(graGraficaApplet);
 
-        // Dibuja la imagen actualizada
-        graGrafico.drawImage (imaImagenApplet, 0, 0, this);
+        // Paint the updated image
+        graGrafico.drawImage(imaImagenApplet, 0, 0, this);
     }
     
     /**
      * paint
      * 
-     * Metodo sobrescrito de la clase <code>Applet</code>,
-     * heredado de la clase Container.<P>
-     * En este metodo se dibuja la imagen con la posicion actualizada,
-     * ademas que cuando la imagen es cargada te despliega una advertencia.
+     * Overwritten method from class <code>Applet</code>,
+     * inherits from class container.<P>
+     * In this method the image is drawn in its updated position
      * 
-     * @param graDibujo es el objeto <code>Graphics</code> usado para dibujar.
-     * 
+     * @param graDibujo is an <code>Graphics</code> object used to draw.
      */
     public void paint(Graphics graDibujo) {
-        //ImageIcon imiAppletIcon;
         
-        switch(strPantalla){
+        // Choose screen
+        switch (strPantalla) {
             case "menuPrincipal":
-                for(int i=0; i<3; i++){
+                // Display Buttons
+                for (int i = 0; i < 3; i ++) {
                     arrBtnMenuPrincipal[i].paint(graDibujo, this);
                 }
                 break;
             case "seleccionarJugador":
-                for(int i=0; i<4; i++){
+                // Display buttons
+                for (int i = 0; i < 4; i ++) {
                     arrBtnSeleccionarJugador[i].paint(graDibujo, this);
                 }
                 break;
             case "instruccions":
+                // Display buttons
                 btnRegresarInstrucciones.paint(graDibujo, this);
                 break;
             case "credits":
+                // Display buttons
                 btnRegresarCreditos.paint(graDibujo, this);
                 break;
             case "mapa":                
-                for(int i=0; i<5; i++){
+                for (int i = 0; i < 5; i ++) {
                     arrBtnMapa[i].paint(graDibujo, this);
                 }
                 break;
             case "opciones":
-                for(int i=0; i < 3 ; i++) {
+                // Display buttons
+                for (int i = 0; i < 3 ; i ++) {
                     arrBtnOpciones[i].paint(graDibujo, this);
                 }
                 break;
             case "dificultad":
-                for(int i=0; i < 4 ; i++) {
+                // Display buttons
+                for (int i = 0; i < 4 ; i ++) {
                     arrBtnMenuDificultad[i].paint(graDibujo, this);
                 }
                 break;
             case "audio":
-                for(int i=0; i < 3 ; i++) {
+                // Display buttons
+                for (int i = 0; i < 3 ; i ++) {
                     arrBtnMenuAudio[i].paint(graDibujo, this);
                 }
                 break;
             case "dungeon":
-                for(int i=0; i < 4 ; i++) {
+                // Display buttons
+                for (int i = 0; i < 4 ; i ++) {
                     arrBtnDungeonOptions[i].paint(graDibujo, this);
                 }
-                arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, this);
+                // Dsiplay dungeon structures according to player's position
+                arrSttStructures[dunTomb.getIDungeonPos()].paint(
+                        graDibujo, this);
                 break;
         }
     }
@@ -854,46 +902,96 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 dunTomb.setIPosX(iNewPosX);
                 dunTomb.setIPosY(iNewPosY);
                 
-            } while (dunTomb.getIDungeonPos() < 1 || dunTomb.getIDungeonPos() > 6);
+            } while (dunTomb.getIDungeonPos() < 1 || 
+                    dunTomb.getIDungeonPos() > 6);
         }
     }
 
+    /**
+     * mouseClicked
+     * 
+     * Perform actions if mouse is clicked
+     * 
+     * @param mseEvent is an <code> MouseEvent </code> object used to read mouse
+     */
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent mseEvent) {
         // Not supported
     }
 
+    /**
+     * mousedPressed
+     * 
+     * Perform actions if mouse is pressed
+     * 
+     * @param mseEvent is an <code> MouseEvent </code> object used to read mouse
+     */
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent mseEvent) {
         boolPresionado = true;
     }
 
+    /**
+     * mouseReleased
+     * 
+     * Perform actions if mouse is released
+     * 
+     * @param mseEvent is an <code> MouseEvent </code> object used to read mouse
+     */
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent mseEvent) {
         boolPresionado = false;
-        iMouseReleasedX = e.getX();
-        iMouseReleasedY = e.getY();
+        iMouseReleasedX = mseEvent.getX();
+        iMouseReleasedY = mseEvent.getY();
     }
 
+    /**
+     * mouseEntered
+     * 
+     * Perform actions if mouse enters the applet
+     * 
+     * @param mseEvent is an <code> MouseEvent </code> object used to read mouse
+     */
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent mseEvent) {
         // Not supported
     }
 
+    /**
+     * mouseExited
+     * 
+     * Perform actions if mouse exits the applet
+     * 
+     * @param mseEvent is an <code> MouseEvent </code> object used to read mouse
+     */
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent mseEvent) {
         // Not supported
     }
 
+    /**
+     * mouseDragged
+     * 
+     * Perform actions if mouse is dragged
+     * 
+     * @param mseEvent is an <code> MouseEvent </code> object used to read mouse
+     */
     @Override
-    public void mouseDragged(MouseEvent e) {
-        iMouseX = e.getX();
-        iMouseY = e.getY();
+    public void mouseDragged(MouseEvent mseEvent) {
+        iMouseX = mseEvent.getX();
+        iMouseY = mseEvent.getY();
     }
 
+    /**
+     * mouseMoved
+     * 
+     * Perform actions if mouse is moved
+     * 
+     * @param mseEvent is an <code> MouseEvent </code> object used to read mouse
+     */
     @Override
-    public void mouseMoved(MouseEvent e) {
-        iMouseX = e.getX();
-        iMouseY = e.getY();
+    public void mouseMoved(MouseEvent mseEvent) {
+        iMouseX = mseEvent.getX();
+        iMouseY = mseEvent.getY();
     }
 }
