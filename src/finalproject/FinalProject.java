@@ -342,7 +342,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         //System.out.println(boolPresionado + " " + strPantalla);
         switch(strPantalla){
             case "menuPrincipal":
-                for(int iI=0; iI<3; iI++){
+                for (int iI = 0; iI<3; iI++){
                     if(arrBtnMenuPrincipal[iI].pointerInside(iMouseX,iMouseY)){
 
                         arrBtnMenuPrincipal[iI].setImageIcon(
