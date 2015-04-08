@@ -2,8 +2,8 @@ package finalproject;
 
 /**
  * Sat_Object
- 
- Abstract superclass of all Saturn086 defined objects for games
+ * 
+ * Abstract superclass of all Saturn086 defined objects for games
  * 
  * @author Marco Antonio Peyrot A0815262
  * @version 1.0

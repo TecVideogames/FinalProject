@@ -14,6 +14,7 @@ import java.applet.AudioClip;
 import java.net.URL;
 
 public abstract class Sat_Character extends Sat_VisualObject {
+    
     protected int iLives; // Object's lives
     protected String strName; // Object's name
     protected int iSpeed; // Objects speed

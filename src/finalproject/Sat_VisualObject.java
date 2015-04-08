@@ -23,8 +23,10 @@ public abstract class Sat_VisualObject extends Sat_Object {
     protected URL urlImage; // Object's image URL
     protected int iPointerDistX; // Mouse Pointer's distance from x position
     protected int iPointerDistY; // Mouse Pointer's distance from y position
-    protected int iLastIPosX; // Player's X position in a defined time in the past
-    protected int iLastIPosY; // Player's Y position in a defined time in the past
+    protected int iLastIPosX; // Player's X position in a defined time 
+                              // in the past
+    protected int iLastIPosY; // Player's Y position in a defined time in
+                              // the past
     protected boolean bPaint;
     
     /**
@@ -38,10 +40,25 @@ public abstract class Sat_VisualObject extends Sat_Object {
         urlImage = this.getClass().getResource(strURL);
     }
     
+    /**
+     * getBPaint
+     * 
+     * Boolean to check if object should be painted
+     * 
+     * @return <code> boolean </code> specifying if object should be painted
+     */
     public boolean getBPaint() {
         return bPaint;
     }
     
+    /**
+     * setBPaint
+     * 
+     * Set the condition of being painted
+     * 
+     * @param bPaint <code> boolean </code> specifying if object 
+     * should be painted
+     */
     public void setBPaint(boolean bPaint) {
         this.bPaint = bPaint;
     }
@@ -130,8 +147,7 @@ public abstract class Sat_VisualObject extends Sat_Object {
      * @param iPosX is an <code> int </code> with the start x position
      * @param iPosY is an <code> int </code> with the start y position
      */
-    public void startPos(int iPosX, int iPosY)
-    {
+    public void startPos(int iPosX, int iPosY) {
         this.iPosX = iPosX;
         this.iPosY = iPosY;
     }
