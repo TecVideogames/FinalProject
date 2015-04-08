@@ -214,7 +214,6 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     182, 49, arrStrDungeonOptions[iI][0]);
         }      
         
-        // Initialize options menu
         // option buttons
         for(int iI = 0 ; iI < 2 ; iI ++) {
             arrStrOpciones[iI][0] = "btnMenuOpciones_" + iI + "_0.png";
@@ -457,6 +456,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 strBtnRegresarInstrucciones[1],
                                 btnRegresarInstrucciones.getWidth(),
                                 btnRegresarInstrucciones.getHeight());
+
                         if (btnRegresarInstrucciones.pointerInside(
                                 iMouseReleasedX, iMouseReleasedY)) {
                             
@@ -465,7 +465,6 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                             } else {
                                 strPantalla = "menuPrincipal";
                             }
-                            
                             iMouseReleasedX = -1;
                             iMouseReleasedY = -1;
                         }
@@ -732,8 +731,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
 
-            case "dungeon":
-               
+            case "dungeon":               
                 // menu button
                 if (arrBtnDungeonOptions[0].pointerInside(iMouseX, iMouseY)) {
                     arrBtnDungeonOptions[0].setImageIcon(
@@ -761,7 +759,6 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                    
                     if (arrBtnDungeonOptions[iI].pointerInside(iMouseX,
                             iMouseY)) {
- 
                         arrBtnDungeonOptions[iI].setImageIcon(
                                 arrStrDungeonOptions[iI][1],
                                 arrBtnDungeonOptions[iI].getWidth(),
@@ -772,6 +769,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                             switch (iI) {
                                 case 1:
                                     bPaused = false;
+
                                     iMouseReleasedX = -1;
                                     iMouseReleasedY = -1;
                                     break;
@@ -799,6 +797,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                                 arrBtnDungeonOptions[iI].getHeight());
                     }
                 }
+
                 break;
         }
     }
