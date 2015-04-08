@@ -172,8 +172,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         arrBtnSeleccionarJugador[0] = new msf_Button(85,120,
                 200,180,arrStrSeleccionarJugador[0][1]);
         // woman button (originally not chosen)
-        arrStrSeleccionarJugador[1][0] = "btnSeleccionarJugador_1_0.gif";
-        arrStrSeleccionarJugador[1][1] = "btnSeleccionarJugador_1_1.gif";
+        arrStrSeleccionarJugador[1][0] = "btnSeleccionarJugador_1_0.png";
+        arrStrSeleccionarJugador[1][1] = "btnSeleccionarJugador_1_1.png";
         arrBtnSeleccionarJugador[1] = new msf_Button(360,120,
                 200,180,arrStrSeleccionarJugador[1][0]);
         
@@ -728,7 +728,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
 
         // Actualiza la imagen de fondo.
         if(strPantalla.equals("mapa")) {
-            urlImagenFondo = this.getClass().getResource("mapEgypt.jpg");
+            urlImagenFondo = this.getClass().getResource("mapEgypt.png");
         }
         
         if(strPantalla.equals("dungeon")) {
@@ -818,7 +818,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
      * @param keyEvent es el <code>KeyEvent</code> que se genera en al presionar
      * 
      */
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent keyEvent) {
         // no hay codigo pero se debe escribir el metodo
     }
 
@@ -832,7 +832,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
      * @param keyEvent es el <code>KeyEvent</code> que se genera en al presionar
      * 
      */
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent keyEvent) {
         // no hay codigo pero se debe escribir el metodo
     }
 
@@ -845,13 +845,22 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
      * 
      */
     public void keyReleased(KeyEvent keyEvent) {  
-        
+        if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
+            // Select a random dungeon structure
+            do {
+                int iNewPosX = (int) Math.floor(Math.random() * 12);
+                int iNewPosY = (int) Math.floor(Math.random() * 12);
+                
+                dunTomb.setIPosX(iNewPosX);
+                dunTomb.setIPosY(iNewPosY);
+                
+            } while (dunTomb.getIDungeonPos() < 1 || dunTomb.getIDungeonPos() > 6);
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         // Not supported
-        //System.out.println(e.getX() + " " + e.getY());
     }
 
     @Override
@@ -868,12 +877,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
 
     @Override
     public void mouseEntered(MouseEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Not supported
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-  //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Not supported
     }
 
     @Override
