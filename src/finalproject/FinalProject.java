@@ -624,7 +624,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     }
                     boolPresionado = false;
                 }
-            break;
+                break;
+
             case "dungeon":
                 for(int iI = 0; iI < 1; iI ++) {
                     if(arrBtnDungeonOptions[iI].pointerInside(iMouseX, iMouseY)) {
@@ -640,6 +641,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                             }
                         }
                     }
+
                 }                
                 break;
         }
