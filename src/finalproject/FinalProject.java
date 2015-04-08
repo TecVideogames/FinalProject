@@ -124,6 +124,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // nombre de pantalla
         strPantalla = "menuPrincipal";
         
+        // bool presionado
+        boolPresionado = false;
+        
         // initialization of difficulty
         iDificultad = 0;
         
@@ -330,6 +333,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     public void actualiza() {
         
         // actualiza botones menu principal
+        //System.out.println(boolPresionado + " " + strPantalla);
         switch(strPantalla){
             case "menuPrincipal":
                 for(int iI=0; iI<3; iI++){
@@ -598,31 +602,51 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 break;
             case "audio":
                 // check music button
+                
                 if(arrBtnMenuAudio[0].pointerInside(iMouseX,iMouseY)
                         && boolPresionado){
+                    boolPresionado = false;
                     if(boolSonidoMusica){
-                        arrBtnMenuAudio[0].setImageIcon(arrStrMenuAudio[0][0],
-                                arrBtnMenuAudio[0].getWidth(),arrBtnMenuAudio[0].getHeight());
-                        boolSonidoMusica = !boolSonidoMusica;
-                    } else if(!boolSonidoMusica) {
                         arrBtnMenuAudio[0].setImageIcon(arrStrMenuAudio[0][1],
                                 arrBtnMenuAudio[0].getWidth(),arrBtnMenuAudio[0].getHeight());
                         
+                    } else if(!boolSonidoMusica) {
+                        arrBtnMenuAudio[0].setImageIcon(arrStrMenuAudio[0][0],
+                                arrBtnMenuAudio[0].getWidth(),arrBtnMenuAudio[0].getHeight());
+                        
                     }
-                    boolPresionado = false;
+                    boolSonidoMusica = !boolSonidoMusica;
+                    
                 }
                 // check music button
                 if(arrBtnMenuAudio[1].pointerInside(iMouseX,iMouseY)
                         && boolPresionado){
+                    boolPresionado = false;
                     if(boolSonidoEfectos){
-                        arrBtnMenuAudio[1].setImageIcon(arrStrMenuAudio[1][0],
-                                arrBtnMenuAudio[1].getWidth(),arrBtnMenuAudio[0].getHeight());
-                        boolSonidoEfectos = !boolSonidoEfectos;
-                    } else {
                         arrBtnMenuAudio[1].setImageIcon(arrStrMenuAudio[1][1],
+                                arrBtnMenuAudio[1].getWidth(),arrBtnMenuAudio[0].getHeight());
+                        
+                    } else {
+                        arrBtnMenuAudio[1].setImageIcon(arrStrMenuAudio[1][0],
                                 arrBtnMenuAudio[1].getWidth(),arrBtnMenuAudio[1].getHeight());
                     }
-                    boolPresionado = false;
+                    boolSonidoEfectos = !boolSonidoEfectos;
+                    //boolPresionado = false;
+                }
+                // Check navigation buttons
+                if(arrBtnMenuAudio[2].pointerInside(iMouseX,iMouseY)){
+                        arrBtnMenuAudio[2].setImageIcon(arrStrMenuAudio[2][1],
+                                arrBtnMenuAudio[2].getWidth(),arrBtnMenuAudio[2].getHeight());
+
+                    if(boolPresionado){
+                        strPantalla = "opciones";
+                        boolPresionado = false;
+                    }
+                } else {
+                    arrBtnMenuAudio[2].setImageIcon(
+                            arrStrMenuAudio[2][0],
+                            arrBtnMenuAudio[2].getWidth(),
+                            arrBtnMenuAudio[2].getHeight());
                 }
                 break;
 
@@ -637,6 +661,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                             switch(iI) {
                                 case 0:
                                     strPantalla = "mapa";
+                                    boolPresionado = false;
                                     break;
                             }
                         }
@@ -803,6 +828,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     @Override
     public void mouseClicked(MouseEvent e) {
         // Not supported
+        //System.out.println(e.getX() + " " + e.getY());
     }
 
     @Override
