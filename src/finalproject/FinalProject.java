@@ -37,6 +37,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     int iAppletWidth = 640; // Applet's width
     int iAppletHeight = 480; // Applet's height
     int iDificultad; // Game difficulty
+    char chPantallaDungeon;
     boolean boolPresionado; // Check if mouse is pressed
     boolean boolHombreMujer; // Male or female player selected
     boolean boolSonidoMusica; // Activate music
@@ -49,11 +50,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     private Image imaTituloMenuPrincipal; //Image to be proyected on the top of
                                           //the principal menu
     private Graphics graGraficaApplet;  // Graphic object of the applet
+    private Sat_VisualObject vioTxtAudio; // ViObject for audio text
+    private Sat_VisualObject vioTxtCreditos; // ViObject for creditos text
+    private Sat_VisualObject vioTxtDificultad; // ViObject for dificutad text
+    private Sat_VisualObject vioTxtInstrucciones; // ViObject for instr. text
+    private Sat_VisualObject vioTxtOpciones; // ViObject for opciones text
+    private Sat_VisualObject vioTxtSelecciona; // ViObject for selecciona text
     
     // TEMPORALS
     private Sat_Player satPlayer[] = new Sat_Player[4]; // Player object
     private Sat_Player satMummy[] = new Sat_Player[4]; // Mummy object
-    
+        
     // button array for main menu
     private msf_Button arrBtnMenuPrincipal [] = new msf_Button [3]; 
     private String arrStrMenuPrincipal [][] = new String [3][2];
@@ -131,6 +138,17 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // initialization of difficulty
         iDificultad = 0;
         
+        // initialization of screen
+        chPantallaDungeon = 'j';
+        
+        // initialization of screens titles
+        vioTxtAudio = new msf_VioObject(230,20,100,70,"txtAudio.png");
+//        private Sat_VisualObject vioTxtCreditos; // ViObject for creditos text
+//        private Sat_VisualObject vioTxtDificultad; // ViObject for dificutad text
+//        private Sat_VisualObject vioTxtInstrucciones; // ViObject for instr. text
+//        private Sat_VisualObject vioTxtOpciones; // ViObject for opciones text
+//        private Sat_VisualObject vioTxtSelecciona; // ViObject for selecciona text
+        
         // released
         iMouseReleasedX = -1;
         iMouseReleasedY = -1;
@@ -139,6 +157,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         boolSonidoMusica = true;
         boolSonidoEfectos = true;
         
+        // Initialize visual object for screen titles
+                
         // TEMPORALS for gifs
         for (int iI = 0; iI < 4; iI ++) {
             satPlayer[iI] = new Sat_Player();
@@ -878,7 +898,15 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             urlImagenFondo = this.getClass().getResource("mapEgypt.png");
         }
         if(strPantalla.equals("dungeon")) {
-            urlImagenFondo = this.getClass().getResource("dungeon_base.png");
+            if(chPantallaDungeon == 'j'){
+                urlImagenFondo = this.getClass().getResource("dungeon_base.png");
+            }
+            else if (chPantallaDungeon == 'g') {
+                urlImagenFondo = this.getClass().getResource("ganaste.png");
+            }
+            else if (chPantallaDungeon == 'p') {
+                urlImagenFondo = this.getClass().getResource("perdiste.png");
+            }
         }
         
         Image imaImagenFondo = 
@@ -949,21 +977,36 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "audio":
+                vioTxtAudio.paint(graDibujo, this);
                 // Display buttons
                 for (int i = 0; i < 3 ; i ++) {
                     arrBtnMenuAudio[i].paint(graDibujo, this);
                 }
                 break;
             case "dungeon":
-                // Display buttons                
-                arrBtnDungeonOptions[0].paint(graDibujo, this);
-                // Dsiplay dungeon structures according to player's position
-                arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, 
-                        this);
-                if (bPaused) {
-                    for (int iI = 1; iI < 4 ; iI ++) {
-                        // Display buttons    
-                        arrBtnDungeonOptions[iI].paint(graDibujo, this);
+                // dummy variable for navigating between screens in dungeon
+                // game screen
+                if (chPantallaDungeon == 'j') {
+                    // Display buttons                
+                    arrBtnDungeonOptions[0].paint(graDibujo, this);
+                    // Dsiplay dungeon structures according to player's position
+                    arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, 
+                            this);
+                    if (bPaused) {
+                        for (int iI = 1; iI < 4 ; iI ++) {
+                            // Display buttons    
+                            arrBtnDungeonOptions[iI].paint(graDibujo, this);
+                        }
+                    }
+                    else {
+                        // paint animations
+                        for (int iI = 0; iI < 4; iI ++) {
+                            satPlayer[iI].paint(graDibujo, this);
+                        }
+
+                        for (int iI = 0; iI < 2; iI ++) {
+                            satMummy[iI].paint(graDibujo, this);
+                        }
                     }
                 }
                 else
@@ -1028,6 +1071,21 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 
             } while (dunTomb.getIDungeonPos() < 1 || 
                     dunTomb.getIDungeonPos() > 6);
+        }
+        // navigation between dungeon screens ()
+        if (strPantalla.equals("dungeon")) {
+            // lost screen
+            if (keyEvent.getKeyCode() == 'P') {
+                chPantallaDungeon = 'p';
+            }
+            // win screen
+            if (keyEvent.getKeyCode() == 'G') {
+                chPantallaDungeon = 'g';
+            }
+            // j screen
+            if (keyEvent.getKeyCode() == 'J') {
+                chPantallaDungeon = 'j';
+            }
         }
     }
 
