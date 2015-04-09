@@ -222,7 +222,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // male button (originally chosen)
         arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.png";
         // OJO CAMBIE EL INDICE!!!!!
-        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_0.png";
+        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_1.png";
         arrBtnSeleccionarJugador[0] = new msf_Button(85, 120,
                 200, 180, arrStrSeleccionarJugador[0][1]);
         // woman button (originally not chosen)
