@@ -192,7 +192,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         for (int iI = 0; iI < 3; iI ++) {
             arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_" + iI + "_0.png";
             arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_" + iI + "_1.png";
-            arrBtnMenuPrincipal[iI] = new msf_Button(405, 150 + iI * 65,
+            arrBtnMenuPrincipal[iI] = new msf_Button(405, 180 + iI * 65,
                     190, 50, arrStrMenuPrincipal[iI][0]);
         }
         
@@ -942,9 +942,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         switch (strPantalla) {
             case "menuPrincipal":
                 //Display image
-                graDibujo.drawImage(imaImagenMenuPrincipal, 40, 128, this);
+                graDibujo.drawImage(imaImagenMenuPrincipal, 40, 158, this);
                 //Display title
-                graDibujo.drawImage(imaTituloMenuPrincipal, 36, 15, this);
+                graDibujo.drawImage(imaTituloMenuPrincipal, 40, 30, this);
                 // Display Buttons
                 for (int i = 0; i < 3; i ++) {
                     arrBtnMenuPrincipal[i].paint(graDibujo, this);
