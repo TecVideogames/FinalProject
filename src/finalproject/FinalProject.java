@@ -37,6 +37,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     int iAppletWidth = 640; // Applet's width
     int iAppletHeight = 480; // Applet's height
     int iDificultad; // Game difficulty
+    char chPantallaDungeon;
     boolean boolPresionado; // Check if mouse is pressed
     boolean boolHombreMujer; // Male or female player selected
     boolean boolSonidoMusica; // Activate music
@@ -45,6 +46,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     private String strPantalla; // Screens
     private Image imaImagenApplet;   // Image to be proyected in the applet
     private Graphics graGraficaApplet;  // Graphic object of the applet
+    private Sat_VisualObject vioTxtAudio; // ViObject for audio text
+    private Sat_VisualObject vioTxtCreditos; // ViObject for creditos text
+    private Sat_VisualObject vioTxtDificultad; // ViObject for dificutad text
+    private Sat_VisualObject vioTxtInstrucciones; // ViObject for instr. text
+    private Sat_VisualObject vioTxtOpciones; // ViObject for opciones text
+    private Sat_VisualObject vioTxtSelecciona; // ViObject for selecciona text
     
     // button array for main menu
     private msf_Button arrBtnMenuPrincipal [] = new msf_Button [3]; 
@@ -123,6 +130,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // initialization of difficulty
         iDificultad = 0;
         
+        // initialization of screen
+        chPantallaDungeon = 'j';
+        
         // released
         iMouseReleasedX = -1;
         iMouseReleasedY = -1;
@@ -130,6 +140,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // initialize sound booleans
         boolSonidoMusica = true;
         boolSonidoEfectos = true;
+        
+        // Initialize visual object for screen titles
+        
         
         // Initialize main menu
         for(int iI = 0; iI < 3; iI ++) {
@@ -835,7 +848,15 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             urlImagenFondo = this.getClass().getResource("mapEgypt.png");
         }
         if(strPantalla.equals("dungeon")) {
-            urlImagenFondo = this.getClass().getResource("dungeon_base.png");
+            if(chPantallaDungeon == 'j'){
+                urlImagenFondo = this.getClass().getResource("dungeon_base.png");
+            }
+            else if (chPantallaDungeon == 'g') {
+                urlImagenFondo = this.getClass().getResource("ganaste.png");
+            }
+            else if (chPantallaDungeon == 'p') {
+                urlImagenFondo = this.getClass().getResource("perdiste.png");
+            }
         }
         
         Image imaImagenFondo = 
@@ -908,15 +929,19 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "dungeon":
-                // Display buttons                
-                arrBtnDungeonOptions[0].paint(graDibujo, this);
-                // Dsiplay dungeon structures according to player's position
-                arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, 
-                        this);
-                if (bPaused) {
-                    for (int iI = 1; iI < 4 ; iI ++) {
-                        // Display buttons    
-                        arrBtnDungeonOptions[iI].paint(graDibujo, this);
+                // dummy variable for navigating between screens in dungeon
+                // game screen
+                if (chPantallaDungeon == 'j') {
+                    // Display buttons                
+                    arrBtnDungeonOptions[0].paint(graDibujo, this);
+                    // Dsiplay dungeon structures according to player's position
+                    arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, 
+                            this);
+                    if (bPaused) {
+                        for (int iI = 1; iI < 4 ; iI ++) {
+                            // Display buttons    
+                            arrBtnDungeonOptions[iI].paint(graDibujo, this);
+                        }
                     }
                 }
                 break;
@@ -971,6 +996,21 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 
             } while (dunTomb.getIDungeonPos() < 1 || 
                     dunTomb.getIDungeonPos() > 6);
+        }
+        // navigation between dungeon screens ()
+        if (strPantalla.equals("dungeon")) {
+            // lost screen
+            if (keyEvent.getKeyCode() == 'P') {
+                chPantallaDungeon = 'p';
+            }
+            // win screen
+            if (keyEvent.getKeyCode() == 'G') {
+                chPantallaDungeon = 'g';
+            }
+            // j screen
+            if (keyEvent.getKeyCode() == 'J') {
+                chPantallaDungeon = 'j';
+            }
         }
     }
 
