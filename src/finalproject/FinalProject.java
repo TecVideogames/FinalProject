@@ -162,14 +162,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // TEMPORALS for gifs
         for (int iI = 0; iI < 4; iI ++) {
             satPlayer[iI] = new Sat_Player();
-            satPlayer[iI].setIPosX((10 + 49 * iI));
-            satPlayer[iI].setIPosY(10);
+            satPlayer[iI].setIPosX((250 + 49 * iI));
+            satPlayer[iI].setIPosY(110);
         }
         
         for (int iI = 0; iI < 2; iI ++) {
             satMummy[iI] = new Sat_Player();
-            satMummy[iI].setIPosX((10 + 49 * iI));
-            satMummy[iI].setIPosY(130);
+            satMummy[iI].setIPosX((250 + 49 * iI));
+            satMummy[iI].setIPosY(240);
         }
         
         for (int iI = 0; iI < 2; iI ++) {
