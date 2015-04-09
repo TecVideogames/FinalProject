@@ -45,6 +45,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     boolean bPaused;
     private String strPantalla; // Screens
     private Image imaImagenApplet;   // Image to be proyected in the applet
+    private Image imaImagenMenuPrincipal; //Image to be proyected in the left
+                                          //side of the principal menu
+    private Image imaTituloMenuPrincipal; //Image to be proyected on the top of
+                                          //the principal menu
     private Graphics graGraficaApplet;  // Graphic object of the applet
     private Sat_VisualObject vioTxtAudio; // ViObject for audio text
     private Sat_VisualObject vioTxtCreditos; // ViObject for creditos text
@@ -187,6 +191,16 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                     190, 50, arrStrMenuPrincipal[iI][0]);
         }
         
+        //Initialize image of the left side
+        URL urlImagenMenuPrincipal = this.getClass().getResource
+                ("imaMenuPrincipal.png");
+        imaImagenMenuPrincipal = Toolkit.getDefaultToolkit().getImage
+                (urlImagenMenuPrincipal);
+        URL urlTextoMenuPrincipal = this.getClass().getResource
+                ("txtMenuPrincipal.png");
+        imaTituloMenuPrincipal = Toolkit.getDefaultToolkit().getImage
+                (urlTextoMenuPrincipal);
+        
         // Initialize instruccions return button
         strBtnRegresarInstrucciones[0] = "btnInstrucciones_0.png";
         strBtnRegresarInstrucciones[1] = "btnInstrucciones_1.png";
@@ -206,8 +220,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // player button
 
         // male button (originally chosen)
-        arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.gif";
-        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_1.gif";
+        arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.png";
+        // OJO CAMBIE EL INDICE!!!!!
+        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_0.png";
         arrBtnSeleccionarJugador[0] = new msf_Button(85, 120,
                 200, 180, arrStrSeleccionarJugador[0][1]);
         // woman button (originally not chosen)
@@ -921,6 +936,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // Choose screen
         switch (strPantalla) {
             case "menuPrincipal":
+                //Display image
+                graDibujo.drawImage(imaImagenMenuPrincipal, 40, 128, this);
+                //Display title
+                graDibujo.drawImage(imaTituloMenuPrincipal, 36, 15, this);
                 // Display Buttons
                 for (int i = 0; i < 3; i ++) {
                     arrBtnMenuPrincipal[i].paint(graDibujo, this);
