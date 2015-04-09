@@ -142,7 +142,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         chPantallaDungeon = 'j';
         
         // initialization of screens titles
-        vioTxtAudio = new msf_VioObject(230,20,100,70,"txtAudio.png");
+        vioTxtAudio = new msf_VioObject(249,20,143,90,"txtAudio.png");
+        vioTxtCreditos = new msf_VioObject(220,20,199,90,"txtCreditos.png");
+        vioTxtDificultad = new msf_VioObject(207,20,226,90,"txtDificultad.png");
+        vioTxtInstrucciones = new msf_VioObject(170,20,301,90,"txtInstrucciones.png");
+        vioTxtOpciones = new msf_VioObject(210,20,220,90,"txtOpciones.png");
+        vioTxtSelecciona = new msf_VioObject(40,20,560,90,"txtSeleccionaUnPersonaje.png");        
 //        private Sat_VisualObject vioTxtCreditos; // ViObject for creditos text
 //        private Sat_VisualObject vioTxtDificultad; // ViObject for dificutad text
 //        private Sat_VisualObject vioTxtInstrucciones; // ViObject for instr. text
@@ -946,31 +951,36 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "seleccionarJugador":
+                vioTxtSelecciona.paint(graDibujo, this);
                 // Display buttons
                 for (int i = 0; i < 4; i ++) {
                     arrBtnSeleccionarJugador[i].paint(graDibujo, this);
                 }
                 break;
             case "instruccions":
+                vioTxtInstrucciones.paint(graDibujo, this);
                 // Display buttons
                 btnRegresarInstrucciones.paint(graDibujo, this);
                 break;
             case "credits":
+                vioTxtCreditos.paint(graDibujo, this);
                 // Display buttons
                 btnRegresarCreditos.paint(graDibujo, this);
                 break;
-            case "mapa":                
+            case "mapa":      
                 for (int i = 0; i < 5; i ++) {
                     arrBtnMapa[i].paint(graDibujo, this);
                 }
                 break;
             case "opciones":
+                vioTxtOpciones.paint(graDibujo, this);
                 // Display buttons
                 for (int i = 0; i < 3 ; i ++) {
                     arrBtnOpciones[i].paint(graDibujo, this);
                 }
                 break;
             case "dificultad":
+                vioTxtDificultad.paint(graDibujo, this);
                 // Display buttons
                 for (int i = 0; i < 4 ; i ++) {
                     arrBtnMenuDificultad[i].paint(graDibujo, this);
