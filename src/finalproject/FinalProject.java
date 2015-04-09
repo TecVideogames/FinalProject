@@ -137,6 +137,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // initialization of screen
         chPantallaDungeon = 'j';
         
+        // initialization of screens titles
+        vioTxtAudio = new msf_VioObject(230,20,100,70,"txtAudio.png");
+//        private Sat_VisualObject vioTxtCreditos; // ViObject for creditos text
+//        private Sat_VisualObject vioTxtDificultad; // ViObject for dificutad text
+//        private Sat_VisualObject vioTxtInstrucciones; // ViObject for instr. text
+//        private Sat_VisualObject vioTxtOpciones; // ViObject for opciones text
+//        private Sat_VisualObject vioTxtSelecciona; // ViObject for selecciona text
+        
         // released
         iMouseReleasedX = -1;
         iMouseReleasedY = -1;
@@ -350,7 +358,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             repaint();
             try	{
                 // the thread sleeps
-                Thread.sleep (20);
+                Thread.sleep (70);
             }
             catch (InterruptedException iexError) {
                 System.out.println("Game Error " + 
@@ -950,6 +958,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "audio":
+                vioTxtAudio.paint(graDibujo, this);
                 // Display buttons
                 for (int i = 0; i < 3 ; i ++) {
                     arrBtnMenuAudio[i].paint(graDibujo, this);
