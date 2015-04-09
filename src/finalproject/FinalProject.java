@@ -167,14 +167,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // TEMPORALS for gifs
         for (int iI = 0; iI < 4; iI ++) {
             satPlayer[iI] = new Sat_Player();
-            satPlayer[iI].setIPosX((10 + 49 * iI));
-            satPlayer[iI].setIPosY(10);
+            satPlayer[iI].setIPosX((250 + 49 * iI));
+            satPlayer[iI].setIPosY(110);
         }
         
         for (int iI = 0; iI < 2; iI ++) {
             satMummy[iI] = new Sat_Player();
-            satMummy[iI].setIPosX((10 + 49 * iI));
-            satMummy[iI].setIPosY(130);
+            satMummy[iI].setIPosX((250 + 49 * iI));
+            satMummy[iI].setIPosY(240);
         }
         
         for (int iI = 0; iI < 2; iI ++) {
@@ -227,7 +227,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // male button (originally chosen)
         arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.png";
         // OJO CAMBIE EL INDICE!!!!!
-        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_0.png";
+        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_1.png";
         arrBtnSeleccionarJugador[0] = new msf_Button(85, 120,
                 200, 180, arrStrSeleccionarJugador[0][1]);
         // woman button (originally not chosen)
