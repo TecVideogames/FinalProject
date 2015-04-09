@@ -56,7 +56,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     // TEMPORALS
     private Sat_Player satPlayer[] = new Sat_Player[4]; // Player object
     private Sat_Player satMummy[] = new Sat_Player[4]; // Mummy object
-    
+        
     // button array for main menu
     private msf_Button arrBtnMenuPrincipal [] = new msf_Button [3]; 
     private String arrStrMenuPrincipal [][] = new String [3][2];
@@ -980,6 +980,16 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                             satMummy[iI].paint(graDibujo, this);
                         }
                     }
+                }
+                else
+                {
+                    for (int iI = 0; iI < 4; iI ++) {
+                        satPlayer[iI].paint(graDibujo, this);
+                    }
+                    
+                    for (int iI = 0; iI < 2; iI ++) {
+                        satMummy[iI].paint(graDibujo, this);
+                    } 
                 }
                 break;
         }
