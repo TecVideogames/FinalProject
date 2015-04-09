@@ -56,7 +56,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     private Sat_VisualObject vioTxtInstrucciones; // ViObject for instr. text
     private Sat_VisualObject vioTxtOpciones; // ViObject for opciones text
     private Sat_VisualObject vioTxtSelecciona; // ViObject for selecciona text
-    
+        
     // TEMPORALS
     private Sat_Player satPlayer[] = new Sat_Player[4]; // Player object
     private Sat_Player satMummy[] = new Sat_Player[4]; // Mummy object
@@ -913,6 +913,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 urlImagenFondo = this.getClass().getResource("perdiste.png");
             }
         }
+        if (strPantalla.equals("credits")) {
+            urlImagenFondo = this.getClass().getResource(
+                    "pantallaCreditos.png");
+        }
+        if (strPantalla.equals("instruccions")) {
+            urlImagenFondo = this.getClass().getResource(
+                    "pantallaInstrucciones.png");
+        }
         
         Image imaImagenFondo = 
                 Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
@@ -958,12 +966,14 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                 break;
             case "instruccions":
-                vioTxtInstrucciones.paint(graDibujo, this);
+                // at this stage, the text wont be displayed
+                //vioTxtInstrucciones.paint(graDibujo, this);
                 // Display buttons
                 btnRegresarInstrucciones.paint(graDibujo, this);
                 break;
             case "credits":
-                vioTxtCreditos.paint(graDibujo, this);
+                // at this stage, the text wont be displayed
+                //vioTxtCreditos.paint(graDibujo, this);
                 // Display buttons
                 btnRegresarCreditos.paint(graDibujo, this);
                 break;
@@ -1019,8 +1029,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                         }
                     }
                 }
-                else
-                {
+                else if (chPantallaDungeon == 'j') {
                     for (int iI = 0; iI < 4; iI ++) {
                         satPlayer[iI].paint(graDibujo, this);
                     }
