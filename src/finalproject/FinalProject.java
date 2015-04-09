@@ -308,12 +308,12 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         for(int iI = 1; iI < 4; iI ++) {
             arrStrStructures[iI] = "room_type" + iI + ".png";
             arrSttStructures[iI] = new Sat_Structure();
-            arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 290);
+            arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 440);
         }
         for(int iI = 4; iI < 7; iI ++) {
             arrStrStructures[iI] = "hall_type" + (iI - 3) + ".png";
             arrSttStructures[iI] = new Sat_Structure();
-            arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 290);
+            arrSttStructures[iI].setImageIcon(arrStrStructures[iI], 449, 440);
         }
               
         // Add mouse listening capability

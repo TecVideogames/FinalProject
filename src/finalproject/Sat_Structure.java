@@ -17,7 +17,7 @@ public class Sat_Structure extends Sat_VisualObject {
     Sat_Structure() {
         // Initial position
         iPosX = 179;
-        iPosY = 95;
+        iPosY = 20;
         // Structure must be painted
         bPaint = true;
         iLastIPosX = 179;
