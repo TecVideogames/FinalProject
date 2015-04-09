@@ -155,8 +155,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         }
         
         for (int iI = 2; iI < 4; iI ++) {
-            //satPlayer[iI].setImageIcon("sprite_mujer_" + iI + ".gif", 49, 116);
-            satPlayer[iI].setImageIcon("ImageNotFound.jpg", 49, 116);
+            satPlayer[iI].setImageIcon("sprite_mujer_" + iI + ".gif", 49, 116);
+            //satPlayer[iI].setImageIcon("ImageNotFound.jpg", 49, 116);
         }
         
         // Initialize main menu
@@ -186,8 +186,9 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         // player button
 
         // male button (originally chosen)
-        arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.gif";
-        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_1.gif";
+        arrStrSeleccionarJugador[0][0] = "btnSeleccionarJugador_0_0.png";
+        // OJO CAMBIE EL INDICE!!!!!
+        arrStrSeleccionarJugador[0][1] = "btnSeleccionarJugador_0_0.png";
         arrBtnSeleccionarJugador[0] = new msf_Button(85, 120,
                 200, 180, arrStrSeleccionarJugador[0][1]);
         // woman button (originally not chosen)
@@ -338,7 +339,7 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
             repaint();
             try	{
                 // the thread sleeps
-                Thread.sleep (20);
+                Thread.sleep (70);
             }
             catch (InterruptedException iexError) {
                 System.out.println("Game Error " + 
