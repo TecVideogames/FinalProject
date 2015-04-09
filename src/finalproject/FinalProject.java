@@ -46,6 +46,10 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
     private Image imaImagenApplet;   // Image to be proyected in the applet
     private Graphics graGraficaApplet;  // Graphic object of the applet
     
+    // TEMPORALS
+    private Sat_Player satPlayer[] = new Sat_Player[4]; // Player object
+    private Sat_Player satMummy[] = new Sat_Player[4]; // Mummy object
+    
     // button array for main menu
     private msf_Button arrBtnMenuPrincipal [] = new msf_Button [3]; 
     private String arrStrMenuPrincipal [][] = new String [3][2];
@@ -131,8 +135,32 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         boolSonidoMusica = true;
         boolSonidoEfectos = true;
         
+        // TEMPORALS for gifs
+        for (int iI = 0; iI < 4; iI ++) {
+            satPlayer[iI] = new Sat_Player();
+            satPlayer[iI].setIPosX((10 + 49 * iI));
+            satPlayer[iI].setIPosY(10);
+        }
+        
+        for (int iI = 0; iI < 2; iI ++) {
+            satMummy[iI] = new Sat_Player();
+            satMummy[iI].setIPosX((10 + 49 * iI));
+            satMummy[iI].setIPosY(130);
+        }
+        
+        for (int iI = 0; iI < 2; iI ++) {
+            satPlayer[iI].setImageIcon("sprite_mujer_" + iI + ".png", 49, 116);
+            satMummy[iI].setImageIcon("sprite_momia_" + iI + ".gif", 49, 116);
+            //satMummy[iI].setImageIcon("ImageNotFound.jpg", 49, 116);
+        }
+        
+        for (int iI = 2; iI < 4; iI ++) {
+            //satPlayer[iI].setImageIcon("sprite_mujer_" + iI + ".gif", 49, 116);
+            satPlayer[iI].setImageIcon("ImageNotFound.jpg", 49, 116);
+        }
+        
         // Initialize main menu
-        for(int iI = 0; iI < 3; iI ++) {
+        for (int iI = 0; iI < 3; iI ++) {
             arrStrMenuPrincipal[iI][0] = "btnMenuPrincipal_" + iI + "_0.png";
             arrStrMenuPrincipal[iI][1] = "btnMenuPrincipal_" + iI + "_1.png";
             arrBtnMenuPrincipal[iI] = new msf_Button(405, 150 + iI * 65,
@@ -918,6 +946,16 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                         // Display buttons    
                         arrBtnDungeonOptions[iI].paint(graDibujo, this);
                     }
+                }
+                else
+                {
+                    for (int iI = 0; iI < 4; iI ++) {
+                        satPlayer[iI].paint(graDibujo, this);
+                    }
+                    
+                    for (int iI = 0; iI < 2; iI ++) {
+                        satMummy[iI].paint(graDibujo, this);
+                    } 
                 }
                 break;
         }
