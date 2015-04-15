@@ -822,47 +822,48 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
                 }
                
                 // menu buttons
-               
-                for (int iI = 1; iI < 4; iI ++) {
-                   
-                    if (arrBtnDungeonOptions[iI].pointerInside(iMouseX,
-                            iMouseY)) {
-                        arrBtnDungeonOptions[iI].setImageIcon(
-                                arrStrDungeonOptions[iI][1],
-                                arrBtnDungeonOptions[iI].getWidth(),
-                                arrBtnDungeonOptions[iI].getHeight());
- 
-                        if (arrBtnDungeonOptions[iI].pointerInside(
-                                iMouseReleasedX, iMouseReleasedY)) {
-                            switch (iI) {
-                                case 1:
-                                    bPaused = false;
+                if(bPaused) {
+                    for (int iI = 1; iI < 4; iI ++) {
 
-                                    iMouseReleasedX = -1;
-                                    iMouseReleasedY = -1;
-                                    break;
-                                case 2:
-                                    strPantalla = "instruccions";
-                                    iMouseReleasedX = -1;
-                                    iMouseReleasedY = -1;
-                                    break;
-                               case 3:
-                                    strPantalla = "mapa";
-                                    bPaused = false;
-                                    iMouseReleasedX = -1;
-                                    iMouseReleasedY = -1;
-                                    break;
+                        if (arrBtnDungeonOptions[iI].pointerInside(iMouseX,
+                                iMouseY)) {
+                            arrBtnDungeonOptions[iI].setImageIcon(
+                                    arrStrDungeonOptions[iI][1],
+                                    arrBtnDungeonOptions[iI].getWidth(),
+                                    arrBtnDungeonOptions[iI].getHeight());
+
+                            if (arrBtnDungeonOptions[iI].pointerInside(
+                                    iMouseReleasedX, iMouseReleasedY)) {
+                                switch (iI) {
+                                    case 1:
+                                        bPaused = false;
+
+                                        iMouseReleasedX = -1;
+                                        iMouseReleasedY = -1;
+                                        break;
+                                    case 2:
+                                        strPantalla = "instruccions";
+                                        iMouseReleasedX = -1;
+                                        iMouseReleasedY = -1;
+                                        break;
+                                   case 3:
+                                        strPantalla = "mapa";
+                                        bPaused = false;
+                                        iMouseReleasedX = -1;
+                                        iMouseReleasedY = -1;
+                                        break;
+                                }
+                                arrBtnDungeonOptions[iI].setImageIcon(
+                                        arrStrDungeonOptions[iI][0],
+                                    arrBtnDungeonOptions[iI].getWidth(),
+                                    arrBtnDungeonOptions[iI].getHeight());
                             }
+                        } else {
                             arrBtnDungeonOptions[iI].setImageIcon(
                                     arrStrDungeonOptions[iI][0],
-                                arrBtnDungeonOptions[iI].getWidth(),
-                                arrBtnDungeonOptions[iI].getHeight());
+                                    arrBtnDungeonOptions[iI].getWidth(),
+                                    arrBtnDungeonOptions[iI].getHeight());
                         }
-                    } else {
-                        arrBtnDungeonOptions[iI].setImageIcon(
-                                arrStrDungeonOptions[iI][0],
-                                arrBtnDungeonOptions[iI].getWidth(),
-                                arrBtnDungeonOptions[iI].getHeight());
                     }
                 }
 
