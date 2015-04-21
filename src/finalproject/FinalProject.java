@@ -945,102 +945,8 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
      * 
      * @param graDibujo is an <code>Graphics</code> object used to draw.
      */
-    public void paint(Graphics graDibujo) {
-        
-        // Choose screen
-        switch (strPantalla) {
-            case "menuPrincipal":
-                //Display image
-                graDibujo.drawImage(imaImagenMenuPrincipal, 40, 158, this);
-                //Display title
-                graDibujo.drawImage(imaTituloMenuPrincipal, 40, 30, this);
-                // Display Buttons
-                for (int i = 0; i < 3; i ++) {
-                    arrBtnMenuPrincipal[i].paint(graDibujo, this);
-                }
-                break;
-            case "seleccionarJugador":
-                vioTxtSelecciona.paint(graDibujo, this);
-                // Display buttons
-                for (int i = 0; i < 4; i ++) {
-                    arrBtnSeleccionarJugador[i].paint(graDibujo, this);
-                }
-                break;
-            case "instruccions":
-                // at this stage, the text wont be displayed
-                //vioTxtInstrucciones.paint(graDibujo, this);
-                // Display buttons
-                btnRegresarInstrucciones.paint(graDibujo, this);
-                break;
-            case "credits":
-                // at this stage, the text wont be displayed
-                //vioTxtCreditos.paint(graDibujo, this);
-                // Display buttons
-                btnRegresarCreditos.paint(graDibujo, this);
-                break;
-            case "mapa":      
-                for (int i = 0; i < 5; i ++) {
-                    arrBtnMapa[i].paint(graDibujo, this);
-                }
-                break;
-            case "opciones":
-                vioTxtOpciones.paint(graDibujo, this);
-                // Display buttons
-                for (int i = 0; i < 3 ; i ++) {
-                    arrBtnOpciones[i].paint(graDibujo, this);
-                }
-                break;
-            case "dificultad":
-                vioTxtDificultad.paint(graDibujo, this);
-                // Display buttons
-                for (int i = 0; i < 4 ; i ++) {
-                    arrBtnMenuDificultad[i].paint(graDibujo, this);
-                }
-                break;
-            case "audio":
-                vioTxtAudio.paint(graDibujo, this);
-                // Display buttons
-                for (int i = 0; i < 3 ; i ++) {
-                    arrBtnMenuAudio[i].paint(graDibujo, this);
-                }
-                break;
-            case "dungeon":
-                // dummy variable for navigating between screens in dungeon
-                // game screen
-                if (chPantallaDungeon == 'j') {
-                    // Display buttons                
-                    arrBtnDungeonOptions[0].paint(graDibujo, this);
-                    // Dsiplay dungeon structures according to player's position
-                    arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, 
-                            this);
-                    if (bPaused) {
-                        for (int iI = 1; iI < 4 ; iI ++) {
-                            // Display buttons    
-                            arrBtnDungeonOptions[iI].paint(graDibujo, this);
-                        }
-                    }
-                    else {
-                        // paint animations
-                        for (int iI = 0; iI < 4; iI ++) {
-                            satPlayer[iI].paint(graDibujo, this);
-                        }
-
-                        for (int iI = 0; iI < 2; iI ++) {
-                            satMummy[iI].paint(graDibujo, this);
-                        }
-                    }
-                }
-                else if (chPantallaDungeon == 'j') {
-                    for (int iI = 0; iI < 4; iI ++) {
-                        satPlayer[iI].paint(graDibujo, this);
-                    }
-                    
-                    for (int iI = 0; iI < 2; iI ++) {
-                        satMummy[iI].paint(graDibujo, this);
-                    } 
-                }
-                break;
-        }
+    public void paint(Graphics graDibujo) {        
+        chooseScreen(graDibujo);
     }
     
     /**
@@ -1196,4 +1102,144 @@ public class FinalProject extends Applet implements Runnable, KeyListener,
         iMouseX = mseEvent.getX();
         iMouseY = mseEvent.getY();
     }
+    
+    private void paintMenuPrincipal(Graphics graDibujo) {
+        //Display image
+        graDibujo.drawImage(imaImagenMenuPrincipal, 40, 158, this);
+        //Display title
+        graDibujo.drawImage(imaTituloMenuPrincipal, 40, 30, this);
+        // Display Buttons
+        for (int i = 0; i < 3; i ++) {
+            arrBtnMenuPrincipal[i].paint(graDibujo, this);
+        } 
+    }
+    
+    private void paintSeleccionarJugador(Graphics graDibujo) {
+        vioTxtSelecciona.paint(graDibujo, this);
+        // Display buttons
+        for (int i = 0; i < 4; i ++) {
+            arrBtnSeleccionarJugador[i].paint(graDibujo, this);
+        }        
+    }
+    
+    private void paintInstruccions(Graphics graDibujo) {
+        // at this stage, the text wont be displayed
+        //vioTxtInstrucciones.paint(graDibujo, this);
+        // Display buttons
+        btnRegresarInstrucciones.paint(graDibujo, this);
+    }
+    
+    private void paintCredits(Graphics graDibujo) {
+        // at this stage, the text wont be displayed
+        //vioTxtCreditos.paint(graDibujo, this);
+        // Display buttons
+        btnRegresarCreditos.paint(graDibujo, this);        
+    }
+    
+    private void paintMapa(Graphics graDibujo) {
+        for (int i = 0; i < 5; i ++) {
+            arrBtnMapa[i].paint(graDibujo, this);
+        }        
+    }
+    
+    private void paintOpciones(Graphics graDibujo) {
+        vioTxtOpciones.paint(graDibujo, this);
+        // Display buttons
+        for (int i = 0; i < 3 ; i ++) {
+            arrBtnOpciones[i].paint(graDibujo, this);
+        }        
+    }
+    
+    private void paintDificultad(Graphics graDibujo) {
+        vioTxtDificultad.paint(graDibujo, this);
+        // Display buttons
+        for (int i = 0; i < 4 ; i ++) {
+            arrBtnMenuDificultad[i].paint(graDibujo, this);
+        }        
+    }
+    
+    private void paintAudio(Graphics graDibujo) {
+        vioTxtAudio.paint(graDibujo, this);
+        // Display buttons
+        for (int i = 0; i < 3 ; i ++) {
+            arrBtnMenuAudio[i].paint(graDibujo, this);
+        }        
+    }
+    
+    private void paintDungeon(Graphics graDibujo) {
+        // dummy variable for navigating between screens in dungeon
+        // game screen
+        if (chPantallaDungeon == 'j') {
+            // Display buttons                
+            arrBtnDungeonOptions[0].paint(graDibujo, this);
+            // Dsiplay dungeon structures according to player's position
+            arrSttStructures[dunTomb.getIDungeonPos()].paint(graDibujo, 
+                    this);
+            if (bPaused) {
+                for (int iI = 1; iI < 4 ; iI ++) {
+                    // Display buttons    
+                    arrBtnDungeonOptions[iI].paint(graDibujo, this);
+                }
+            }
+            else {
+                // paint animations
+                for (int iI = 0; iI < 4; iI ++) {
+                    satPlayer[iI].paint(graDibujo, this);
+                }
+
+                for (int iI = 0; iI < 2; iI ++) {
+                    satMummy[iI].paint(graDibujo, this);
+                }
+            }
+        }
+        else if (chPantallaDungeon == 'j') {
+            for (int iI = 0; iI < 4; iI ++) {
+                satPlayer[iI].paint(graDibujo, this);
+            }
+
+            for (int iI = 0; iI < 2; iI ++) {
+                satMummy[iI].paint(graDibujo, this);
+            } 
+        }        
+    }
+    
+    private void chooseScreen(Graphics graDibujo) {
+        // Choose screen
+        switch (strPantalla) {
+            case "menuPrincipal":
+                paintMenuPrincipal(graDibujo);
+                break;
+            case "seleccionarJugador":
+                paintSeleccionarJugador(graDibujo);
+                break;
+            case "instruccions":
+                paintInstruccions(graDibujo);
+                break;
+            case "credits":
+                paintCredits(graDibujo);
+                break;
+            case "mapa":      
+                paintMapa(graDibujo);
+                break;
+            case "opciones":
+                paintOpciones(graDibujo);
+                break;
+            case "dificultad":
+                paintDificultad(graDibujo);
+                break;
+            case "audio":
+                paintAudio(graDibujo);
+                break;
+            case "dungeon":
+                paintDungeon(graDibujo);
+                break;
+        }        
+    }
+    
+    
+    
+    
+    
+    
+    
 }
